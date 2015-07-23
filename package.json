@@ -7,7 +7,7 @@
     "build": "webpack",
     "clean": "rm -rf node_modules && rm -rf tsd_typings",
     "watch": "webpack --watch",
-    "server": "webpack-dev-server --inline --colors --display-error-details --display-cached ",
+    "server": "webpack-dev-server --inline --colors --display-error-details --display-cached --port 9090",
     "webdriver-update": "webdriver-manager update",
     "webdriver-start": "webdriver-manager start",
     "preprotractor": "npm run webdriver-update",

@@ -126,7 +126,6 @@ module.exports = {
     // new HtmlWebpackPlugin({
     //   inject: true,
     //   template: './src/index.html',
-    //   title: getBanner(),
     //   filename: '../index.html',
     //   chunks: ['shared']
     // }),
@@ -142,16 +141,11 @@ module.exports = {
     // new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
-    new webpack.BannerPlugin(getBanner())
   ],
 
   context: __dirname,
   stats: { colors: true, reasons: true }
 };
-
-function getBanner() {
-  return 'Angular2 Webpack Starter by @gdi2990 from @AngularClass';
-}
 
 function root(args) {
   args = sliceArgs(arguments, 0);
