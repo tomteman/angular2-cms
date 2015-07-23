@@ -1,0 +1,64 @@
+{
+  "name": "pants-on-fire-client",
+  "version": "0.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "build": "webpack",
+    "clean": "rm -rf node_modules && rm -rf tsd_typings",
+    "watch": "webpack --watch",
+    "server": "webpack-dev-server --inline --colors --display-error-details --display-cached ",
+    "webdriver-update": "webdriver-manager update",
+    "webdriver-start": "webdriver-manager start",
+    "preprotractor": "npm run webdriver-update",
+    "protractor": "protractor",
+    "postinstall": "tsd reinstall",
+    "prestart": "npm install",
+    "start": "npm run server",
+    "test": "karma start",
+    "e2e": "npm run protractor"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/radotzki/pants-on-fire-client.git"
+  },
+  "author": "Tom Teman & Itay Radotzki",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/radotzki/pants-on-fire-client/issues"
+  },
+  "homepage": "https://github.com/radotzki/pants-on-fire-client#readme",
+  "dependencies": {
+    "angular2": "2.0.0-alpha.32",
+    "reflect-metadata": "^0.1.0",
+    "rtts_assert": "2.0.0-alpha.32",
+    "rx": "^2.5.3",
+    "zone.js": "^0.5.2"
+  },
+  "devDependencies": {
+    "css-loader": "^0.15.1",
+    "exports-loader": "^0.6.2",
+    "expose-loader": "^0.7.0",
+    "file-loader": "^0.8.1",
+    "html-webpack-plugin": "^1.4.0",
+    "imports-loader": "^0.6.3",
+    "json-loader": "^0.5.1",
+    "karma": "^0.13.3",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-coverage": "^0.4.2",
+    "karma-jasmine": "^0.3.5",
+    "karma-phantomjs-launcher": "^0.2.0",
+    "karma-sourcemap-loader": "^0.3.5",
+    "karma-webpack": "^1.5.1",
+    "phantomjs": "^1.9.17",
+    "protractor": "^2.1.0",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.12.2",
+    "tsd": "^0.6.3",
+    "typescript": "^1.5.3",
+    "typescript-simple-loader": "^0.3.2",
+    "url-loader": "^0.5.5",
+    "webpack": "^1.9.6",
+    "webpack-dev-server": "^1.8.2"
+  }
+}
