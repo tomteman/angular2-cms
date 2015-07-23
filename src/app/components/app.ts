@@ -30,9 +30,10 @@ import {Home} from './home/home';
 import {Dashboard} from './dashboard';
 // A simple example of a Component using a Service
 import {Todo} from './todo';
-
 // RxJs examples
 import {RxJsExamples} from './rxjs-examples/rxjs-examples';
+// Create question
+import {CreateQuestion} from './create-question/createQuestion';
 
 // Use webpack's `require` to get files as a raw string using raw-loader
 let styles   = require('./app.css');
@@ -67,7 +68,7 @@ let styles   = require('./app.css');
     <header>
       <div layout="row" class="top-nav ac-default-theme">
         <img src="angular-shield.png" alt="Angular2" height="54" width="54">
-        <span class="logo">{{ name | capitalize }} + Webpack</span>
+        <span class="logo">Pants On Fire</span>
         <ul>
           <li class="l-left">
             <a [router-link]=" ['/home'] "class="top-nav-button ac-default-theme">Home</a>
@@ -81,6 +82,9 @@ let styles   = require('./app.css');
           <li class="l-left">
             <a [router-link]=" ['/rxjs-examples'] "class="top-nav-button ac-default-theme">RxJs Examples</a>
           </li>
+          <li class="l-left">
+            <a [router-link]=" ['/create-question'] "class="top-nav-button ac-default-theme">Create Question</a>
+          </li>
         </ul>
       </div>
     </header>
@@ -90,7 +94,7 @@ let styles   = require('./app.css');
     </main>
 
     <footer>
-      WebPack Angular 2 Starter by <a href="https://twitter.com/AngularClass">@AngularClass</a>
+      
     </footer>
   `
 })
@@ -98,7 +102,8 @@ let styles   = require('./app.css');
   { path: '/',              as: 'home',          component: Home },
   { path: '/dashboard',     as: 'dashboard',     component: Dashboard },
   { path: '/todo',          as: 'todo',          component: Todo },
-  { path: '/rxjs-examples', as: 'rxjs-examples', component: RxJsExamples }
+  { path: '/rxjs-examples', as: 'rxjs-examples', component: RxJsExamples },
+  { path: '/create-question', as: 'create-question', component: CreateQuestion }
 ])
 export class App {
   name: string;

@@ -35,15 +35,6 @@ module.exports = {
        */
 
       './src/app/bootstrap'
-    ],
-    'app-simple': [
-      // Simple Version of App
-
-      /*
-       * include any 3rd party js lib here
-       */
-
-      './src/app-simple/bootstrap'
     ]
   },
 
