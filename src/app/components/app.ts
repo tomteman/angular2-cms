@@ -33,7 +33,7 @@ import {Todo} from './todo';
 // RxJs examples
 import {RxJsExamples} from './rxjs-examples/rxjs-examples';
 // Create question
-import {CreateQuestion} from './create-question/createQuestion';
+import {CreateQuestion} from './questions/create-question/createQuestion';
 
 // Use webpack's `require` to get files as a raw string using raw-loader
 let styles   = require('./app.css');
@@ -67,21 +67,9 @@ let styles   = require('./app.css');
   template: `
     <header>
       <div layout="row" class="top-nav ac-default-theme">
-        <img src="angular-shield.png" alt="Angular2" height="54" width="54">
+        <img src="angular-shield.png" alt="Pants On Fire" height="54" width="54">
         <span class="logo">Pants On Fire</span>
         <ul>
-          <li class="l-left">
-            <a [router-link]=" ['/home'] "class="top-nav-button ac-default-theme">Home</a>
-          </li>
-          <li class="l-left">
-            <a [router-link]=" ['/dashboard'] "class="top-nav-button ac-default-theme">Dashboard</a>
-          </li>
-          <li class="l-left">
-            <a [router-link]=" ['/todo'] "class="top-nav-button ac-default-theme">Todo</a>
-          </li>
-          <li class="l-left">
-            <a [router-link]=" ['/rxjs-examples'] "class="top-nav-button ac-default-theme">RxJs Examples</a>
-          </li>
           <li class="l-left">
             <a [router-link]=" ['/create-question'] "class="top-nav-button ac-default-theme">Create Question</a>
           </li>

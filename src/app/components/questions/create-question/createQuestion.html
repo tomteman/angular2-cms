@@ -1,0 +1,36 @@
+<h2>Create New Question</h2>  
+<form [ng-form-model]="myForm"  
+      (submit)="onSubmit(myForm.value)">
+
+  <div class="form-group">    
+    <input type="text"
+           class="form-control"  
+           placeholder="Question"  
+           [ng-form-control]="myForm.controls['questionText']">
+    <div *ng-if="myForm.find('questionText').touched &&
+                 myForm.find('questionText').hasError('required')">
+        Question is required
+    </div>
+     
+     <input type="text"
+           class="form-control"  
+           placeholder="Answer"  
+           [ng-form-control]="myForm.controls['realAnswer']">
+     <div *ng-if="myForm.find('realAnswer').touched &&
+                  myForm.find('realAnswer').hasError('required')">
+        Answer is required
+    </div>
+          
+     <input type="text"
+           class="form-control"  
+           placeholder="Fake Answer"  
+           [ng-form-control]="myForm.controls['fakeAnswer']">
+     <div *ng-if="myForm.find('fakeAnswer').touched &&
+                  myForm.find('fakeAnswer').hasError('required')">
+        Fake Answer is required
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-default" [disabled]="!myForm.valid">Create</button>
+  <button type="button" (click)="onCancel()" class="btn btn-default">Cancel</button>  
+</form>
