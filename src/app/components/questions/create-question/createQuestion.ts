@@ -1,27 +1,13 @@
-/*
- * Angular 2
- */
 import {Component, View} from 'angular2/angular2';
 import {ControlGroup, FormBuilder, formDirectives, Validators} from 'angular2/angular2'
 import {coreDirectives} from 'angular2/angular2'
 
-/*
- * Directives
- */
-import {appDirectives} from 'app/directives/directives';
-
-/*
- * Services
- */
 import {QuestionApi} from '../api.question';
-
 import {IQuestion} from '../interface.question';
 
-// Use webpack's `require` to get files as a raw string using raw-loader
 let styles = require('./createQuestion.css');
 let template = require('./createQuestion.html');
 
-// Simple external file component example
 @Component({
   selector: 'create-question',
   viewInjector: [QuestionApi]
@@ -54,8 +40,8 @@ export class CreateQuestion {
     console.log('cancel');
     this.clearForm();
   }
-  
+
   clearForm() {
-    
+
   }
 }

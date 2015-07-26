@@ -29,12 +29,14 @@ module.exports = {
     ],
     'app': [
       // App
-
+      
+      
       /*
        * include any 3rd party js lib here
        */
-
-      './src/app/bootstrap'
+       'socket.io-client/socket.io.js',
+       
+       './src/app/bootstrap',
     ]
   },
 

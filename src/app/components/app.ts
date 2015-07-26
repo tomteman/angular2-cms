@@ -12,6 +12,7 @@ import {RouteConfig} from 'angular2/router';
 import {coreDirectives} from 'angular2/angular2';
 import {routerDirectives} from 'angular2/router';
 import {formDirectives} from 'angular2/forms';
+
 // Import all of our custom app directives
 import {appDirectives} from '../directives/directives';
 
@@ -32,6 +33,8 @@ import {Dashboard} from './dashboard';
 import {Todo} from './todo';
 // RxJs examples
 import {RxJsExamples} from './rxjs-examples/rxjs-examples';
+// List question
+import {ListQuestions} from './questions/list-question/listQuestion';
 // Create question
 import {CreateQuestion} from './questions/create-question/createQuestion';
 
@@ -73,6 +76,9 @@ let styles   = require('./app.css');
           <li class="l-left">
             <a [router-link]=" ['/create-question'] "class="top-nav-button ac-default-theme">Create Question</a>
           </li>
+          <li class="l-left">
+            <a [router-link]=" ['/list-questions'] "class="top-nav-button ac-default-theme">List Questions</a>
+          </li>
         </ul>
       </div>
     </header>
@@ -91,7 +97,8 @@ let styles   = require('./app.css');
   { path: '/dashboard',     as: 'dashboard',     component: Dashboard },
   { path: '/todo',          as: 'todo',          component: Todo },
   { path: '/rxjs-examples', as: 'rxjs-examples', component: RxJsExamples },
-  { path: '/create-question', as: 'create-question', component: CreateQuestion }
+  { path: '/create-question', as: 'create-question', component: CreateQuestion },
+  { path: '/list-questions', as: 'list-questions', component: ListQuestions }
 ])
 export class App {
   name: string;
