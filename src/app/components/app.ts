@@ -27,8 +27,6 @@ import {appPipes} from '../pipes/pipes';
  */
 // We use a folder if we want separate files
 import {Home} from './home/home';
-// Otherwise we only use one file for a component
-import {Dashboard} from './dashboard';
 // A simple example of a Component using a Service
 import {Todo} from './todo';
 // RxJs examples
@@ -94,7 +92,6 @@ let styles   = require('./app.css');
 })
 @RouteConfig([
   { path: '/',              as: 'home',          component: Home },
-  { path: '/dashboard',     as: 'dashboard',     component: Dashboard },
   { path: '/todo',          as: 'todo',          component: Todo },
   { path: '/rxjs-examples', as: 'rxjs-examples', component: RxJsExamples },
   { path: '/create-question', as: 'create-question', component: CreateQuestion },
