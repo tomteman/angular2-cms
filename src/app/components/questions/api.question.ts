@@ -26,10 +26,12 @@ export class QuestionApi {
 			.toRx()
 			.map(res => res.json());
 	}
-	
+
 	getQuestionsFeed() {
 		var socket = io('http://localhost:3333');
-		return Observable.fromEvent(socket, 'questions:feed');
+		return Observable
+			.fromEvent(socket, 'questions:feed')
+			.map(res => JSON.parse(res));
 	}
 	
 	//	getProductions() {

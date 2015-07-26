@@ -27,18 +27,15 @@ export class ListQuestions {
 
   initQuestions() {
     this.questionApi.getQuestions().subscribe(result => {
-      console.log(result);
       this.questions = result;
     })
   }
 
   subscribeToQuestionsFeed() {
     this.questionApi.getQuestionsFeed().subscribe(change => {
-      console.log(change);
       if (change.old_val === null) {
         this.questions.push(change.new_val);  
       }
-      
     });
   }
 }
