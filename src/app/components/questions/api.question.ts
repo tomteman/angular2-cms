@@ -2,7 +2,7 @@ import {Injectable, bind} from 'angular2/di';
 import {Http, Headers} from 'angular2/http';
 import {Observable} from 'rx';
 import * as io from 'socket.io-client';
-import {IQuestion} from './interface.question';
+import {IQuestion} from './IQuestion';
 
 @Injectable()
 export class QuestionApi {

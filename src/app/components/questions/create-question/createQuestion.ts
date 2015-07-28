@@ -3,7 +3,7 @@ import {ControlGroup, FormBuilder, formDirectives, Validators} from 'angular2/an
 import {coreDirectives} from 'angular2/angular2'
 
 import {QuestionApi} from '../api.question';
-import {IQuestion} from '../interface.question';
+import {IQuestion} from '../IQuestion';
 
 let styles = require('./createQuestion.css');
 let template = require('./createQuestion.html');

@@ -3,7 +3,7 @@ import {ControlGroup, FormBuilder, formDirectives, Validators} from 'angular2/an
 import {coreDirectives} from 'angular2/angular2'
 
 import {QuestionApi} from '../api.question';
-import {IQuestion} from '../interface.question';
+import {IQuestion} from '../IQuestion';
 
 let styles = require('./listQuestion.css');
 let template = require('./listQuestion.html');
@@ -22,12 +22,12 @@ export class ListQuestions {
 
   constructor(public questionApi: QuestionApi) {
     this.initQuestions();
-    this.subscribeToQuestionsFeed();
   }
 
   initQuestions() {
     this.questionApi.getQuestions().subscribe(result => {
       this.questions = result;
+      this.subscribeToQuestionsFeed();
     })
   }
 
