@@ -1,5 +1,3 @@
-/// <reference path="../../typings/_custom.d.ts" />
-
 /*
  * Angular 2
  */
@@ -25,19 +23,15 @@ import {appPipes} from '../pipes/pipes';
 /*
  * Components
  */
-// We use a folder if we want separate files
 import {Home} from './home/home';
-// A simple example of a Component using a Service
 import {Todo} from './todo';
-// RxJs examples
 import {RxJsExamples} from './rxjs-examples/rxjs-examples';
-// List question
 import {ListQuestions} from './questions/list-question/listQuestion';
-// Create question
 import {CreateQuestion} from './questions/create-question/createQuestion';
+import {Signin} from './signin/signin';
 
-// Use webpack's `require` to get files as a raw string using raw-loader
-let styles   = require('./app.css');
+let styles = require('./app.css');
+let template = require('./app.html');
 
 /*
  * App Component
@@ -65,37 +59,15 @@ let styles   = require('./app.css');
   ],
   // include our .css file
   styles: [ styles ],
-  template: `
-    <header>
-      <div layout="row" class="top-nav ac-default-theme">
-        <img src="angular-shield.png" alt="Pants On Fire" height="54" width="54">
-        <span class="logo">Pants On Fire</span>
-        <ul>
-          <li class="l-left">
-            <a [router-link]=" ['/create-question'] "class="top-nav-button ac-default-theme">Create Question</a>
-          </li>
-          <li class="l-left">
-            <a [router-link]=" ['/list-questions'] "class="top-nav-button ac-default-theme">List Questions</a>
-          </li>
-        </ul>
-      </div>
-    </header>
-
-    <main>
-      <router-outlet></router-outlet>
-    </main>
-
-    <footer>
-      
-    </footer>
-  `
+  template: template
 })
 @RouteConfig([
   { path: '/',              as: 'home',          component: Home },
   { path: '/todo',          as: 'todo',          component: Todo },
   { path: '/rxjs-examples', as: 'rxjs-examples', component: RxJsExamples },
   { path: '/create-question', as: 'create-question', component: CreateQuestion },
-  { path: '/list-questions', as: 'list-questions', component: ListQuestions }
+  { path: '/list-questions', as: 'list-questions', component: ListQuestions },
+  { path: '/signin', as: 'signin', component: Signin }
 ])
 export class App {
   name: string;

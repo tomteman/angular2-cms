@@ -1,6 +1,6 @@
 import {Component, View} from 'angular2/angular2';
-import {ControlGroup, FormBuilder, formDirectives, Validators} from 'angular2/angular2'
-import {coreDirectives} from 'angular2/angular2'
+import {ControlGroup, FormBuilder, formDirectives, Validators} from 'angular2/angular2';
+import {coreDirectives} from 'angular2/angular2';
 
 import {QuestionApi} from '../api.question';
 import {IQuestion} from '../IQuestion';
