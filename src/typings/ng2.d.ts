@@ -1,5 +1,8 @@
 declare var zone: any;
 declare var Zone: any;
+interface Type extends Function {
+  new (...args: any[]): any;
+}
 
 declare module "angular2/test" {
   class TestComponentBuilder {}
@@ -11,6 +14,18 @@ declare module "angular2/test" {
   var $: any;
   function clickAll(buttonSelectors: any): void;
   function verifyNoBrowserErrors(): void;
+}
+
+declare module "angular2/pipes" {
+  class ObservablePipe {
+    constructor(ref?: any)
+    _subscription: any;
+    _observable: any;
+    _updateLatestValue(value: any): any;
+    _subscribe(obs: any): any;
+    transform(obs: any, args?: List<any>): any;
+    onDestroy(): void;
+  }
 }
 
 declare module "angular2/annotations" {
@@ -298,32 +313,41 @@ declare module "angular2/src/change_detection/change_detection" {
   var async: any;
 }
 
-declare module "angular2/pipes" {
-  class ObservablePipe {
-    constructor(ref: any)
-    _subscription: any;
-    _observable: any;
-    _updateLatestValue(value: any): any;
-    _subscribe(obs: any): any;
-  }
-}
-
 declare module "angular2/change_detection" {
   interface PipeFactory {}
-  interface Pipe {}
+  interface Pipe {
+    supports(obj: any): boolean;
+    onDestroy(): void;
+    transform(value: any, args: List<any>): any;
+  }
   class Pipes {
     static extend(pipes: any)
   }
-  class BasePipe implements Pipe {}
   class NullPipeFactory {}
   class PipeRegistry {
-    constructor(pipes: any)
+    constructor(pipes: any);
   }
   class WrappedValue {
     static wrap(...args): any
   }
   class ChangeDetectorRef {
     requestCheck(): void;
+  }
+  class ObservablePipe implements Pipe {
+    constructor(ref: any);
+    _subscription: any;
+    _observable: any;
+    _updateLatestValue(value: any): any;
+    _subscribe(obs: any): void;
+
+    _latestValue: any;
+    _latestReturnedValue: any;
+
+    _dispose(): void;
+
+    supports(obj: any): boolean;
+    onDestroy(): void;
+    transform(value: any, args: List<any>): any;
   }
   var defaultPipeRegistry: any;
   var defaultPipes: any;
@@ -649,43 +673,6 @@ declare module "angular2/src/facade/lang" {
 declare module "angular2/src/core/compiler/directive_resolver" {
   class DirectiveResolver {
     resolve(appComponent: any): any
-  }
-}
-
-declare module "angular2/router" {
-  class Instruction {
-
-  }
-  class Router {
-    navigate(url: string): any;
-    config(config: any): any;
-    deactivate(): any;
-    activate(instruction: Instruction): any;
-    recognize(url: string): Instruction;
-    recognize(url: string): Instruction;
-    renavigate(): any;
-    generate(name:string, params:any): string;
-    subscribe(onNext: Function): void;
-  }
-  class LocationStrategy {}
-  class HashLocationStrategy {}
-  class HTML5LocationStrategy {}
-  class RouteParams {
-    get(path: string): string;
-  }
-  class RouterLink {}
-  class RouterOutlet {}
-  var routerInjectables: any;
-  var RouteConfigAnnotation: any;
-  var RouteConfig: any;
-  var routerDirectives: any;
-}
-
-
-declare module "angular2/src/router/router" {
-  class Router {}
-  class RootRouter {
-    constructor(registry: any, pipeline: any, location: any , appRoot: any)
   }
 }
 
