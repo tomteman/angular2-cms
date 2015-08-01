@@ -1,6 +1,7 @@
 import {Component, View} from 'angular2/angular2';
 
 let template = require('./signin.html');
+let properties = require('app/properties.json');
 
 @Component({
   selector: 'signin'
@@ -11,7 +12,7 @@ let template = require('./signin.html');
 export class Signin {
   signinUri: string;
   constructor() {
-    this.signinUri = 'http://pantsonfire.io:3333/api/auth/login/facebook';
+    this.signinUri = properties.serverLocation + '/api/auth/login/facebook';
   }  
   
 }

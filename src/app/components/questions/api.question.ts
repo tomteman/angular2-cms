@@ -4,19 +4,21 @@ import {Observable} from 'rx';
 import * as io from 'socket.io-client';
 import {IQuestion} from './IQuestion';
 
+let properties = require('app/properties.json');
+
 @Injectable()
 export class QuestionApi {
 	constructor(public http: Http) {
 	}
 
 	getQuestions() {
-		return this.http.get('http://localhost:3333/api/questions/')
+		return this.http.get(properties.serverLocation + '/api/questions/')
 			.toRx()
 			.map(res => res.json());
 	}
 
 	createQuestion(question: IQuestion) {
-		return this.http.post('http://localhost:3333/api/questions/',
+		return this.http.post(properties.serverLocation + '/api/questions/',
 			JSON.stringify(question),
 			{
 				headers: new Headers({
@@ -28,17 +30,10 @@ export class QuestionApi {
 	}
 
 	getQuestionsFeed() {
-		var socket = io('http://localhost:3333');
+		var socket = io(properties.serverLocation);
 		return Observable
 			.fromEvent(socket, 'questions:feed')
 			.map(res => JSON.parse(res));
 	}
-	
-	//	getProductions() {
-	//		return Observable
-	//    		.interval(1000)
-	//    		.flatMap(() => this.http.request('http://localhost:3333/api/questions/'))
-	//			.map(res => res.json());
-	//	}
 
 }
