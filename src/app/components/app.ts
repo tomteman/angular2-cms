@@ -1,6 +1,5 @@
 import {Component, View} from 'angular2/annotations';
-import {RouteConfig} from 'angular2/router';
-import {routerDirectives} from 'angular2/router';
+import {RouteConfig, routerDirectives} from 'angular2/router';
 
 import {Home} from './home/home';
 import {ListQuestions} from './questions/list-question/listQuestion';

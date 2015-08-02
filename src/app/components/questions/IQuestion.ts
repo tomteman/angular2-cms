@@ -1,8 +1,22 @@
 export interface IQuestion {
   questionText: string;
-  realAnswer: string;
-  fakeAnswer: string;
+  realAnswer: RealAnswer;
+  fakeAnswers: FakeAnswerArray;
   creatorId: string;
-//  usersAnswers?: Array;
-//  [index: number]: string;
+  state: QuestionState;
+}
+
+interface FakeAnswerArray {
+  text: string;
+  selectedBy: Array<string>;
+  createdBy: Array<string>;
+}
+
+interface RealAnswer {
+  text: string;
+  selectedBy: Array<string>; 
+}
+
+export enum QuestionState {
+  Pending, ShowQuestion, ShowAnswers, RevealTheTruth, End
 }

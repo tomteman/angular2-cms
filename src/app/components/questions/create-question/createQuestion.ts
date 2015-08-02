@@ -24,16 +24,16 @@ export class CreateQuestion {
     this.myForm = fb.group({
       'questionText': ['', Validators.required],
       'realAnswer': ['', Validators.required],
-      'fakeAnswer': ['', Validators.required]
+      'fakeAnswerOne': ['', Validators.required],
+      'fakeAnswerTwo': ['', Validators.required]
     });
   }
 
   onSubmit(newQuestion: IQuestion) {
     newQuestion.creatorId = '123-123';
-    this.questionApi.createQuestion(newQuestion).subscribe((res) => {
-      console.log(res);
-      this.clearForm();
-    });
+    this.questionApi.createQuestion(newQuestion)
+      .subscribe(
+        res => { this.clearForm(); });
   }
 
   onCancel() {

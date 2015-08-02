@@ -28,7 +28,7 @@ export class ListQuestions {
     this.questionApi.getQuestions().subscribe(result => {
       this.questions = result;
       this.subscribeToQuestionsFeed();
-    })
+    });
   }
 
   subscribeToQuestionsFeed() {

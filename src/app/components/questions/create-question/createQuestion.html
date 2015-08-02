@@ -23,10 +23,19 @@
           
      <input type="text"
            class="form-control"  
-           placeholder="Fake Answer"  
-           [ng-form-control]="myForm.controls['fakeAnswer']">
-     <div *ng-if="myForm.find('fakeAnswer').touched &&
-                  myForm.find('fakeAnswer').hasError('required')">
+           placeholder="Fake Answer #1"  
+           [ng-form-control]="myForm.controls['fakeAnswerOne']">
+     <div *ng-if="myForm.find('fakeAnswerOne').touched &&
+                  myForm.find('fakeAnswerOne').hasError('required')">
+        Fake Answer is required
+    </div>
+    
+     <input type="text"
+           class="form-control"  
+           placeholder="Fake Answer #2"  
+           [ng-form-control]="myForm.controls['fakeAnswerTwo']">
+     <div *ng-if="myForm.find('fakeAnswerTwo').touched &&
+                  myForm.find('fakeAnswerTwo').hasError('required')">
         Fake Answer is required
     </div>
   </div>
