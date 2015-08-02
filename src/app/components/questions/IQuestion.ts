@@ -6,6 +6,13 @@ export interface IQuestion {
   state: QuestionState;
 }
 
+export interface ISeedQuestion {
+  questionText: string;
+  realAnswer: RealAnswer;
+  fakeAnswers: Array<string>;
+  creatorId: string;
+}
+
 interface FakeAnswerArray {
   text: string;
   selectedBy: Array<string>;

@@ -3,7 +3,7 @@ import {ControlGroup, FormBuilder, formDirectives, Validators} from 'angular2/an
 import {coreDirectives} from 'angular2/angular2'
 
 import {QuestionApi} from '../api.question';
-import {IQuestion} from '../IQuestion';
+import {ISeedQuestion} from '../IQuestion';
 
 let styles = require('./createQuestion.css');
 let template = require('./createQuestion.html');
@@ -19,29 +19,42 @@ let template = require('./createQuestion.html');
 })
 export class CreateQuestion {
   myForm: ControlGroup;
+  showSuccessMsg: boolean;
+  showErrorMsg: boolean;
+  errorMsg: string;
 
   constructor(fb: FormBuilder, public questionApi: QuestionApi) {
     this.myForm = fb.group({
-      'questionText': ['', Validators.required],
-      'realAnswer': ['', Validators.required],
-      'fakeAnswerOne': ['', Validators.required],
-      'fakeAnswerTwo': ['', Validators.required]
+      questionText: ['', Validators.required],
+      realAnswer: ['', Validators.required],
+      fakeAnswerOne: ['', Validators.required],
+      fakeAnswerTwo: ['', Validators.required]
     });
   }
 
-  onSubmit(newQuestion: IQuestion) {
-    newQuestion.creatorId = '123-123';
-    this.questionApi.createQuestion(newQuestion)
-      .subscribe(
-        res => { this.clearForm(); });
-  }
+  onSubmit(formValue) {
+    this.showSuccessMsg = false;
+    this.showErrorMsg = false;
 
-  onCancel() {
-    console.log('cancel');
-    this.clearForm();
-  }
+    var newQuestion: ISeedQuestion = {
+      creatorId: '123-123',
+      fakeAnswers: [formValue.fakeAnswerOne, formValue.fakeAnswerTwo],
+      questionText: formValue.questionText,
+      realAnswer: formValue.realAnswer
+    };
 
+    this.questionApi.createQuestion(newQuestion).subscribe(
+      res => {
+        this.clearForm();
+        this.showSuccessMsg = true;
+      },
+      err => {
+        this.showErrorMsg = true;
+        this.errorMsg = err;
+      });
+  }
+  
   clearForm() {
-
+    console.log(this.myForm);
   }
 }

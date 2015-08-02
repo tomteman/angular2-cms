@@ -2,7 +2,7 @@ import {Injectable, bind} from 'angular2/di';
 import {Http, Headers} from 'angular2/http';
 import {Observable} from 'rx';
 import * as io from 'socket.io-client';
-import {IQuestion} from './IQuestion';
+import {ISeedQuestion} from './IQuestion';
 
 let properties = require('app/properties.json');
 
@@ -17,7 +17,7 @@ export class QuestionApi {
 			.map(res => res.json());
 	}
 
-	createQuestion(question: IQuestion) {
+	createQuestion(question: ISeedQuestion) {
 		return this.http.post(properties.serverLocation + '/api/questions/',
 			JSON.stringify(question),
 			{
