@@ -10,10 +10,12 @@ import {formDirectives} from 'angular2/forms';
  * App
  */
 import {Autofocus} from './Autofocus';
+import {LoggedInRouterOutlet} from './LoggedInOutlet';
 
 // global App only directives
 export var appDirectives: Array<any> = [
-  Autofocus
+  Autofocus,
+  LoggedInRouterOutlet
 ];
 
 // global Angular core and other Angular module directives (form/router)

@@ -23,7 +23,7 @@ let template = require('./app.html');
   { path: '/', as: 'home', component: Home },
   { path: '/create-question', as: 'create-question', component: CreateQuestion },
   { path: '/list-questions', as: 'list-questions', component: ListQuestions },
-  { path: '/signin', as: 'signin', component: Signin },
+  { path: '/signin/:state', as: 'signin', component: Signin },
   { path: '/create-game', as: 'create-game', component: CreateGame },
   { path: '/join-game', as: 'join-game', component: JoinGame }
 ])
