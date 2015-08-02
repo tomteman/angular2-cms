@@ -67,7 +67,7 @@ let template = require('./app.html');
   { path: '/rxjs-examples', as: 'rxjs-examples', component: RxJsExamples },
   { path: '/create-question', as: 'create-question', component: CreateQuestion },
   { path: '/list-questions', as: 'list-questions', component: ListQuestions },
-  { path: '/signin', as: 'signin', component: Signin }
+  { path: '/signin/:state', as: 'signin', component: Signin }
 ])
 export class App {
   name: string;
