@@ -47,12 +47,12 @@ var config = {
       'angular2/angular2'
     ],
     'app': [
-      // App
-
       /*
        * include any 3rd party js lib here
        */
-      'socket.io-client/socket.io.js',
+      'socket.io-client/socket.io',
+      'whatwg-fetch/fetch',
+      
       './src/app/bootstrap'
     ]
   },

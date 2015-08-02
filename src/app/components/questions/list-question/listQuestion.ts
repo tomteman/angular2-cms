@@ -25,16 +25,20 @@ export class ListQuestions {
   }
 
   initQuestions() {
-    this.questionApi.getQuestions().subscribe(result => {
-      this.questions = result;
-      this.subscribeToQuestionsFeed();
-    });
+    this.questionApi.getQuestions()
+      .then(result => {
+        this.questions = result;
+        this.subscribeToQuestionsFeed();
+      })
+      .catch(err => {
+        console.log(err.data);
+      });
   }
 
   subscribeToQuestionsFeed() {
     this.questionApi.getQuestionsFeed().subscribe(change => {
       if (change.old_val === null) {
-        this.questions.push(change.new_val);  
+        this.questions.push(change.new_val);
       }
     });
   }

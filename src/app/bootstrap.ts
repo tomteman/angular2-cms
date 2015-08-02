@@ -4,6 +4,7 @@ import {formInjectables} from 'angular2/forms';
 import {routerInjectables} from 'angular2/router';
 
 import {App} from './components/app';
+import {httpWrapperInjectables} from './datacontext/httpWrapper'
 
 import {
   nativeShadowDomInjectables,
@@ -34,6 +35,7 @@ bootstrap(
 
   [
     universalInjectables,
-    platformInjectables
+    platformInjectables,
+    httpWrapperInjectables
   ]
 );

@@ -43,14 +43,14 @@ export class CreateQuestion {
       realAnswer: formValue.realAnswer
     };
 
-    this.questionApi.createQuestion(newQuestion).subscribe(
-      res => {
+    this.questionApi.createQuestion(newQuestion)
+      .then( res => {
         this.clearForm();
         this.showSuccessMsg = true;
-      },
-      err => {
+      })
+      .catch(err => {
         this.showErrorMsg = true;
-        this.errorMsg = err;
+        this.errorMsg = err.data;
       });
   }
   
