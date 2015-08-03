@@ -41,11 +41,10 @@ bootstrap(
   App,
 
   [
-    appDirectives,
-    angularDirectives,
     universalInjectables,
     platformInjectables,
+    appDirectives,
+    angularDirectives,
     appServices
-    
   ]
   );

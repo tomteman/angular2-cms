@@ -8,6 +8,7 @@ import {Signin} from './signin/signin';
 import {CreateGame} from './create-game/createGame';
 import {JoinGame} from './join-game/joinGame';
 import {Base64} from 'app/facade/base64';
+import {LoggedInRouterOutlet} from 'app/directives/LoggedInOutlet'
 
 let styles = require('./app.css');
 let template = require('./app.html');
@@ -18,7 +19,7 @@ let template = require('./app.html');
   viewInjector: [Base64]
 })
 @View({
-  directives: [routerDirectives],
+  directives: [routerDirectives, LoggedInRouterOutlet],
   styles: [styles],
   template: template
 })
