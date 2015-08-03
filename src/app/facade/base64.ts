@@ -1,7 +1,7 @@
 export class Base64 {
     constructor() {     
     }
-    decode(value: string): string {
+    static decode(value: string): string {
         var clientPayloadDecodedJson;
         try {
             var clientPayloadDecoded = decodeFromBase64(value, true);
@@ -12,7 +12,7 @@ export class Base64 {
         return clientPayloadDecodedJson;
     }
 
-    encode(value: string): string {
+    static encode(value: string): string {
         try {
             var valueStringified = JSON.stringify(value);
             return encodeToBase64(valueStringified, true);

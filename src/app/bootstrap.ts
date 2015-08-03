@@ -4,17 +4,18 @@ import {formInjectables} from 'angular2/forms';
 import {routerInjectables} from 'angular2/router';
 
 import {App} from './components/app';
-import {httpWrapperInjectables} from './datacontext/httpWrapper'
+import {httpWrapperInjectables} from './datacontext/httpWrapper';
+import {facadeInjectables} from './facade/facadeInjectables';
 
 import {
-  nativeShadowDomInjectables,
-  emulatedScopedShadowDomInjectables,
-  emulatedUnscopedShadowDomInjectables
+nativeShadowDomInjectables,
+emulatedScopedShadowDomInjectables,
+emulatedUnscopedShadowDomInjectables
 } from '../common/shadowDomInjectables';
 import {
-  jitInjectables,
-  dynamicInjectables,
-  preGeneratedInjectables
+jitInjectables,
+dynamicInjectables,
+preGeneratedInjectables
 } from '../common/changeDetectionInjectables';
 
 var universalInjectables = [
@@ -30,12 +31,17 @@ var platformInjectables = [
   // nativeShadowDomInjectables
 ];
 
+var appServices = [
+  httpWrapperInjectables,
+  facadeInjectables
+]
+
 bootstrap(
   App,
 
   [
     universalInjectables,
     platformInjectables,
-    httpWrapperInjectables
+    appServices
   ]
-);
+  );

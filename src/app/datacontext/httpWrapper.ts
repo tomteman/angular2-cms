@@ -1,10 +1,12 @@
 import {Injectable, bind} from 'angular2/di';
 import {Observable} from 'rx';
+import {Base64} from 'app/facade/base64';
 
 let properties = require('app/properties.json');
 
 @Injectable()
 export class HttpWrapper {
+
 	get(url: string, options?) {
 		return window
 			.fetch(properties.serverLocation + url)
@@ -32,6 +34,10 @@ export class HttpWrapper {
 function checkStatus(response) {
 	if (response.status >= 200 && response.status < 300) {
 		return response;
+	} else if (response.status === 401) {
+		var signInState = Base64.encode(JSON.stringify({returnUrl: window.location.pathname}));
+		console.log('signInState', signInState);
+		location.href = '/signin/' + signInState;
 	} else {
 		return response.text().then(function(text) {
 			var err = {
