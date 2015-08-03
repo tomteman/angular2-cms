@@ -6,6 +6,7 @@ import {routerInjectables} from 'angular2/router';
 import {App} from './components/app';
 import {httpWrapperInjectables} from './datacontext/httpWrapper';
 import {facadeInjectables} from './facade/facadeInjectables';
+import {angularDirectives, appDirectives} from './directives/directives';
 
 import {
 nativeShadowDomInjectables,
@@ -40,8 +41,11 @@ bootstrap(
   App,
 
   [
+    appDirectives,
+    angularDirectives,
     universalInjectables,
     platformInjectables,
     appServices
+    
   ]
   );

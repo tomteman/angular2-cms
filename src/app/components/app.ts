@@ -7,16 +7,19 @@ import {CreateQuestion} from './questions/create-question/createQuestion';
 import {Signin} from './signin/signin';
 import {CreateGame} from './create-game/createGame';
 import {JoinGame} from './join-game/joinGame';
+import {Base64} from 'app/facade/base64';
 
 let styles = require('./app.css');
 let template = require('./app.html');
 
+
 @Component({
-  selector: 'app'
+  selector: 'app',
+  viewInjector: [Base64]
 })
 @View({
-  directives: [ routerDirectives ],
-  styles: [ styles ],
+  directives: [routerDirectives],
+  styles: [styles],
   template: template
 })
 @RouteConfig([
@@ -28,5 +31,12 @@ let template = require('./app.html');
   { path: '/join-game', as: 'join-game', component: JoinGame }
 ])
 export class App {
-  constructor() { }
+  rootSigninState;
+  constructor() {
+    this.rootSigninState = ['/signin', {
+      'state': Base64.encode(JSON.stringify({
+        'returnUrl': '/'
+      }))
+    }];
+  }
 }

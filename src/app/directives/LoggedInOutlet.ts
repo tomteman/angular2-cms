@@ -13,8 +13,7 @@ export class LoggedInRouterOutlet extends RouterOutlet {
       super(_elementRef, _loader, _parentRouter, nameAttr);
       console.log('constructor');
       this.publicRoutes = {
-        '/signin': true,
-        '/create-question': true
+        '/signin': true
       };
 
   }
@@ -22,7 +21,8 @@ export class LoggedInRouterOutlet extends RouterOutlet {
   commit(instruction) {
     console.log('activate');
     var url = this._parentRouter.lastNavigationAttempt;
-    if (!this.publicRoutes[url]) {
+    console.log('instruction', instruction);
+    if (!this.publicRoutes[url] && !localStorage.getItem('signedIn')) { 
       instruction.component = Signin;
     }
     return super.commit(instruction);
