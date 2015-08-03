@@ -8,7 +8,7 @@ import {Signin} from './signin/signin';
 import {CreateGame} from './create-game/createGame';
 import {JoinGame} from './join-game/joinGame';
 import {Base64} from 'app/facade/base64';
-import {LoggedInRouterOutlet} from 'app/directives/LoggedInOutlet'
+import {LoggedInRouterOutlet} from 'app/session/loggedInRouterOutlet'
 
 let styles = require('./app.css');
 let template = require('./app.html');

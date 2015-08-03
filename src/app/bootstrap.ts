@@ -4,9 +4,9 @@ import {formInjectables} from 'angular2/forms';
 import {routerInjectables} from 'angular2/router';
 
 import {App} from './components/app';
-import {httpWrapperInjectables} from './datacontext/httpWrapper';
+import {datacontextInjectables} from './datacontext/index';
 import {facadeInjectables} from './facade/facadeInjectables';
-import {angularDirectives, appDirectives} from './directives/directives';
+import {sessionInjectables} from './session/index';
 
 import {
 nativeShadowDomInjectables,
@@ -32,9 +32,10 @@ var platformInjectables = [
   // nativeShadowDomInjectables
 ];
 
-var appServices = [
-  httpWrapperInjectables,
-  facadeInjectables
+var appInjectables = [
+  datacontextInjectables,
+  facadeInjectables,
+  sessionInjectables
 ]
 
 bootstrap(
@@ -43,8 +44,6 @@ bootstrap(
   [
     universalInjectables,
     platformInjectables,
-    appDirectives,
-    angularDirectives,
-    appServices
+    appInjectables
   ]
   );

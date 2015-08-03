@@ -1,15 +1,15 @@
 import {Injectable} from 'angular2/di';
 import {HttpWrapper} from 'app/datacontext/httpWrapper';
-import {Observable} from 'rx';
 
 
 @Injectable()
-export class SignInApi {
+export class SessionApi {
 	constructor(public http: HttpWrapper) {
 	}
 
 	isSignedIn() {
-		return this.http.get('/api/auth/user');
+		console.log('isSignedIn!');	
+		return http.get('/api/auth/user');
 	}
 
 }
