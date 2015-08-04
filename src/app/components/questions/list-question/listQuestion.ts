@@ -2,15 +2,14 @@ import {Component, View} from 'angular2/angular2';
 import {ControlGroup, FormBuilder, formDirectives, Validators} from 'angular2/angular2';
 import {coreDirectives} from 'angular2/angular2';
 
-import {QuestionApi} from '../api.question';
+import {QuestionApi} from 'app/datacontext/repositories/question';
 import {IQuestion} from '../IQuestion';
 
 let styles = require('./listQuestion.css');
 let template = require('./listQuestion.html');
 
 @Component({
-  selector: 'list-questions',
-  viewInjector: [QuestionApi]
+  selector: 'list-questions'
 })
 @View({
   directives: [formDirectives, coreDirectives],
@@ -25,7 +24,7 @@ export class ListQuestions {
   }
 
   initQuestions() {
-    this.questionApi.getQuestions()
+    this.questionApi.get()
       .then(result => {
         this.questions = result;
         this.subscribeToQuestionsFeed();
@@ -36,7 +35,7 @@ export class ListQuestions {
   }
 
   subscribeToQuestionsFeed() {
-    this.questionApi.getQuestionsFeed().subscribe(change => {
+    this.questionApi.feed().subscribe(change => {
       if (change.old_val === null) {
         this.questions.push(change.new_val);
       }

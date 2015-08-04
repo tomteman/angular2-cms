@@ -15,6 +15,7 @@ export class CreateGame {
   constructor(gameApi: GameApi) {
     gameApi.create()
       .then(result => {
+        // TODO: replace with native Angular Router navigate
         location.href = '/game-staging/' + result.name;
       })
       .catch(err => {
