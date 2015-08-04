@@ -11,16 +11,13 @@ import {JoinGame} from './join-game/joinGame';
 import {GameStaging} from './game-staging/gameStaging';
 import {ShowQuestion} from './show-question/showQuestion';
 
-import {Base64} from 'app/facade/base64';
 import {LoggedInRouterOutlet} from 'app/session/loggedInRouterOutlet'
 
 let styles = require('./app.css');
 let template = require('./app.html');
 
-
 @Component({
-  selector: 'app',
-  viewInjector: [Base64]
+  selector: 'app'
 })
 @View({
   directives: [routerDirectives, LoggedInRouterOutlet],
@@ -38,12 +35,5 @@ let template = require('./app.html');
   { path: '/show-question/:gameName', as: 'show-question', component: ShowQuestion }
 ])
 export class App {
-  rootSigninState;
-  constructor() {
-    this.rootSigninState = ['/signin', {
-      'state': Base64.encode(JSON.stringify({
-        'returnUrl': '/'
-      }))
-    }];
-  }
+  constructor() { }
 }
