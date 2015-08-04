@@ -9,6 +9,7 @@ import {Signin} from './signin/signin';
 import {CreateGame} from './create-game/createGame';
 import {JoinGame} from './join-game/joinGame';
 import {GameStaging} from './game-staging/gameStaging';
+import {ShowQuestion} from './show-question/showQuestion';
 
 import {Base64} from 'app/facade/base64';
 import {LoggedInRouterOutlet} from 'app/session/loggedInRouterOutlet'
@@ -33,7 +34,8 @@ let template = require('./app.html');
   { path: '/signin/:state', as: 'signin', component: Signin },
   { path: '/create-game', as: 'create-game', component: CreateGame },
   { path: '/join-game', as: 'join-game', component: JoinGame },
-  { path: '/game-staging/:gameName', as: 'game-staging', component: GameStaging }
+  { path: '/game-staging/:gameName', as: 'game-staging', component: GameStaging },
+  { path: '/show-question/:gameName', as: 'show-question', component: ShowQuestion }
 ])
 export class App {
   rootSigninState;

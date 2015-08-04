@@ -24,5 +24,9 @@ export class GameApi {
 			.fromEvent(socket, 'game:' + gameName + ':feed')
 			.map(res => JSON.parse(res));
 	}
+	
+	start(gameName: string) {
+		return this.http.put('/api/games/' + gameName + '/start');
+	}
 
 }

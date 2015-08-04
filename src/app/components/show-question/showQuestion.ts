@@ -4,18 +4,18 @@ import {coreDirectives} from 'angular2/angular2';
 
 import {GameApi} from 'app/datacontext/repositories/game';
 
-let styles = require('./gameStaging.css');
-let template = require('./gameStaging.html');
+let styles = require('./showQuestion.css');
+let template = require('./showQuestion.html');
 
 @Component({
-  selector: 'create-game'
+  selector: 'show-question'
 })
 @View({
   directives: [coreDirectives],
   styles: [styles],
   template: template
 })
-export class GameStaging {
+export class ShowQuestion {
   game;
 
   constructor(public gameApi: GameApi, routeParams: RouteParams) {
@@ -26,6 +26,7 @@ export class GameStaging {
   getGame(gameName: string) {
     this.gameApi.get(gameName)
       .then(result => {
+        console.log(result);
         this.game = result;
         this.subscribe(gameName);
       })
@@ -37,22 +38,7 @@ export class GameStaging {
   subscribe(gameName: string) {
     this.gameApi.feed(gameName).subscribe(change => {
       console.log(change);
-      
-      if (change.new_val) {
-        this.game.players = change.new_val.players;   
-      }
-      
     });
   }
-  
-  startGame() {
-    this.gameApi.start(this.game.name)
-      .then(result => {
-        // TODO: replace with native Angular Router navigate
-        location.href = '/show-question/' + result.name;
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  }
+
 }
