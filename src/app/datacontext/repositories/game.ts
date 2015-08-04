@@ -21,7 +21,7 @@ export class GameApi {
 	feed(gameName: string) {
 		var socket = io(properties.serverLocation);
 		return Observable
-			.fromEvent(socket, 'games:feed')
+			.fromEvent(socket, 'game:' + gameName + ':feed')
 			.map(res => JSON.parse(res));
 	}
 
