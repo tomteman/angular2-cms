@@ -11,36 +11,37 @@ import {Base64} from 'app/facade/base64';
 })
 export class LoggedInRouterOutlet extends RouterOutlet {
   publicRoutes: any;
-  
+
   constructor(public _elementRef: ElementRef, public _loader: DynamicComponentLoader,
-      public _parentRouter: Router, @Attribute('name') nameAttr: string) {
-      super(_elementRef, _loader, _parentRouter, nameAttr);
-      
-      this.publicRoutes = {
-        'signin': true,
-        'create-question': true
-      };
+    public _parentRouter: Router, @Attribute('name') nameAttr: string) {
+    super(_elementRef, _loader, _parentRouter, nameAttr);
+
+    this.publicRoutes = [
+      '/signin',
+      '/create-question',
+      '/'
+    ];
   }
 
   commit(instruction) {
     var url = this._parentRouter.lastNavigationAttempt;
-    
-    if (!this.publicRoutes[url.split('/')[1]] && !localStorage.getItem('signedIn')) {
-        return window
-          .fetch('http://pantsonfire.io:3333/api/auth/user')
-          .then(checkStatus)
-          .then(parseJSON)
-          .then(result => {
-              console.log(result);
-              localStorage.setItem('signedIn', 1);
-              return super.commit(instruction);
-          })
-          .catch(err => {
-              console.log('err', err);
-              var state = { returnUrl: instruction.capturedUrl }
-              instruction.component = Signin;
-              return super.commit(instruction);
-          });
+
+    if (this.publicRoutes.indexOf(url) < 0 && !localStorage.getItem('signedIn')) {
+      return window
+        .fetch('http://pantsonfire.io:3333/api/auth/user')
+        .then(checkStatus)
+        .then(parseJSON)
+        .then(result => {
+          console.log(result);
+          localStorage.setItem('signedIn', 1);
+          return super.commit(instruction);
+        })
+        .catch(err => {
+          console.log('err', err);
+          var state = { returnUrl: instruction.capturedUrl }
+          instruction.component = Signin;
+          return super.commit(instruction);
+        });
     } else {
       return super.commit(instruction);
     }
@@ -48,25 +49,25 @@ export class LoggedInRouterOutlet extends RouterOutlet {
 }
 
 function checkStatus(response) {
-	if (response.status >= 200 && response.status < 300) {
-		return response;
-	} else if (response.status === 401) {
-		var signInState = Base64.encode(JSON.stringify({returnUrl: window.location.pathname}));
-		console.log('signInState', signInState);
-		location.href = '/signin/' + signInState;
-	} else {
-		return response.text().then(function(text) {
-			var err = {
-				data: JSON.parse(text),
-				status: response.status,
-				headers: response.headers,
-				statusText: response.statusText
-			}
-			return Promise.reject(err);
-		});
-	}
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else if (response.status === 401) {
+    var signInState = Base64.encode(JSON.stringify({ returnUrl: window.location.pathname }));
+    console.log('signInState', signInState);
+    location.href = '/signin/' + signInState;
+  } else {
+    return response.text().then(function(text) {
+      var err = {
+        data: JSON.parse(text),
+        status: response.status,
+        headers: response.headers,
+        statusText: response.statusText
+      }
+      return Promise.reject(err);
+    });
+  }
 }
 
 function parseJSON(response) {
-	return response.json();
+  return response.json();
 }
