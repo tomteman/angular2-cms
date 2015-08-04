@@ -14,7 +14,7 @@ export class HttpWrapper {
 			.then(parseJSON);
 	}
 
-	post(url: string, body: Object, options?) {
+	post(url: string, body?: Object, options?) {
 		var fetchOptions = {
 			method: 'post',
 			body: JSON.stringify(body),

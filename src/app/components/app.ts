@@ -1,12 +1,15 @@
 import {Component, View} from 'angular2/annotations';
 import {RouteConfig, routerDirectives} from 'angular2/router';
 
+// Components
 import {Home} from './home/home';
 import {ListQuestions} from './questions/list-question/listQuestion';
 import {CreateQuestion} from './questions/create-question/createQuestion';
 import {Signin} from './signin/signin';
 import {CreateGame} from './create-game/createGame';
 import {JoinGame} from './join-game/joinGame';
+import {GameStaging} from './game-staging/gameStaging';
+
 import {Base64} from 'app/facade/base64';
 import {LoggedInRouterOutlet} from 'app/session/loggedInRouterOutlet'
 
@@ -29,7 +32,8 @@ let template = require('./app.html');
   { path: '/list-questions', as: 'list-questions', component: ListQuestions },
   { path: '/signin/:state', as: 'signin', component: Signin },
   { path: '/create-game', as: 'create-game', component: CreateGame },
-  { path: '/join-game', as: 'join-game', component: JoinGame }
+  { path: '/join-game', as: 'join-game', component: JoinGame },
+  { path: '/game-staging/:gameName', as: 'game-staging', component: GameStaging }
 ])
 export class App {
   rootSigninState;
