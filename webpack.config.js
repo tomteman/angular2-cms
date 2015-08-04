@@ -52,6 +52,7 @@ var config = {
        */
       'socket.io-client/socket.io',
       'whatwg-fetch/fetch',
+      'lodash/index',
       
       './src/app/bootstrap'
     ]
