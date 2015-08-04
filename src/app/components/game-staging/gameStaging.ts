@@ -1,5 +1,5 @@
 import {Component, View} from 'angular2/angular2';
-import {RouteParams} from 'angular2/router';
+import {Router, RouteParams} from 'angular2/router';
 import {coreDirectives} from 'angular2/angular2';
 
 import {GameApi} from 'app/datacontext/repositories/game';
@@ -17,8 +17,8 @@ let template = require('./gameStaging.html');
 })
 export class GameStaging {
   game;
-
-  constructor(public gameApi: GameApi, routeParams: RouteParams) {
+  
+  constructor(public gameApi: GameApi, routeParams: RouteParams, public router: Router) {
     var gameName = routeParams.get('gameName');
     this.getGame(gameName);
   }
@@ -48,8 +48,7 @@ export class GameStaging {
   startGame() {
     this.gameApi.start(this.game.name)
       .then(result => {
-        // TODO: replace with native Angular Router navigate
-        location.href = '/show-question/' + result.name;
+        this.router.navigate('/show-question/' + result.name);
       })
       .catch(err => {
         console.log(err);
