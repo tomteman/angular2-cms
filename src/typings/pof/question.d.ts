@@ -1,4 +1,4 @@
-declare module "pof/questions" {
+declare module 'pof/question' {
   interface IQuestion {
     questionText: string;
     realAnswer: RealAnswer;
