@@ -1,4 +1,9 @@
 import {Component, View} from 'angular2/angular2';
+import {ControlGroup, FormBuilder, formDirectives, Validators} from 'angular2/angular2';
+import {coreDirectives} from 'angular2/angular2';
+import {Router} from 'angular2/router';
+
+import {GameApi} from 'app/datacontext/repositories/game';
 
 let styles   = require('./joinGame.css');
 let template = require('./joinGame.html');
@@ -8,10 +13,27 @@ let template = require('./joinGame.html');
 })
 @View({
   styles: [ styles ],
-  template: template
+  template: template,
+  directives: [formDirectives, coreDirectives]
 })
 export class JoinGame {
-  constructor() {
-
+  myForm: ControlGroup;
+  serverErrorMsg: string;
+  
+  constructor(formBuilder: FormBuilder, public gameApi: GameApi, public router: Router) {
+    this.myForm = formBuilder.group({
+      gameName: ['', Validators.required]
+    });
+  }
+  
+  onSubmit(formValue) {
+    this.gameApi.join(formValue.gameName)
+      .then(() => {
+        this.router.navigate('/game-staging/' + formValue.gameName);
+      })
+      .catch (err => {
+        console.log(err);
+        this.serverErrorMsg = err;
+      })
   }
 }

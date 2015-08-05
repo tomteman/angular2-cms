@@ -28,5 +28,10 @@ export class GameApi {
 	start(gameName: string) {
 		return this.http.put('/api/games/' + gameName + '/start');
 	}
+	
+	join(gameName: string) {
+		// TODO: dont send with clientId - server will get playerId from req 
+		return this.http.put('/api/games/' + gameName + '/join/' + 'dd782b64-70a7-43e4-b65e-000000000002');
+	}
 
 }
