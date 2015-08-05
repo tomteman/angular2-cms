@@ -3,8 +3,7 @@ import {RouteConfig, routerDirectives} from 'angular2/router';
 
 // Components
 import {Home} from './home/home';
-import {ListQuestions} from './questions/list-question/listQuestion';
-import {CreateQuestion} from './questions/create-question/createQuestion';
+import {CreateQuestion} from './create-question/createQuestion';
 import {Signin} from './signin/signin';
 import {CreateGame} from './create-game/createGame';
 import {JoinGame} from './join-game/joinGame';
@@ -27,7 +26,6 @@ let template = require('./app.html');
 @RouteConfig([
   { path: '/', as: 'home', component: Home },
   { path: '/create-question', as: 'create-question', component: CreateQuestion },
-  { path: '/list-questions', as: 'list-questions', component: ListQuestions },
   { path: '/signin/:state', as: 'signin', component: Signin },
   { path: '/create-game', as: 'create-game', component: CreateGame },
   { path: '/join-game', as: 'join-game', component: JoinGame },

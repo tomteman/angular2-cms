@@ -1,9 +1,10 @@
 /*
  * Our custom types
  */
-/// <reference path="browser.d.ts" />
-/// <reference path="ng2.d.ts" />
-/// <reference path="webpack.d.ts" />
+/// <reference path="thirdParties/browser.d.ts" />
+/// <reference path="thirdParties/ng2.d.ts" />
+/// <reference path="thirdParties/webpack.d.ts" />
+/// <reference path="pof/questions.d.ts" />
 
 
 

@@ -2,8 +2,8 @@ import {Component, View} from 'angular2/angular2';
 import {ControlGroup, FormBuilder, formDirectives, Validators} from 'angular2/angular2'
 import {coreDirectives} from 'angular2/angular2'
 
+import {ISeedQuestion} from 'pof/questions';
 import {QuestionApi} from 'app/datacontext/repositories/question';
-import {ISeedQuestion} from '../IQuestion';
 
 let styles = require('./createQuestion.css');
 let template = require('./createQuestion.html');
@@ -36,7 +36,6 @@ export class CreateQuestion {
     this.showErrorMsg = false;
 
     var newQuestion: ISeedQuestion = {
-      creatorId: '123-123',
       fakeAnswers: [formValue.fakeAnswerOne, formValue.fakeAnswerTwo],
       questionText: formValue.questionText,
       realAnswer: formValue.realAnswer
