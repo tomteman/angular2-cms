@@ -2,30 +2,31 @@ import {Injectable} from 'angular2/di';
 import {HttpWrapper} from 'app/datacontext/httpWrapper';
 import {Observable} from 'rx';
 import * as io from 'socket.io-client';
-import {ISeedQuestion} from './IQuestion';
 
 let properties = require('app/properties.json');
 
-
-
 @Injectable()
-export class QuestionApi {
+export class GameApi {
 	constructor(public http: HttpWrapper) {
 	}
-
-	getQuestions() {
-		return this.http.get('/api/questions');
+	
+	get(gameName: string) {
+		return this.http.get('/api/games/' + gameName);
 	}
 
-	createQuestion(question: ISeedQuestion) {
-		return this.http.post('/api/questions', question);
+	create() {
+		return this.http.post('/api/games');
 	}
 
-	getQuestionsFeed() {
+	feed(gameName: string) {
 		var socket = io(properties.serverLocation);
 		return Observable
-			.fromEvent(socket, 'questions:feed')
+			.fromEvent(socket, 'game:' + gameName + ':feed')
 			.map(res => JSON.parse(res));
+	}
+	
+	start(gameName: string) {
+		return this.http.put('/api/games/' + gameName + '/start');
 	}
 
 }

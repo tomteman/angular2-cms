@@ -1,5 +1,9 @@
-import { HttpWrapper } from './httpWrapper';
+import {HttpWrapper} from './httpWrapper';
+import {GameApi} from './repositories/game';
+import {QuestionApi} from './repositories/question';
 
 export var datacontextInjectables: Array<any> = [
-  HttpWrapper
+  HttpWrapper,
+  GameApi,
+  QuestionApi
 ];

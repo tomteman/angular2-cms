@@ -2,15 +2,14 @@ import {Component, View} from 'angular2/angular2';
 import {ControlGroup, FormBuilder, formDirectives, Validators} from 'angular2/angular2'
 import {coreDirectives} from 'angular2/angular2'
 
-import {QuestionApi} from '../api.question';
+import {QuestionApi} from 'app/datacontext/repositories/question';
 import {ISeedQuestion} from '../IQuestion';
 
 let styles = require('./createQuestion.css');
 let template = require('./createQuestion.html');
 
 @Component({
-  selector: 'create-question',
-  viewInjector: [QuestionApi]
+  selector: 'create-question'
 })
 @View({
   directives: [formDirectives, coreDirectives],
@@ -43,7 +42,7 @@ export class CreateQuestion {
       realAnswer: formValue.realAnswer
     };
 
-    this.questionApi.createQuestion(newQuestion)
+    this.questionApi.create(newQuestion)
       .then( res => {
         this.clearForm();
         this.showSuccessMsg = true;

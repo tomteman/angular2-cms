@@ -1,0 +1,10 @@
+<section *ng-if="game" class="game-staging">
+	<p class="game-name"> {{ game.name | uppercase }} </p>
+	
+	<p> Players: </p>
+	<ul>
+		<li *ng-for="#player of game.players"> {{ player.name }} </li>
+	</ul>
+	
+	<button (click)="startGame()">Start</button>
+</section>
