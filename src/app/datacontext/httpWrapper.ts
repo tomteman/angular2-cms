@@ -8,8 +8,12 @@ let properties = require('app/properties.json');
 export class HttpWrapper {
 
 	get(url: string, options?) {
+		var fetchOptions = {
+			method: 'get',
+			credentials: 'include'
+		}
 		return window
-			.fetch(properties.serverLocation + url)
+			.fetch(properties.serverLocation + url, fetchOptions)
 			.then(checkStatus)
 			.then(parseJSON);
 	}
