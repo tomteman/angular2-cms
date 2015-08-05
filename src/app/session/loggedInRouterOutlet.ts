@@ -27,8 +27,11 @@ export class LoggedInRouterOutlet extends RouterOutlet {
     var url = this._parentRouter.lastNavigationAttempt;
 
     if (this.publicRoutes.indexOf(url) < 0 && !localStorage.getItem('signedIn')) {
+      var defaultOptions = {
+    		credentials: 'include'
+    	}
       return window
-        .fetch('http://pantsonfire.io:3333/api/auth/user')
+        .fetch('http://pantsonfire.io:3333/api/auth/user', defaultOptions)
         .then(checkStatus)
         .then(parseJSON)
         .then(result => {
