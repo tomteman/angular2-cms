@@ -16,16 +16,16 @@ export class LoggedInRouterOutlet extends RouterOutlet {
     public _parentRouter: Router, @Attribute('name') nameAttr: string) {
     super(_elementRef, _loader, _parentRouter, nameAttr);
 
-    this.publicRoutes = [
-      '/signin',
-      '/'
-    ];
+    this.publicRoutes = {
+      'signin': true,
+      '/': true
+    };
   }
 
   commit(instruction) {
     var url = this._parentRouter.lastNavigationAttempt;
-
-    if (this.publicRoutes.indexOf(url) < 0 && !localStorage.getItem('signedIn')) {
+    
+    if (url !== '' && url !== '/' && !this.publicRoutes[url.split('/')[1]] && !localStorage.getItem('sessionData')) {
       var defaultOptions = {
     		credentials: 'include'
     	}
@@ -35,14 +35,16 @@ export class LoggedInRouterOutlet extends RouterOutlet {
         .then(parseJSON)
         .then(result => {
           console.log(result);
-          localStorage.setItem('signedIn', 1);
+          localStorage.setItem('sessionData', JSON.stringify(result));
           return super.commit(instruction);
         })
         .catch(err => {
           console.log('err', err);
-          var state = { returnUrl: instruction.capturedUrl }
-          instruction.component = Signin;
-          return super.commit(instruction);
+          localStorage.removeItem('sessionData');
+          var signInState = Base64.encode(JSON.stringify({ returnUrl: instruction.capturedUrl }));
+          localStorage.removeItem('sessionData');
+          console.log('signInState', signInState);
+          location.href = '/signin/' + signInState;
         });
     } else {
       return super.commit(instruction);
@@ -54,7 +56,9 @@ function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
   } else if (response.status === 401) {
+    
     var signInState = Base64.encode(JSON.stringify({ returnUrl: window.location.pathname }));
+    localStorage.removeItem('sessionData');
     console.log('signInState', signInState);
     location.href = '/signin/' + signInState;
   } else {

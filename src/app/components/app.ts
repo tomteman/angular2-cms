@@ -12,6 +12,8 @@ import {ShowQuestion} from './show-question/showQuestion';
 
 import {LoggedInRouterOutlet} from 'app/session/loggedInRouterOutlet'
 
+import {Session} from 'app/session/session';
+
 let styles = require('./app.css');
 let template = require('./app.html');
 
@@ -33,5 +35,9 @@ let template = require('./app.html');
   { path: '/show-question/:gameName', as: 'show-question', component: ShowQuestion }
 ])
 export class App {
-  constructor() { }
+  userPictureUrl: string;
+  
+  constructor(session: Session) {
+     this.userPictureUrl = session.getPicture();
+     }
 }
