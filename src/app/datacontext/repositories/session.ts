@@ -5,16 +5,14 @@ let properties = require('app/properties.json');
 
 @Injectable()
 export class SessionApi {
-	constructor(public http: HttpWrapper) {
-	}
-
-	// isSignedIn() {
-	// 	console.log('isSignedIn!');	
-	// 	return http.get('/api/auth/user');
-	// }
+	constructor(public http: HttpWrapper) { }
 	
 	getSigninUrl(signInState: string) :string {
-		return properties.serverLocation + '/api/auth/login/' + signInState
+		return properties.serverLocation + '/api/auth/signin/' + signInState;
+	}
+	
+	getSignoutUrl() :string {
+		return properties.serverLocation + '/api/auth/signout';
 	}
 
 }
