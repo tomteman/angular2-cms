@@ -2,12 +2,11 @@ import {Directive, Attribute, ElementRef, DynamicComponentLoader} from 'angular2
 import {Router, RouterOutlet} from 'angular2/router';
 import {Injector} from 'angular2/di';
 import {Signin} from '../components/signin/signin';
-import {SessionApi} from './api.session';
 import {Base64} from 'app/facade/base64';
 
 @Directive({
   selector: 'router-outlet',
-  viewInjector: [Base64, SessionApi]
+  viewInjector: [Base64]
 })
 export class LoggedInRouterOutlet extends RouterOutlet {
   publicRoutes: any;
@@ -18,17 +17,18 @@ export class LoggedInRouterOutlet extends RouterOutlet {
 
     this.publicRoutes = {
       'signin': true,
+      'create-game': true,
+      'game-staging': true,
       '/': true
     };
   }
 
   commit(instruction) {
     var url = this._parentRouter.lastNavigationAttempt;
-    
+
     if (url !== '' && url !== '/' && !this.publicRoutes[url.split('/')[1]] && !localStorage.getItem('sessionData')) {
-      var defaultOptions = {
-    		credentials: 'include'
-    	}
+      var defaultOptions = { credentials: 'include' };
+
       return window
         .fetch('http://pantsonfire.io:3333/api/auth/user', defaultOptions)
         .then(checkStatus)

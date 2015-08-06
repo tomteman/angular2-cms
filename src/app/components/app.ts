@@ -27,8 +27,9 @@ let template = require('./app.html');
 })
 @RouteConfig([
   { path: '/', as: 'home', component: Home },
-  { path: '/create-question', as: 'create-question', component: CreateQuestion },
+  // TODO: optional param :state
   { path: '/signin/:state', as: 'signin', component: Signin },
+  { path: '/create-question', as: 'create-question', component: CreateQuestion },
   { path: '/create-game', as: 'create-game', component: CreateGame },
   { path: '/join-game', as: 'join-game', component: JoinGame },
   { path: '/game-staging/:gameName', as: 'game-staging', component: GameStaging },

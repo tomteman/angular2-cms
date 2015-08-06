@@ -5,8 +5,6 @@ import * as io from 'socket.io-client';
 
 let properties = require('app/properties.json');
 
-
-
 @Injectable()
 export class QuestionApi {
 	constructor(public http: HttpWrapper) {
