@@ -18,7 +18,6 @@ export class LoggedInRouterOutlet extends RouterOutlet {
 
     this.publicRoutes = [
       '/signin',
-      '/create-question',
       '/'
     ];
   }
