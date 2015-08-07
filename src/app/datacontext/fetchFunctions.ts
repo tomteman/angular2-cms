@@ -1,15 +1,24 @@
 
 export function checkStatus(response) {
 	if (response.status >= 200 && response.status < 300) {
-		return response;
+		return Promise.resolve(response)
 	} else {
 		return response.text().then(function(text) {
+			var data;
+			
+			try {
+				data = JSON.parse(text);
+			} catch (e) {
+				data = text;				
+			}
+			
 			var err = {
-				data: JSON.parse(text),
+				data: data,
 				status: response.status,
 				headers: response.headers,
 				statusText: response.statusText
 			}
+			
 			return Promise.reject(err);
 		});
 	}

@@ -7,6 +7,10 @@ let properties = require('app/properties.json');
 export class SessionApi {
 	constructor(public http: HttpWrapper) { }
 	
+	getUserDetails() {
+		return this.http.get('/api/auth/user');
+	}
+	
 	getSigninUrl(signInState: string) :string {
 		return properties.serverLocation + '/api/auth/signin/' + signInState;
 	}

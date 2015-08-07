@@ -19,9 +19,7 @@ export class HttpWrapper {
 		credentials: 'include'
 	}
 	
-	constructor(public router: Router) {
-		
-	}
+	constructor(public router: Router) { }
 
 	request(url: string, options) {
 		var fetchOptions = _.merge({}, this.defaultOptions, options);
@@ -36,8 +34,9 @@ export class HttpWrapper {
 			.then(parseJSON)
 			.catch(err => {
 				if (err.status === 401) {
-					var signInState = Base64.encode(JSON.stringify({ returnUrl: window.location.pathname }));
-					this.router.navigate('/signin/' + signInState);
+					// TODO: interceptor
+					var signInState = Base64.encode(JSON.stringify({ returnUrl: location.pathname }));
+					location.href = '/signin/' + signInState;
 				} else {
 					return Promise.reject(err);
 				}
