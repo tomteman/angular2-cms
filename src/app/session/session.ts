@@ -32,24 +32,16 @@ export class Session {
 
 	static signin(returnUrl) {
 		var signInState = Base64.encode(JSON.stringify({ returnUrl: returnUrl }));
-		location.href = '/signin/' + signInState;
+		location.href = properties.serverLocation + '/api/auth/signin/' + signInState;
 	}
 
 	static signout() {
 		this.deleteSession();
-		location.href = Session.getSignoutUrl();
+		location.href = properties.serverLocation + '/api/auth/signout';
 	}
 
 	static deleteSession() {
 		localStorage.removeItem(SESSION_KEY);
-	}
-
-	static getSigninUrl(signInState: string): string {
-		return properties.serverLocation + '/api/auth/signin/' + signInState;
-	}
-
-	static getSignoutUrl(): string {
-		return properties.serverLocation + '/api/auth/signout';
 	}
 
 }

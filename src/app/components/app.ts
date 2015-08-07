@@ -3,7 +3,6 @@ import {RouteConfig, routerDirectives} from 'angular2/router';
 
 // Components
 import {Home} from './home/home';
-import {Signin} from './signin/signin';
 import {TopFrame} from './top-frame/topFrame';
 import {CreateQuestion} from './create-question/createQuestion';
 import {CreateGame} from './create-game/createGame';
@@ -26,8 +25,6 @@ let template = require('./app.html');
 })
 @RouteConfig([
   { path: '/', as: 'home', component: Home },
-  // TODO: optional param :state
-  { path: '/signin/:state', as: 'signin', component: Signin },
   { path: '/create-question', as: 'create-question', component: CreateQuestion },
   { path: '/create-game', as: 'create-game', component: CreateGame },
   { path: '/join-game', as: 'join-game', component: JoinGame },
