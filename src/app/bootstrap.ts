@@ -5,7 +5,6 @@ import {routerInjectables} from 'angular2/router';
 
 import {App} from './components/app';
 import {datacontextInjectables} from './datacontext/index';
-import {facadeInjectables} from './facade/facadeInjectables';
 import {sessionInjectables} from './session/index';
 
 import {
@@ -34,7 +33,6 @@ var platformInjectables = [
 
 var appInjectables = [
   datacontextInjectables,
-  facadeInjectables,
   sessionInjectables
 ]
 
