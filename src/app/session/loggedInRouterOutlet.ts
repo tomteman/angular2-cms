@@ -28,16 +28,14 @@ export class LoggedInRouterOutlet extends RouterOutlet {
     var url = this._parentRouter.lastNavigationAttempt;
 
     if (url !== '' && url !== '/' && !this.publicRoutes[url.split('/')[1]] && !localStorage.getItem('sessionData')) {
-      // TODO: sometimes this is null..
-      this.sessionApi.getUserDetails()
+      return this.sessionApi.getUserDetails()
         .then(user => {
           this.session.setUser(user);
           return super.commit(instruction);
         })
         .catch(err => {
-          console.log('err', err);
-          this.session.deleteSession();
-          this.session.signin(instruction.capturedUrl);
+            Session.deleteSession(); 
+          	Session.signin(instruction.capturedUrl);
         });
     } else {
       return super.commit(instruction);

@@ -23,7 +23,7 @@ export class TopFrame {
   }
   
   signout() {
-    this.session.signout();
+    Session.signout();
   }
 
 }

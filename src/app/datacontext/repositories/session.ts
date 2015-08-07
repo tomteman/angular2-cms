@@ -9,14 +9,6 @@ export class SessionApi {
 	
 	getUserDetails() {
 		return this.http.get('/api/auth/user');
-	}
-	
-	getSigninUrl(signInState: string) :string {
-		return properties.serverLocation + '/api/auth/signin/' + signInState;
-	}
-	
-	getSignoutUrl() :string {
-		return properties.serverLocation + '/api/auth/signout';
-	}
+	}	
 
 }

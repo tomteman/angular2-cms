@@ -1,7 +1,7 @@
 import {Component, View} from 'angular2/angular2';
 import {RouteParams} from 'angular2/router';
 
-import {SessionApi} from 'app/datacontext/repositories/session'
+import {Session} from 'app/session/session'
 
 let template = require('./signin.html');
 let properties = require('app/properties.json');
@@ -15,8 +15,8 @@ let properties = require('app/properties.json');
 export class Signin {
   signinUri: string;
 
-  constructor(routeParams: RouteParams, public sessionApi: SessionApi) {
+  constructor(routeParams: RouteParams) {
     var signInState = routeParams.get('state');
-    this.signinUri = this.sessionApi.getSigninUrl(signInState);
+    this.signinUri = Session.getSigninUrl(signInState);
   }
 }

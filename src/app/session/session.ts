@@ -2,14 +2,14 @@ import {Injectable} from 'angular2/di';
 
 import {Base64} from 'app/facade/base64';
 import {isJsObject} from 'app/facade/lang';
-import {SessionApi} from 'app/datacontext/repositories/session'
 
 const SESSION_KEY = 'sessionData';
+let properties = require('app/properties.json');
 
 @Injectable()
 export class Session {
 
-	constructor(public sessionApi: SessionApi) {
+	constructor() {
 	}
 
 	getUser() {
@@ -23,18 +23,26 @@ export class Session {
 		}
 	}
 
-	signin(returnUrl) {
+	static signin(returnUrl) {
 		var signInState = Base64.encode(JSON.stringify({ returnUrl: returnUrl }));
 		location.href = '/signin/' + signInState;
 	}
 
-	signout() {
+	static signout() {
 		this.deleteSession();
-		location.href = this.sessionApi.getSignoutUrl();
+		location.href = Session.getSignoutUrl();
 	}
 
-	deleteSession() {
+	static deleteSession() {
 		localStorage.removeItem(SESSION_KEY);
+	}
+	
+	static getSigninUrl(signInState: string) :string {
+		return properties.serverLocation + '/api/auth/signin/' + signInState;
+	}
+	
+	static getSignoutUrl() :string {
+		return properties.serverLocation + '/api/auth/signout';
 	}
 
 }

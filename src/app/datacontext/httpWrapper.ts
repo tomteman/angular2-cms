@@ -2,8 +2,7 @@ import {Injectable, bind} from 'angular2/di';
 import {Observable} from 'rx';
 
 import {checkStatus, parseJSON} from './fetchFunctions';
-import {Base64} from 'app/facade/base64';
-import {Router} from 'angular2/router';
+import {HttpInterceptor} from './httpInterceptor' 
 
 
 let properties = require('app/properties.json');
@@ -19,7 +18,7 @@ export class HttpWrapper {
 		credentials: 'include'
 	}
 	
-	constructor(public router: Router) { }
+	constructor() { }
 
 	request(url: string, options) {
 		var fetchOptions = _.merge({}, this.defaultOptions, options);
@@ -30,17 +29,9 @@ export class HttpWrapper {
 
 		return window
 			.fetch(properties.serverLocation + url, fetchOptions)
+			.then(HttpInterceptor.checkAuth)
 			.then(checkStatus)
-			.then(parseJSON)
-			.catch(err => {
-				if (err.status === 401) {
-					// TODO: interceptor
-					var signInState = Base64.encode(JSON.stringify({ returnUrl: location.pathname }));
-					location.href = '/signin/' + signInState;
-				} else {
-					return Promise.reject(err);
-				}
-			});
+			.then(parseJSON);
 	}
 
 	get(url: string, options?) {
