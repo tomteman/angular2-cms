@@ -3,7 +3,7 @@ import {Router, RouterOutlet} from 'angular2/router';
 import {Injector} from 'angular2/di';
 
 import {Session} from './session';
-import {SessionApi} from 'app/datacontext/repositories/session';
+import {SessionApi} from 'app/datacontext/repositories/sessionApi';
 
 @Directive({
   selector: 'router-outlet'

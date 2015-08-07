@@ -2,7 +2,7 @@ import {Component, View} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
 import {coreDirectives} from 'angular2/angular2';
 
-import {GameApi} from 'app/datacontext/repositories/game';
+import {GameApi} from 'app/datacontext/repositories/gameApi';
 
 let styles = require('./gameStaging.css');
 let template = require('./gameStaging.html');

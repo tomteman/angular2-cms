@@ -3,7 +3,7 @@ import {ControlGroup, FormBuilder, formDirectives, Validators} from 'angular2/an
 import {coreDirectives} from 'angular2/angular2'
 
 import {ISeedQuestion} from 'pof/question';
-import {QuestionApi} from 'app/datacontext/repositories/question';
+import {QuestionApi} from 'app/datacontext/repositories/questionApi';
 
 let styles = require('./createQuestion.css');
 let template = require('./createQuestion.html');

@@ -1,7 +1,7 @@
 import {Component, View} from 'angular2/angular2';
 import {Router} from 'angular2/router';
 
-import {GameApi} from 'app/datacontext/repositories/game';
+import {GameApi} from 'app/datacontext/repositories/gameApi';
 
 let styles = require('./createGame.css');
 let template = require('./createGame.html');
