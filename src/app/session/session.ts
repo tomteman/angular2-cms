@@ -27,6 +27,7 @@ export class Session {
 		if (isJsObject(user)) {
 			localStorage.setItem(SESSION_KEY, JSON.stringify(user));
 			this.activeUser.onNext(user);
+			this.activeUser.onCompleted();
 		}
 	}
 
