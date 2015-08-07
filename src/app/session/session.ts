@@ -31,6 +31,7 @@ export class Session {
 	}
 
 	static signin(returnUrl) {
+		this.deleteSession();
 		var signInState = Base64.encode(JSON.stringify({ returnUrl: returnUrl }));
 		location.href = properties.serverLocation + '/api/auth/signin/' + signInState;
 	}
@@ -40,7 +41,7 @@ export class Session {
 		location.href = properties.serverLocation + '/api/auth/signout';
 	}
 
-	static deleteSession() {
+	private static deleteSession() {
 		localStorage.removeItem(SESSION_KEY);
 	}
 

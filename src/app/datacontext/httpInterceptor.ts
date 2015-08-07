@@ -9,7 +9,6 @@ export class HttpInterceptor {
 
 	static checkAuth(response) {
 		if (response.status === 401) {
-			Session.deleteSession(); 
           	Session.signin(location.pathname);
 			
 			var err = {

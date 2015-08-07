@@ -34,7 +34,6 @@ export class LoggedInRouterOutlet extends RouterOutlet {
           return super.commit(instruction);
         })
         .catch(err => {
-            Session.deleteSession(); 
           	Session.signin(instruction.capturedUrl);
         });
     } else {
