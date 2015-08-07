@@ -1,4 +1,5 @@
 import {Injectable} from 'angular2/di';
+import * as Rx from 'rx';
 
 import {Base64} from 'app/facade/base64';
 import {isJsObject} from 'app/facade/lang';
@@ -8,18 +9,24 @@ let properties = require('app/properties.json');
 
 @Injectable()
 export class Session {
+	activeUser = new Rx.Subject();
 
 	constructor() {
 	}
 
 	getUser() {
 		var user = localStorage.getItem(SESSION_KEY);
-		return user ? JSON.parse(user) : null;
+		if (user) {
+			return { subscribe: cb => { return cb(JSON.parse(user)) } };
+		} else {
+			return this.activeUser;	
+		}
 	}
 
 	setUser(user) {
 		if (isJsObject(user)) {
 			localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+			this.activeUser.onNext(user);
 		}
 	}
 
@@ -36,12 +43,12 @@ export class Session {
 	static deleteSession() {
 		localStorage.removeItem(SESSION_KEY);
 	}
-	
-	static getSigninUrl(signInState: string) :string {
+
+	static getSigninUrl(signInState: string): string {
 		return properties.serverLocation + '/api/auth/signin/' + signInState;
 	}
-	
-	static getSignoutUrl() :string {
+
+	static getSignoutUrl(): string {
 		return properties.serverLocation + '/api/auth/signout';
 	}
 

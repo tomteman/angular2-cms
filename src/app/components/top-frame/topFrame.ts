@@ -19,7 +19,9 @@ export class TopFrame {
   activeUser;
 
   constructor(public session: Session) {
-    this.activeUser = session.getUser(); 
+    session.getUser().subscribe(data => {
+      this.activeUser = data;
+    });
   }
   
   signout() {
