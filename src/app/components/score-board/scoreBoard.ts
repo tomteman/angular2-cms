@@ -8,6 +8,7 @@ import {GameApi} from 'app/datacontext/repositories/gameApi';
 
 let styles = require('./scoreBoard.css');
 let template = require('./scoreBoard.html');
+let properties = require('app/properties.json');
 
 @Component({
   selector: 'score-board'
@@ -52,9 +53,13 @@ export class ScoreBoard {
     setTimeout(() => {
       this.gameApi.tick(gameName)
         .then(() => {
-          this.router.navigate('/show-question/' + gameName);
+          if (this.lastQuestion) {
+            this.router.navigate('/');          
+          } else {
+            this.router.navigate('/show-question/' + gameName);
+          }
         })
-    }, 5000);
+    }, properties.scoreBoardShowTime);
   }
 
 }

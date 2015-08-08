@@ -1,3 +1,4 @@
 {
-	"serverLocation": "http://pantsonfire.io:3333"
+	"serverLocation": "http://pantsonfire.io:3333",
+	"scoreBoardShowTime": 5000
 }
