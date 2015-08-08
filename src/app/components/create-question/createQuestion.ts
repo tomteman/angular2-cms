@@ -2,7 +2,7 @@ import {Component, View} from 'angular2/angular2';
 import {ControlGroup, FormBuilder, formDirectives, Validators} from 'angular2/angular2'
 import {coreDirectives} from 'angular2/angular2'
 
-import {ISeedQuestion} from 'pof/question';
+import {ISeedQuestion} from 'app/pof-typings/question';
 import {QuestionApi} from 'app/datacontext/repositories/questionApi';
 
 let styles = require('./createQuestion.css');

@@ -1,0 +1,12 @@
+<section *ng-if="game">
+	<p class="game-name"> {{ game.name | uppercase }} </p>
+	
+	<pre> isLastQuestion: {{ lastQuestion }} </pre>
+	
+	<p> Players: </p>
+	<ul>
+		<li *ng-for="#player of game.players">
+			 {{ player.name }}: {{ player.score }} 
+		 </li>
+	</ul>
+</section>

@@ -32,5 +32,9 @@ export class GameApi {
 	join(gameName: string) { 
 		return this.http.put('/api/games/' + gameName + '/join');
 	}
+	
+	tick(gameName: string) { 
+		return this.http.put('/api/games/' + gameName + '/tick');
+	}
 
 }
