@@ -1,5 +1,3 @@
-// @AngularClass
-
 // Helper
 var sliceArgs = Function.prototype.call.bind(Array.prototype.slice);
 var NODE_ENV = process.env.NODE_ENV || 'development';
@@ -53,7 +51,7 @@ var config = {
       'socket.io-client/socket.io',
       'whatwg-fetch/fetch',
       'lodash/index',
-      
+
       './src/app/bootstrap'
     ]
   },
@@ -107,10 +105,7 @@ var config = {
 
       // Support for .ts files.
       { test: /\.ts$/,    loader: 'typescript-simple?ignoreWarnings[]=2345', exclude: [
-          /\.spec\.ts$/,
-          /\.e2e\.ts$/,
           /web_modules/,
-          /test/,
           /node_modules/
         ]
       }
