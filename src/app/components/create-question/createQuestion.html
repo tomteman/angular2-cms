@@ -1,47 +1,57 @@
-<h2>Create New Question</h2>  
-<form [ng-form-model]="myForm"  
-      (submit)="onSubmit(myForm.value)">
+<section class="create-question text-center">
+    <form [ng-form-model]="myForm"
+          (submit)="onSubmit(myForm.value)"
+          class="mdl-grid">
 
-  <div class="form-group">    
-    <input type="text"
-           class="form-control"  
-           placeholder="Question"  
-           [ng-form-control]="myForm.controls['questionText']">
-    <div *ng-if="myForm.find('questionText').touched &&
-                 myForm.find('questionText').hasError('required')">
-        Question is required
-    </div>
-     
-     <input type="text"
-           class="form-control"  
-           placeholder="Answer"  
-           [ng-form-control]="myForm.controls['realAnswer']">
-     <div *ng-if="myForm.find('realAnswer').touched &&
-                  myForm.find('realAnswer').hasError('required')">
-        Answer is required
-    </div>
-          
-     <input type="text"
-           class="form-control"  
-           placeholder="Fake Answer #1"  
-           [ng-form-control]="myForm.controls['fakeAnswerOne']">
-     <div *ng-if="myForm.find('fakeAnswerOne').touched &&
-                  myForm.find('fakeAnswerOne').hasError('required')">
-        Fake Answer is required
-    </div>
-    
-     <input type="text"
-           class="form-control"  
-           placeholder="Fake Answer #2"  
-           [ng-form-control]="myForm.controls['fakeAnswerTwo']">
-     <div *ng-if="myForm.find('fakeAnswerTwo').touched &&
-                  myForm.find('fakeAnswerTwo').hasError('required')">
-        Fake Answer is required
-    </div>
-  </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
+            <input type="text"
+                   class="mdl-textfield__input"
+                   id="question"
+                   required
+                   [ng-form-control]="myForm.controls['questionText']">
+            <label class="mdl-textfield__label" for="question">Question</label>
+            <span
+                class="mdl-textfield__error"
+                *ng-if="myForm.find('questionText').touched && myForm.find('questionText').hasError('required')">
+                Question is required </span>
+        </div>
 
-  <button type="submit" class="btn btn-default" [disabled]="!myForm.valid">Create</button>
-</form>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
+            <input type="text"
+                   class="mdl-textfield__input"
+                   id="answer"
+                   required
+                   [ng-form-control]="myForm.controls['realAnswer']">
+            <label class="mdl-textfield__label" for="answer">Answer</label>
+            <span
+                class="mdl-textfield__error"
+                *ng-if="myForm.find('realAnswer').touched && myForm.find('realAnswer').hasError('required')">
+                Answer is required </span>
+        </div>
 
-<p *ng-if="showSuccessMsg"> Question added successfully </p>
-<p *ng-if="showErrorMsg"> {{ errorMsg }} </p>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
+            <input type="text"
+                   class="mdl-textfield__input"
+                   id="fakeAnswer"
+                   [ng-form-control]="myForm.controls['fakeAnswerOne']">
+            <label class="mdl-textfield__label" for="fakeAnswer">Fake Answer</label>
+        </div>
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
+            <input type="text"
+                   class="mdl-textfield__input"
+                   id="fakeAnswer2"
+                   [ng-form-control]="myForm.controls['fakeAnswerTwo']">
+            <label class="mdl-textfield__label" for="fakeAnswer2">Fake Answer</label>
+        </div>
+
+        <div class="mdl-cell mdl-cell--12-col">
+            <button type="submit"
+              class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+              [disabled]="!myForm.valid">Create</button>
+        </div>
+    </form>
+
+    <p *ng-if="showSuccessMsg"> Question added successfully </p>
+    <p *ng-if="showErrorMsg"> {{ errorMsg }} </p>
+</section>

@@ -1,7 +1,8 @@
-<header>
-	<top-frame></top-frame>
-</header>
-<main>
-	<router-outlet></router-outlet>
-</main>
-<footer></footer>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+	<top-frame class="mdl-layout__header"> </top-frame>
+	<top-frame-menu class="mdl-layout__drawer"></top-frame-menu>
+	<main class="mdl-layout__content">
+		<router-outlet class="page-content"></router-outlet>
+	</main>
+	<footer></footer>
+</div>

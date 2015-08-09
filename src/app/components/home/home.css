@@ -1,3 +1,16 @@
 .home {
-  background-color: #F8F8F8;
+    margin-top: 10%;
+}
+
+.home-pof-image {
+	position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -220px;
+    width: 440px;
+    height: 240px;
+}
+
+.text-center {
+	text-align: center;
 }

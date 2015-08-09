@@ -1,0 +1,17 @@
+<span class="mdl-layout-title">Menu</span>
+<nav class="mdl-navigation">
+	<a
+		class="mdl-navigation__link"
+		[router-link]="['/home']"
+		(click)="closeDrawer()">Home</a>
+	<a
+		class="mdl-navigation__link"
+		[router-link]="['/create-question']"
+		(click)="closeDrawer()">Create Question</a>
+	<a
+		class="mdl-navigation__link"
+		*ng-if="activeUser"
+		(click)="signout()">Signout</a>
+
+	<img *ng-if="activeUser" src="{{activeUser.picture}}" height="54" width="54">
+</nav>

@@ -4,6 +4,7 @@ import {RouteConfig, routerDirectives} from 'angular2/router';
 // Components
 import {Home} from './home/home';
 import {TopFrame} from './top-frame/topFrame';
+import {TopFrameMenu} from './top-frame-menu/topFrameMenu';
 import {CreateQuestion} from './create-question/createQuestion';
 import {CreateGame} from './create-game/createGame';
 import {JoinGame} from './join-game/joinGame';
@@ -20,7 +21,7 @@ let template = require('./app.html');
   selector: 'app'
 })
 @View({
-  directives: [LoggedInRouterOutlet, TopFrame],
+  directives: [LoggedInRouterOutlet, TopFrame, TopFrameMenu],
   styles: [styles],
   template: template
 })
