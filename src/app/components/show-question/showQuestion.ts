@@ -8,37 +8,47 @@ let styles = require('./showQuestion.css');
 let template = require('./showQuestion.html');
 
 @Component({
-  selector: 'show-question'
+    selector: 'show-question'
 })
 @View({
-  directives: [coreDirectives],
-  styles: [styles],
-  template: template
+    directives: [coreDirectives],
+    styles: [styles],
+    template: template
 })
 export class ShowQuestion {
-  game;
+    game;
 
-  constructor(public gameApi: GameApi, routeParams: RouteParams) {
-    var gameName = routeParams.get('gameName');
-    this.getGame(gameName);
-  }
+    constructor(public gameApi: GameApi, routeParams: RouteParams) {
+        var gameName = routeParams.get('gameName');
+        this.getGame(gameName);
+    }
 
-  getGame(gameName: string) {
-    this.gameApi.get(gameName)
-      .then(result => {
-        console.log(result);
-        this.game = result;
-        this.subscribe(gameName);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
+    getGame(gameName: string) {
+        this.gameApi.get(gameName)
+            .then(result => {
+                console.log(result);
+                this.game = result;
+                this.subscribe(gameName);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
 
-  subscribe(gameName: string) {
-    this.gameApi.feed(gameName).subscribe(change => {
-      console.log(change);
-    });
-  }
+    subscribe(gameName: string) {
+        this.gameApi.feed(gameName).subscribe(change => {
+            console.log(change);
+        });
+    }
+
+    answer(answerText: string) {
+        this.gameApi.answer(this.game.name, answerText)
+            .then(res => {
+
+            })
+            .catch(err => {
+
+            });
+    }
 
 }

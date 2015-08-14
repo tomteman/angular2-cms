@@ -9,7 +9,7 @@ let properties = require('app/properties.json');
 export class GameApi {
 	constructor(public http: HttpWrapper) {
 	}
-	
+
 	get(gameName: string) {
 		return this.http.get('/api/games/' + gameName);
 	}
@@ -24,17 +24,25 @@ export class GameApi {
 			.fromEvent(socket, 'game:' + gameName + ':feed')
 			.map(res => JSON.parse(res));
 	}
-	
+
 	start(gameName: string) {
 		return this.http.put('/api/games/' + gameName + '/start');
 	}
-	
-	join(gameName: string) { 
+
+	join(gameName: string) {
 		return this.http.put('/api/games/' + gameName + '/join');
 	}
-	
-	tick(gameName: string) { 
+
+	tick(gameName: string) {
 		return this.http.put('/api/games/' + gameName + '/tick');
+	}
+
+	answer(gameName: string, answer: string) {
+		return this.http.put('/api/games/' + gameName + '/answer', { answer: answer });
+	}
+
+	chooseAnswer(gameName: string, answer: string) {
+		return this.http.put('/api/games/' + gameName + '/chooseAnswer', { answer: answer });
 	}
 
 }
