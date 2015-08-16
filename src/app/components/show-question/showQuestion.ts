@@ -1,5 +1,6 @@
 import {Component, View} from 'angular2/angular2';
 import {RouteParams} from 'angular2/router';
+import {ControlGroup, FormBuilder, formDirectives, Validators} from 'angular2/angular2'
 import {coreDirectives} from 'angular2/angular2';
 
 import {GameApi} from 'app/datacontext/repositories/gameApi';
@@ -11,16 +12,26 @@ let template = require('./showQuestion.html');
     selector: 'show-question'
 })
 @View({
-    directives: [coreDirectives],
+    directives: [formDirectives, coreDirectives],
     styles: [styles],
     template: template
 })
 export class ShowQuestion {
     game;
+    warningMsg: string;
+    errorMsg: string;
+    myForm: ControlGroup;
 
-    constructor(public gameApi: GameApi, routeParams: RouteParams) {
+    constructor(public gameApi: GameApi, routeParams: RouteParams, public formBuilder: FormBuilder) {
         var gameName = routeParams.get('gameName');
         this.getGame(gameName);
+        this.buildForm();
+    }
+
+    buildForm() {
+        this.myForm = this.formBuilder.group({
+            answerText: ['', Validators.required]
+        });
     }
 
     getGame(gameName: string) {
@@ -41,13 +52,19 @@ export class ShowQuestion {
         });
     }
 
-    answer(answerText: string) {
-        this.gameApi.answer(this.game.name, answerText)
+    answer(formValue) {
+        console.log(formValue.answerText);
+
+        this.gameApi.answer(this.game.name, formValue.answerText)
             .then(res => {
 
             })
             .catch(err => {
-
+                if (err.code === 'CORRECT_ANSWER') {
+                    this.warningMsg = err.message;
+                } else {
+                    this.errorMsg = err.message;
+                }
             });
     }
 

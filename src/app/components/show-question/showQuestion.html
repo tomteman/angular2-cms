@@ -1,2 +1,24 @@
-<!-- TODO: normal form -->
-<button (click)="answer('as')"> Answer </button>
+<form
+	[ng-form-model]="myForm"
+	(submit)="answer(myForm.value)"
+	class="mdl-grid">
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
+            <input type="text"
+                   class="mdl-textfield__input"
+                   id="answer"
+                   required
+                   [ng-form-control]="myForm.controls['answerText']">
+            <label class="mdl-textfield__label" for="answer">Answer</label>
+            <span
+                class="mdl-textfield__error"
+                *ng-if="myForm.find('answerText').touched && myForm.find('answerText').hasError('required')">
+                Answer is required </span>
+        </div>
+
+        <div class="mdl-cell mdl-cell--12-col">
+            <button type="submit"
+              class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+              [disabled]="!myForm.valid">Send</button>
+        </div>
+</form>
