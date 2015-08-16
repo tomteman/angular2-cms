@@ -9,50 +9,53 @@ let styles = require('./createQuestion.css');
 let template = require('./createQuestion.html');
 
 @Component({
-  selector: 'create-question'
+    selector: 'create-question'
 })
 @View({
-  directives: [formDirectives, coreDirectives],
-  styles: [styles],
-  template: template
+    directives: [formDirectives, coreDirectives],
+    styles: [styles],
+    template: template
 })
 export class CreateQuestion {
-  myForm: ControlGroup;
-  showSuccessMsg: boolean;
-  showErrorMsg: boolean;
-  errorMsg: string;
+    myForm: ControlGroup;
+    showSuccessMsg: boolean;
+    showErrorMsg: boolean;
+    errorMsg: string;
 
-  constructor(fb: FormBuilder, public questionApi: QuestionApi) {
-    this.myForm = fb.group({
-      questionText: ['', Validators.required],
-      realAnswer: ['', Validators.required],
-      fakeAnswerOne: ['', Validators.required],
-      fakeAnswerTwo: ['', Validators.required]
-    });
-  }
+    constructor(fb: FormBuilder, public questionApi: QuestionApi) {
+        // MDL issue
+        componentHandler.upgradeDom();
+        
+        this.myForm = fb.group({
+            questionText: ['', Validators.required],
+            realAnswer: ['', Validators.required],
+            fakeAnswerOne: ['', Validators.required],
+            fakeAnswerTwo: ['', Validators.required]
+        });
+    }
 
-  onSubmit(formValue) {
-    this.showSuccessMsg = false;
-    this.showErrorMsg = false;
+    onSubmit(formValue) {
+        this.showSuccessMsg = false;
+        this.showErrorMsg = false;
 
-    var newQuestion: ISeedQuestion = {
-      fakeAnswers: [formValue.fakeAnswerOne, formValue.fakeAnswerTwo],
-      questionText: formValue.questionText,
-      realAnswer: formValue.realAnswer
-    };
+        var newQuestion: ISeedQuestion = {
+            fakeAnswers: [formValue.fakeAnswerOne, formValue.fakeAnswerTwo],
+            questionText: formValue.questionText,
+            realAnswer: formValue.realAnswer
+        };
 
-    this.questionApi.create(newQuestion)
-      .then( res => {
-        this.clearForm();
-        this.showSuccessMsg = true;
-      })
-      .catch(err => {
-        this.showErrorMsg = true;
-        this.errorMsg = err.data;
-      });
-  }
-  
-  clearForm() {
-    console.log(this.myForm);
-  }
+        this.questionApi.create(newQuestion)
+            .then(res => {
+                this.clearForm();
+                this.showSuccessMsg = true;
+            })
+            .catch(err => {
+                this.showErrorMsg = true;
+                this.errorMsg = err.data;
+            });
+    }
+
+    clearForm() {
+        console.log(this.myForm);
+    }
 }

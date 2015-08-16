@@ -23,6 +23,9 @@ export class ShowQuestion {
     myForm: ControlGroup;
 
     constructor(public gameApi: GameApi, routeParams: RouteParams, public formBuilder: FormBuilder) {
+        // MDL issue
+        componentHandler.upgradeDom();
+        
         var gameName = routeParams.get('gameName');
         this.getGame(gameName);
         this.buildForm();

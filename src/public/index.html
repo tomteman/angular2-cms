@@ -1,50 +1,48 @@
 <!DOCTYPE html>
 <html lang="">
+
 <head>
-  <title>Pants On Fire</title>
+    <title>Pants On Fire</title>
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Pants On Fire">
-  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Pants On Fire">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
-  <!-- Material Design Lite -->
+    <!-- Material Design Lite -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
-    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.indigo-pink.min.css">
-    <!-- Material Design icon font -->
+    <script src="./css/material.js"></script>
+    <link rel="stylesheet" href="./css/material.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-  <base href="/">
-  <!-- ignore: Aplha 32 router fix -->
-  <script>baseElement = document.querySelector('base');baseElement.attr = baseElement.getAttribute;</script>
-  <!-- styles -->
-  <style>
-    body {
-      margin: 0;
-    }
-  </style>
-  <!--
+    <base href="/">
+    <!-- ignore: Aplha 32 router fix -->
+    <script>
+        baseElement = document.querySelector('base');baseElement.attr = baseElement.getAttribute;
+    </script>
+    <!--
     Angular 2
     traceur-runtime: is only needed for ES6 browser polyfill
     this is not the full traceur only the polyfills
   -->
-  <script src="/lib/traceur-runtime.min.js"></script>
+    <script src="/lib/traceur-runtime.min.js"></script>
 </head>
+
 <body>
 
-  <app>
-    Loading...
-  </app>
+    <app>
+        Loading...
+    </app>
 
-  <!-- Commmon files to be cached -->
-  <script src="/__build__/common.js"></script>
-  <!-- Angular2 files -->
-  <script src="/__build__/angular2.js"></script>
-  <!-- App script -->
-  <script src="/__build__/app.js"></script>
+    <!-- Commmon files to be cached -->
+    <script src="/__build__/common.js"></script>
+    <!-- Angular2 files -->
+    <script src="/__build__/angular2.js"></script>
+    <!-- App script -->
+    <script src="/__build__/app.js"></script>
 </body>
+
 </html>

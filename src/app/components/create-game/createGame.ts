@@ -7,24 +7,27 @@ let styles = require('./createGame.css');
 let template = require('./createGame.html');
 
 @Component({
-  selector: 'create-game'
+    selector: 'create-game'
 })
 @View({
-  styles: [styles],
-  template: template
+    styles: [styles],
+    template: template
 })
 export class CreateGame {
-  constructor(public gameApi: GameApi, public router: Router) {
-    this.createGame();
-  }
+    constructor(public gameApi: GameApi, public router: Router) {
+        // MDL issue
+        componentHandler.upgradeDom();
+        
+        this.createGame();
+    }
 
-  createGame() {
-    this.gameApi.create()
-      .then(result => {
-        this.router.navigate('/game-staging/' + result.name);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  }
+    createGame() {
+        this.gameApi.create()
+            .then(result => {
+                this.router.navigate('/game-staging/' + result.name);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
 }
