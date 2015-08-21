@@ -22,6 +22,7 @@ let template = require('./showAnswers.html');
 export class ShowAnswers {
     game;
     question;
+    subscribeSource;
     answerSelected: string;
     isPlayer: boolean;
     warningMsg: string;
@@ -64,7 +65,7 @@ export class ShowAnswers {
     }
 
     subscribe(gameName: string) {
-        this.gameApi.feed(gameName).subscribe(change => {
+        this.subscribeSource = this.gameApi.feed(gameName).subscribe(change => {
             console.log(change);
 
             var currentQuestion = _.find(change.new_val.questions, q => {
@@ -72,6 +73,7 @@ export class ShowAnswers {
             });
 
             if (currentQuestion.state === QuestionState.RevealTheTruth) {
+                this.subscribeSource.dispose();
                 this.router.navigate('/reveal-the-truth/' + gameName);
             }
         });

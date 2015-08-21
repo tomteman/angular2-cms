@@ -19,6 +19,7 @@ export class LoggedInRouterOutlet extends RouterOutlet {
     this.publicRoutes = {
       'signin': true,
       'create-game': true,
+      'home': true,
       '/': true
     };
   }

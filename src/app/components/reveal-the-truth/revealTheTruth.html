@@ -1,8 +1,5 @@
-reveal-the-truth
-
 <section *ng-if="question">
-	llso
-	{{question | json}}
+	<pre> {{question | json}} </pre>
 	<h1> {{question.text}} </h1>
-	<button (click)="finish()"> </button>
+	<button (click)="finish()"> Move To Score-Board </button>
 </section>

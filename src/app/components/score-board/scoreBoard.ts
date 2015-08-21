@@ -4,7 +4,9 @@ import {coreDirectives} from 'angular2/angular2';
 
 import * as _ from 'lodash';
 import {QuestionState, IQuestion} from 'app/pof-typings/question';
+import {GameState} from 'app/pof-typings/game';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
+import {Session} from 'app/session/session';
 
 let styles = require('./scoreBoard.css');
 let template = require('./scoreBoard.html');
@@ -20,16 +22,19 @@ let properties = require('app/properties.json');
 })
 export class ScoreBoard {
     game;
-    lastQuestion: boolean;
+    subscribeSource;
 
-    constructor(public gameApi: GameApi, public router: Router, routeParams: RouteParams) {
+    constructor(public gameApi: GameApi, public router: Router,
+                routeParams: RouteParams, public session: Session) {
         // MDL issue
         componentHandler.upgradeDom();
-        
+
         var gameName = routeParams.get('gameName');
         this.getGame(gameName).then(game => {
-            this.lastQuestion = this.isLastQuestion(game);
-            this.startTimer(game.name);
+            // This limit us to one presenter for a game!
+            if (this.session.isPresenter()) {
+                this.startTimer(game.name);
+            }
         });
     }
 
@@ -37,6 +42,7 @@ export class ScoreBoard {
         return this.gameApi.get(gameName)
             .then(result => {
                 this.game = result;
+                this.subscribe(gameName);
                 return this.game;
             })
             .catch(err => {
@@ -44,24 +50,21 @@ export class ScoreBoard {
             });
     }
 
-    isLastQuestion(game) {
-        var indexOfCurrentQuestion = _.findIndex(game.questions, (q: IQuestion) => {
-            return q.state !== QuestionState.End;
+     subscribe(gameName: string) {
+        this.subscribeSource = this.gameApi.feed(gameName).subscribe(change => {
+            console.log(change);
+            this.subscribeSource.dispose();
+            if (change.new_val.state === GameState.GameOver) {
+                this.router.navigate('/home');
+            } else {
+                this.router.navigate('/show-question/' + this.game.name);
+            }
         });
-
-        return indexOfCurrentQuestion === (game.questions.length - 1);
     }
 
     startTimer(gameName: string) {
         setTimeout(() => {
-            this.gameApi.tick(gameName)
-                .then(() => {
-                    if (this.lastQuestion) {
-                        this.router.navigate('/');
-                    } else {
-                        this.router.navigate('/show-question/' + gameName);
-                    }
-                })
+            this.gameApi.tick(gameName);
         }, properties.scoreBoardShowTime);
     }
 

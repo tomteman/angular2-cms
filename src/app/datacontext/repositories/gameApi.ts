@@ -45,4 +45,8 @@ export class GameApi {
 		return this.http.put('/api/games/' + gameName + '/chooseAnswer', { answer: answer });
 	}
 
+	finishRevealingTheTruth(gameName: string) {
+		return this.http.put('/api/games/' + gameName + '/finishRevealingTheTruth');
+	}
+
 }

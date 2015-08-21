@@ -44,7 +44,7 @@ export class JoinGame {
             })
             .catch(err => {
                 console.log(err);
-                this.serverErrorMsg = err;
+                this.serverErrorMsg = err.data.message;
             })
     }
 }

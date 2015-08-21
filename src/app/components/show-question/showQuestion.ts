@@ -22,6 +22,7 @@ let template = require('./showQuestion.html');
 export class ShowQuestion {
     game;
     question;
+    subscribeSource;
     isPlayer: boolean;
     questionSubmitted: boolean;
     warningMsg: string;
@@ -64,7 +65,7 @@ export class ShowQuestion {
     }
 
     subscribe(gameName: string) {
-        this.gameApi.feed(gameName).subscribe(change => {
+        this.subscribeSource = this.gameApi.feed(gameName).subscribe(change => {
             console.log(change);
 
             var currentQuestion = _.find(change.new_val.questions, q => {
@@ -72,6 +73,7 @@ export class ShowQuestion {
             });
 
             if (currentQuestion.state === QuestionState.ShowAnswers) {
+                this.subscribeSource.dispose();
                 this.router.navigate('/show-answers/' + gameName);
             }
         });

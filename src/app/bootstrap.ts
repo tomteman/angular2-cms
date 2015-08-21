@@ -7,41 +7,33 @@ import {App} from './components/app';
 import {datacontextInjectables} from './datacontext/index';
 import {sessionInjectables} from './session/index';
 
-import {
-nativeShadowDomInjectables,
-emulatedScopedShadowDomInjectables,
-emulatedUnscopedShadowDomInjectables
-} from '../common/shadowDomInjectables';
-import {
-jitInjectables,
-dynamicInjectables,
-preGeneratedInjectables
-} from '../common/changeDetectionInjectables';
+import {nativeShadowDomInjectables, emulatedScopedShadowDomInjectables, emulatedUnscopedShadowDomInjectables} from '../common/shadowDomInjectables';
+import {jitInjectables, dynamicInjectables, preGeneratedInjectables} from '../common/changeDetectionInjectables';
 
 var universalInjectables = [
-  httpInjectables,
-  formInjectables,
-  routerInjectables,
+    httpInjectables,
+    formInjectables,
+    routerInjectables,
 ];
 
 var platformInjectables = [
-  // if we want to use the Just-In-Time change detection
-  // bestChangeDetectionInjectables,
+    // if we want to use the Just-In-Time change detection
+    // bestChangeDetectionInjectables,
 
-  // nativeShadowDomInjectables
+    // nativeShadowDomInjectables
 ];
 
 var appInjectables = [
-  datacontextInjectables,
-  sessionInjectables
+    datacontextInjectables,
+    sessionInjectables
 ]
 
 bootstrap(
-  App,
+    App,
 
-  [
-    universalInjectables,
-    platformInjectables,
-    appInjectables
-  ]
-  );
+    [
+        universalInjectables,
+        platformInjectables,
+        appInjectables
+    ]
+    );

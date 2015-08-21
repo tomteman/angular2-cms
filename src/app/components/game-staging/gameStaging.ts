@@ -18,6 +18,7 @@ let template = require('./gameStaging.html');
 })
 export class GameStaging {
     game;
+    subscribeSource;
 
     constructor(public gameApi: GameApi, routeParams: RouteParams, public router: Router) {
         // MDL issue
@@ -39,7 +40,7 @@ export class GameStaging {
     }
 
     subscribe(gameName: string) {
-        this.gameApi.feed(gameName).subscribe(change => {
+        this.subscribeSource = this.gameApi.feed(gameName).subscribe(change => {
             console.log(change);
 
             if (change.new_val.players.length !== change.old_val.players.length) {
@@ -47,6 +48,7 @@ export class GameStaging {
             }
 
             if (change.new_val.state === GameState.InProgress) {
+                this.subscribeSource.dispose();
                 this.router.navigate('/show-question/' + gameName);
             }
 

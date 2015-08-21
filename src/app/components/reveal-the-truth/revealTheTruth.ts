@@ -22,6 +22,7 @@ let template = require('./revealTheTruth.html');
 export class RevealTheTruth {
     game;
     question;
+    subscribeSource;
     answerSelected: string;
     isPlayer: boolean;
     warningMsg: string;
@@ -63,8 +64,17 @@ export class RevealTheTruth {
     }
 
     subscribe(gameName: string) {
-        this.gameApi.feed(gameName).subscribe(change => {
+        this.subscribeSource = this.gameApi.feed(gameName).subscribe(change => {
             console.log(change);
+
+            var currentQuestion = _.find(change.new_val.questions, q => {
+                return q.id === this.question.id;
+            });
+
+            if (currentQuestion.state === QuestionState.ScoreBoard) {
+                this.subscribeSource.dispose();
+                this.router.navigate('/score-board/' + gameName);
+            }
         });
     }
 
@@ -75,7 +85,10 @@ export class RevealTheTruth {
     }
 
     finish() {
-
+        this.gameApi.finishRevealingTheTruth(this.game.name)
+            .catch(err => {
+                console.log(err);
+            })
     }
 
 }
