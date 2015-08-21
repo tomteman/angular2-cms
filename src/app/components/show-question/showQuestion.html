@@ -1,4 +1,8 @@
-<form
+<section *ng-if="question">
+    {{question.questionText}}
+</section>
+
+<form *ng-if="isPlayer && !questionSubmitted"
 	[ng-form-model]="myForm"
 	(submit)="answer(myForm.value)"
 	class="mdl-grid">
@@ -22,3 +26,11 @@
               [disabled]="!myForm.valid">Send</button>
         </div>
 </form>
+
+<p *ng-if="warningMsg">
+    You entered the truth! Try another answer..
+</p>
+
+<p *ng-if="errorMsg">
+    {{errorMsg}}
+</p>

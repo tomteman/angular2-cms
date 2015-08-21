@@ -8,8 +8,8 @@ import {GameState} from 'app/pof-typings/game';
 import {Session} from 'app/session/session';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 
-let styles = require('./showQuestion.css');
-let template = require('./showQuestion.html');
+let styles = require('./showAnswers.css');
+let template = require('./showAnswers.html');
 
 @Component({
     selector: 'show-question'
@@ -19,11 +19,11 @@ let template = require('./showQuestion.html');
     styles: [styles],
     template: template
 })
-export class ShowQuestion {
+export class ShowAnswers {
     game;
     question;
+    answerSelected: string;
     isPlayer: boolean;
-    questionSubmitted: boolean;
     warningMsg: string;
     errorMsg: string;
     myForm: ControlGroup;
@@ -38,7 +38,7 @@ export class ShowQuestion {
         this.setGame(gameName)
             .then(() => {
                 this.setCurrentQuestion();
-                this.checkIfQuestionSubmitted();
+                this.checkIfAnswerSelected();
             });
 
         this.buildForm();
@@ -71,46 +71,43 @@ export class ShowQuestion {
                 return q.id === this.question.id;
             });
 
-            if (currentQuestion.state === QuestionState.ShowAnswers) {
-                this.router.navigate('/show-answers/' + gameName);
+            if (currentQuestion.state === QuestionState.RevealTheTruth) {
+                this.router.navigate('/reveal-the-truth/' + gameName);
             }
         });
     }
 
-    checkIfQuestionSubmitted() {
-        this.session.getUser().subscribe(user => {
-            this.questionSubmitted = !!_.find(this.question.fakeAnswers, fakeAnswer => {
-                return ~fakeAnswer.createdBy.indexOf(user.id);
-            })
+    setCurrentQuestion() {
+        this.question = _.find(this.game.questions, function(q: IQuestion) {
+            return q.state === QuestionState.ShowAnswers;
         });
     }
 
-    answer(formValue) {
-        console.log(formValue.answerText);
-        this.warningMsg = '';
-        this.errorMsg = '';
-        this.gameApi.answer(this.game.name, formValue.answerText)
-            .then(() => {
-                this.questionSubmitted = true;
+    choose(answerText) {
+        this.gameApi.chooseAnswer(this.game.name, answerText)
+            .then(res => {
+                this.answerSelected = answerText;
+                console.log(res);
             })
             .catch(err => {
-                if (err.data.code === 'CORRECT_ANSWER') {
-                    this.warningMsg = err.data.message;
-                    this.clearAnswer();
-                } else {
-                    this.errorMsg = err.data.message;
-                }
+                console.log(err);
             });
     }
 
-    setCurrentQuestion() {
-        this.question = _.find(this.game.questions, function(q: IQuestion) {
-            return q.state === QuestionState.ShowQuestion;
+    checkIfAnswerSelected() {
+        this.session.getUser().subscribe(user => {
+
+            var fakeAnswerSelected = _.find(this.question.fakeAnswers, fakeAnswer => {
+                return ~fakeAnswer.selectedBy.indexOf(user.id);
+            });
+
+            var realAnswerSelected = ~this.question.realAnswer.selectedBy.indexOf(user.id);
+
+            if (fakeAnswerSelected) {
+                this.answerSelected = fakeAnswerSelected.text;
+            } else if (realAnswerSelected) {
+                this.answerSelected = this.question.realAnswer.text;
+            }
         });
     }
-
-    clearAnswer() {
-
-    }
-
 }

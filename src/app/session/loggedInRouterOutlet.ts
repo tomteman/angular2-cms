@@ -15,11 +15,10 @@ export class LoggedInRouterOutlet extends RouterOutlet {
     public _parentRouter: Router, @Attribute('name') nameAttr: string,
     public session: Session, public sessionApi: SessionApi) {
     super(_elementRef, _loader, _parentRouter, nameAttr);
-    
+
     this.publicRoutes = {
       'signin': true,
       'create-game': true,
-      'game-staging': true,
       '/': true
     };
   }
@@ -27,7 +26,7 @@ export class LoggedInRouterOutlet extends RouterOutlet {
   commit(instruction) {
     var url = this._parentRouter.lastNavigationAttempt;
 
-    if (url !== '' && url !== '/' && !this.publicRoutes[url.split('/')[1]] && !localStorage.getItem('sessionData')) {
+    if (!this.isPublicBaseUrl(url) && !this.session.isPlayer() && !this.session.isPresenter()) {
       return this.sessionApi.getUserDetails()
         .then(user => {
           this.session.setUser(user);
@@ -39,5 +38,9 @@ export class LoggedInRouterOutlet extends RouterOutlet {
     } else {
       return super.commit(instruction);
     }
+  }
+
+  isPublicBaseUrl(url) {
+      return url === '' || url === '/' || this.publicRoutes[url.split('/')[1]];
   }
 }

@@ -10,12 +10,14 @@ import {PipeRegistry, Pipes, defaultPipes} from 'angular2/change_detection';
  */
 import {capitalize} from './CapitalizePipe';
 import {rxAsync} from './RxPipe';
+import {json} from './JsonPipe'
 
 
 export var appPipes = [
   Pipes.extend({
     'async': rxAsync,
-    'capitalize': capitalize
+    'capitalize': capitalize,
+    'json': json
     // add more pipes to this Map
   })
 ];

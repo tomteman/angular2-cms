@@ -2,9 +2,11 @@ import {Injectable} from 'angular2/di';
 import * as Rx from 'rx';
 
 import {Base64} from 'app/facade/base64';
+import {getCookie} from 'app/facade/cookie';
 import {isJsObject} from 'app/facade/lang';
 
 const SESSION_KEY = 'sessionData';
+const PRESENTER_KEY = 'presenter';
 let properties = require('app/properties.json');
 
 @Injectable()
@@ -19,8 +21,16 @@ export class Session {
 		if (user) {
 			return { subscribe: cb => { return cb(JSON.parse(user)) } };
 		} else {
-			return this.activeUser;	
+			return this.activeUser;
 		}
+	}
+
+	isPlayer() {
+		return !!localStorage.getItem(SESSION_KEY);
+	}
+
+	isPresenter() {
+		return !!getCookie(PRESENTER_KEY);
 	}
 
 	setUser(user) {

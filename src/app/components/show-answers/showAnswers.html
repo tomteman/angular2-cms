@@ -1,0 +1,33 @@
+<section *ng-if="question && !answerSelected">
+
+	<section *ng-if="isPlayer">
+		<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
+			<button
+				(click)="choose(question.realAnswer.text)"
+				class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+				{{ question.realAnswer.text }}
+			</button>
+		</div>
+		<div
+			*ng-for="#fakeAnswer of question.fakeAnswers"
+			class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
+			<button
+				(click)="choose(fakeAnswer.text)"
+				class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+				{{ fakeAnswer.text }}
+			</button>
+		</div>
+	</section>
+
+	<section *ng-if="!isPlayer">
+
+		<ul>
+			<li> {{ question.realAnswer.text }} </li>
+			<li *ng-for="#fakeAnswer of question.fakeAnswers"> {{ fakeAnswer.text }} </li>
+		</ul>
+	</section>
+</section>
+
+<p *ng-if="answerSelected">
+	{{answerSelected}}
+</p>

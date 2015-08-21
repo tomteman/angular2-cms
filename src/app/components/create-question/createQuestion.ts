@@ -22,15 +22,18 @@ export class CreateQuestion {
     showErrorMsg: boolean;
     errorMsg: string;
 
-    constructor(fb: FormBuilder, public questionApi: QuestionApi) {
+    constructor(formBuilder: FormBuilder, public questionApi: QuestionApi) {
         // MDL issue
         componentHandler.upgradeDom();
-        
-        this.myForm = fb.group({
+
+        this.myForm = formBuilder.group({
             questionText: ['', Validators.required],
             realAnswer: ['', Validators.required],
-            fakeAnswerOne: ['', Validators.required],
-            fakeAnswerTwo: ['', Validators.required]
+
+            fakeAnswers: formBuilder.group({
+                one: [''],
+                two: ['']
+            })
         });
     }
 
@@ -39,7 +42,7 @@ export class CreateQuestion {
         this.showErrorMsg = false;
 
         var newQuestion: ISeedQuestion = {
-            fakeAnswers: [formValue.fakeAnswerOne, formValue.fakeAnswerTwo],
+            fakeAnswers: _.toArray(formValue.fakeAnswers),
             questionText: formValue.questionText,
             realAnswer: formValue.realAnswer
         };

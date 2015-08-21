@@ -2,6 +2,7 @@ import {Component, View} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
 import {coreDirectives} from 'angular2/angular2';
 
+import {GameState} from 'app/pof-typings/game';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 
 let styles = require('./gameStaging.css');
@@ -21,7 +22,7 @@ export class GameStaging {
     constructor(public gameApi: GameApi, routeParams: RouteParams, public router: Router) {
         // MDL issue
         componentHandler.upgradeDom();
-        
+
         var gameName = routeParams.get('gameName');
         this.getGame(gameName);
     }
@@ -41,8 +42,12 @@ export class GameStaging {
         this.gameApi.feed(gameName).subscribe(change => {
             console.log(change);
 
-            if (change.new_val) {
+            if (change.new_val.players.length !== change.old_val.players.length) {
                 this.game.players = change.new_val.players;
+            }
+
+            if (change.new_val.state === GameState.InProgress) {
+                this.router.navigate('/show-question/' + gameName);
             }
 
         });

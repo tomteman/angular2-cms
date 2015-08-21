@@ -8,7 +8,7 @@
                    class="mdl-textfield__input"
                    id="question"
                    required
-                   [ng-form-control]="myForm.controls['questionText']">
+                   [ng-form-control]="myForm.controls.questionText">
             <label class="mdl-textfield__label" for="question">Question</label>
             <span
                 class="mdl-textfield__error"
@@ -21,7 +21,7 @@
                    class="mdl-textfield__input"
                    id="answer"
                    required
-                   [ng-form-control]="myForm.controls['realAnswer']">
+                   [ng-form-control]="myForm.controls.realAnswer">
             <label class="mdl-textfield__label" for="answer">Answer</label>
             <span
                 class="mdl-textfield__error"
@@ -32,16 +32,16 @@
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
             <input type="text"
                    class="mdl-textfield__input"
-                   id="fakeAnswer"
-                   [ng-form-control]="myForm.controls['fakeAnswerOne']">
-            <label class="mdl-textfield__label" for="fakeAnswer">Fake Answer</label>
+                   id="fakeAnswer1"
+                   [ng-form-control]="myForm.controls.fakeAnswers.controls.one">
+            <label class="mdl-textfield__label" for="fakeAnswer1">Fake Answer</label>
         </div>
 
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
             <input type="text"
                    class="mdl-textfield__input"
                    id="fakeAnswer2"
-                   [ng-form-control]="myForm.controls['fakeAnswerTwo']">
+                   [ng-form-control]="myForm.controls.fakeAnswers.controls.two">
             <label class="mdl-textfield__label" for="fakeAnswer2">Fake Answer</label>
         </div>
 

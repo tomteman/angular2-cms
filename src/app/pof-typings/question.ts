@@ -25,5 +25,5 @@ export interface RealAnswer {
 }
 
 export enum QuestionState {
-  Pending, ShowQuestion, ShowAnswers, RevealTheTruth, End
+  Pending, ShowQuestion, ShowAnswers, RevealTheTruth, ScoreBoard, End
 }

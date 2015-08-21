@@ -8,22 +8,22 @@ import {GameState} from 'app/pof-typings/game';
 import {Session} from 'app/session/session';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 
-let styles = require('./showQuestion.css');
-let template = require('./showQuestion.html');
+let styles = require('./revealTheTruth.css');
+let template = require('./revealTheTruth.html');
 
 @Component({
-    selector: 'show-question'
+    selector: 'reveal-the-truth'
 })
 @View({
     directives: [formDirectives, coreDirectives],
     styles: [styles],
     template: template
 })
-export class ShowQuestion {
+export class RevealTheTruth {
     game;
     question;
+    answerSelected: string;
     isPlayer: boolean;
-    questionSubmitted: boolean;
     warningMsg: string;
     errorMsg: string;
     myForm: ControlGroup;
@@ -38,7 +38,6 @@ export class ShowQuestion {
         this.setGame(gameName)
             .then(() => {
                 this.setCurrentQuestion();
-                this.checkIfQuestionSubmitted();
             });
 
         this.buildForm();
@@ -66,50 +65,16 @@ export class ShowQuestion {
     subscribe(gameName: string) {
         this.gameApi.feed(gameName).subscribe(change => {
             console.log(change);
-
-            var currentQuestion = _.find(change.new_val.questions, q => {
-                return q.id === this.question.id;
-            });
-
-            if (currentQuestion.state === QuestionState.ShowAnswers) {
-                this.router.navigate('/show-answers/' + gameName);
-            }
         });
-    }
-
-    checkIfQuestionSubmitted() {
-        this.session.getUser().subscribe(user => {
-            this.questionSubmitted = !!_.find(this.question.fakeAnswers, fakeAnswer => {
-                return ~fakeAnswer.createdBy.indexOf(user.id);
-            })
-        });
-    }
-
-    answer(formValue) {
-        console.log(formValue.answerText);
-        this.warningMsg = '';
-        this.errorMsg = '';
-        this.gameApi.answer(this.game.name, formValue.answerText)
-            .then(() => {
-                this.questionSubmitted = true;
-            })
-            .catch(err => {
-                if (err.data.code === 'CORRECT_ANSWER') {
-                    this.warningMsg = err.data.message;
-                    this.clearAnswer();
-                } else {
-                    this.errorMsg = err.data.message;
-                }
-            });
     }
 
     setCurrentQuestion() {
         this.question = _.find(this.game.questions, function(q: IQuestion) {
-            return q.state === QuestionState.ShowQuestion;
+            return q.state === QuestionState.RevealTheTruth;
         });
     }
 
-    clearAnswer() {
+    finish() {
 
     }
 
