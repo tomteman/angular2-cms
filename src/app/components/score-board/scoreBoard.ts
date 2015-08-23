@@ -10,7 +10,7 @@ import {Session} from 'app/session/session';
 
 let styles = require('./scoreBoard.css');
 let template = require('./scoreBoard.html');
-let properties = require('app/properties.json');
+let scoreBoardShowTime = 5000;
 
 @Component({
     selector: 'score-board'
@@ -65,7 +65,7 @@ export class ScoreBoard {
     startTimer(gameName: string) {
         setTimeout(() => {
             this.gameApi.tick(gameName);
-        }, properties.scoreBoardShowTime);
+        }, scoreBoardShowTime);
     }
 
 }

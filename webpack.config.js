@@ -13,7 +13,8 @@ var CommonsChunkPlugin   = webpack.optimize.CommonsChunkPlugin;
 var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var DedupePlugin   = webpack.optimize.DedupePlugin;
 var DefinePlugin   = webpack.DefinePlugin;
-var BannerPlugin   = webpack.BannerPlugin;
+var BannerPlugin = webpack.BannerPlugin;
+var NormalModuleReplacementPlugin = webpack.NormalModuleReplacementPlugin;
 
 
 /*
@@ -58,7 +59,7 @@ var config = {
 
   // Config for our build files
   output: {
-    path: root('__build__'),
+    path: NODE_ENV === 'production' ? root('dist/__build__') : root('__build__'),
     filename: '[name].js',
     // filename: '[name].[hash].js',
     sourceMapFilename: '[name].js.map',
@@ -147,22 +148,24 @@ var environment_plugins = {
   ],
 
   production: [
-    new UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        drop_debugger: false
-      },
-      output: {
-        comments: false
-      },
-      beautify: false
-    }),
+    // new UglifyJsPlugin({
+    //   compress: {
+    //     warnings: false,
+    //     drop_debugger: false
+    //   },
+    //   output: {
+    //     comments: false
+    //   },
+    //   beautify: false
+    // }),
+    new NormalModuleReplacementPlugin(/config.json/, 'src/config/production.json'),
     new BannerPlugin(getBanner(), {entryOnly: true})
   ],
 
   development: [
     /* Dev Plugin */
     // new webpack.HotModuleReplacementPlugin(),
+    new NormalModuleReplacementPlugin(/config.json/, 'src/config/default.json')
   ]
 
 }//env
@@ -177,11 +180,11 @@ var environment_plugins = {
 
 if (NODE_ENV === 'production') {
   // replace filename `.js` with `.min.js`
-  config.output.filename = config.output.filename.replace('.js', '.min.js');
-  config.output.sourceMapFilename = config.output.sourceMapFilename.replace('.js', '.min.js');
-  commons_chunks_plugins = commons_chunks_plugins.map(function(chunk) {
-    return chunk.filename.replace('.js', '.min.js');
-  });
+  // config.output.filename = config.output.filename.replace('.js', '.min.js');
+  // config.output.sourceMapFilename = config.output.sourceMapFilename.replace('.js', '.min.js');
+  // commons_chunks_plugins = commons_chunks_plugins.map(function(chunk) {
+    // return chunk.filename.replace('.js', '.min.js');
+  // });
 }
 else if (NODE_ENV === 'development') {
   // any development actions here

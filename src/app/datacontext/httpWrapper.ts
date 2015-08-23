@@ -2,10 +2,10 @@ import {Injectable, bind} from 'angular2/di';
 import {Observable} from 'rx';
 
 import {checkStatus, parseJSON} from './fetchFunctions';
-import {HttpInterceptor} from './httpInterceptor' 
+import {HttpInterceptor} from './httpInterceptor'
 
 
-let properties = require('app/properties.json');
+let config = require('config.json');
 
 @Injectable()
 export class HttpWrapper {
@@ -17,7 +17,7 @@ export class HttpWrapper {
 		},
 		credentials: 'include'
 	}
-	
+
 	constructor() { }
 
 	request(url: string, options) {
@@ -28,7 +28,7 @@ export class HttpWrapper {
 		}
 
 		return window
-			.fetch(properties.serverLocation + url, fetchOptions)
+			.fetch(config.serverLocation + url, fetchOptions)
 			.then(HttpInterceptor.checkAuth)
 			.then(checkStatus)
 			.then(parseJSON);

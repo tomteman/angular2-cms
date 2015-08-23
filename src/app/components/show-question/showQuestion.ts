@@ -81,9 +81,9 @@ export class ShowQuestion {
 
     checkIfQuestionSubmitted() {
         this.session.getUser().subscribe(user => {
-            this.questionSubmitted = !!_.find(this.question.fakeAnswers, fakeAnswer => {
-                return ~fakeAnswer.createdBy.indexOf(user.id);
-            })
+            this.questionSubmitted = _.any(this.question.fakeAnswers, fakeAnswer =>
+                _.contains(fakeAnswer.createdBy, user.id)
+            )
         });
     }
 
@@ -106,9 +106,9 @@ export class ShowQuestion {
     }
 
     setCurrentQuestion() {
-        this.question = _.find(this.game.questions, function(q: IQuestion) {
-            return q.state === QuestionState.ShowQuestion;
-        });
+        this.question = _.find(this.game.questions, (q: IQuestion) =>
+            q.state === QuestionState.ShowQuestion
+        );
     }
 
     clearAnswer() {

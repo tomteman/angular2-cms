@@ -7,7 +7,7 @@ import {isJsObject} from 'app/facade/lang';
 
 const SESSION_KEY = 'sessionData';
 const PRESENTER_KEY = 'presenter';
-let properties = require('app/properties.json');
+let config = require('config.json');
 
 @Injectable()
 export class Session {
@@ -44,12 +44,12 @@ export class Session {
 	static signin(returnUrl) {
 		this.deleteSession();
 		var signInState = Base64.encode(JSON.stringify({ returnUrl: returnUrl }));
-		location.href = properties.serverLocation + '/api/auth/signin/' + signInState;
+		location.href = config.serverLocation + '/api/auth/signin/' + signInState;
 	}
 
 	static signout() {
 		this.deleteSession();
-		location.href = properties.serverLocation + '/api/auth/signout';
+		location.href = config.serverLocation + '/api/auth/signout';
 	}
 
 	private static deleteSession() {

@@ -3,7 +3,7 @@ import {HttpWrapper} from 'app/datacontext/httpWrapper';
 import {Observable} from 'rx';
 import * as io from 'socket.io-client';
 
-let properties = require('app/properties.json');
+let config = require('config.json');
 
 @Injectable()
 export class GameApi {
@@ -19,7 +19,7 @@ export class GameApi {
 	}
 
 	feed(gameName: string) {
-		var socket = io(properties.serverLocation);
+		var socket = io(config.serverLocation);
 		return Observable
 			.fromEvent(socket, 'game:' + gameName + ':feed')
 			.map(res => JSON.parse(res));
