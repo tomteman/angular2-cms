@@ -3,6 +3,7 @@ import {Observable} from 'rx';
 
 import {checkStatus, parseJSON} from './fetchFunctions';
 import {HttpInterceptor} from './httpInterceptor'
+import {Session} from 'app/session/session';
 
 
 let config = require('config.json');
@@ -18,9 +19,13 @@ export class HttpWrapper {
 		credentials: 'include'
 	}
 
-	constructor() { }
+	constructor(public session: Session) { }
 
 	request(url: string, options) {
+		if (this.session.isPresenter()) {
+			this.defaultOptions.headers['pof-presenter'] = '1';
+		}
+		
 		var fetchOptions = _.merge({}, this.defaultOptions, options);
 
 		if (fetchOptions.body) {

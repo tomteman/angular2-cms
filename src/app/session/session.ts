@@ -30,11 +30,11 @@ export class Session {
 	}
 
 	isPresenter() {
-		return !!getCookie(PRESENTER_KEY);
+		return !!sessionStorage.getItem(PRESENTER_KEY);
 	}
 
 	setPresenter() {
-		setCookie(PRESENTER_KEY, 1, 'us-west-2.compute.amazonaws.com');
+		sessionStorage.setItem(PRESENTER_KEY, '1');
 	}
 
 	setUser(user) {
