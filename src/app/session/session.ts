@@ -34,7 +34,7 @@ export class Session {
 	}
 
 	setPresenter() {
-		setCookie(PRESENTER_KEY, 1, '.us-west-2.compute.amazonaws.com');
+		setCookie(PRESENTER_KEY, 1, 'us-west-2.compute.amazonaws.com');
 	}
 
 	setUser(user) {
