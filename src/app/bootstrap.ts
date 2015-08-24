@@ -22,7 +22,7 @@ var platformInjectables = [
     // bestChangeDetectionInjectables,
 
     // nativeShadowDomInjectables
-    hashlocationInjectables
+    // hashlocationInjectables
 ];
 
 var appInjectables = [
