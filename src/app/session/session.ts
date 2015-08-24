@@ -2,7 +2,7 @@ import {Injectable} from 'angular2/di';
 import * as Rx from 'rx';
 
 import {Base64} from 'app/facade/base64';
-import {getCookie} from 'app/facade/cookie';
+import {getCookie, setCookie} from 'app/facade/cookie';
 import {isJsObject} from 'app/facade/lang';
 
 const SESSION_KEY = 'sessionData';
@@ -30,11 +30,11 @@ export class Session {
 	}
 
 	isPresenter() {
-		return !!sessionStorage.getItem(PRESENTER_KEY);
+		return !!getCookie(PRESENTER_KEY);
 	}
 
 	setPresenter() {
-		sessionStorage.setItem(PRESENTER_KEY, '1');
+		setCookie(PRESENTER_KEY, 1);
 	}
 
 	setUser(user) {
