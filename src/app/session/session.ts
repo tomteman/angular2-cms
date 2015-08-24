@@ -30,7 +30,11 @@ export class Session {
 	}
 
 	isPresenter() {
-		return !!getCookie(PRESENTER_KEY);
+		return !!sessionStorage.getItem(PRESENTER_KEY);
+	}
+
+	setPresenter() {
+		sessionStorage.setItem(PRESENTER_KEY, '1');
 	}
 
 	setUser(user) {
