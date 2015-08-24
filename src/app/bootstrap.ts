@@ -9,6 +9,7 @@ import {sessionInjectables} from './session/index';
 
 import {nativeShadowDomInjectables, emulatedScopedShadowDomInjectables, emulatedUnscopedShadowDomInjectables} from '../common/shadowDomInjectables';
 import {jitInjectables, dynamicInjectables, preGeneratedInjectables} from '../common/changeDetectionInjectables';
+import {hashlocationInjectables} from '../common/locationInjectables';
 
 var universalInjectables = [
     httpInjectables,
@@ -21,6 +22,7 @@ var platformInjectables = [
     // bestChangeDetectionInjectables,
 
     // nativeShadowDomInjectables
+    hashlocationInjectables
 ];
 
 var appInjectables = [
