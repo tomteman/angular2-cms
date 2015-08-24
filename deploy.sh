@@ -2,4 +2,4 @@
 
 cd ~
 
-cd $POF_CLIENT_PATH && npm run build:prod && divshot push production
+ssh -i $POF_CLIENT_SSH_FILE_PATH $POF_CLIENT_MACHINE_USER@$POF_CLIENT_MACHINE_LOCATION deploy
