@@ -13,9 +13,9 @@ export function getCookie(cname) {
     return "";
 }
 
-export function setCookie(cname, cvalue, exdays?) {
+export function setCookie(cname, cvalue, domain, exdays?) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     var expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + "; Path=/; " + (exdays ? expires : '');
+    document.cookie = cname + "=" + cvalue + "; Domain=" + domain +"; Path=/; " + (exdays ? expires : '');
 }
