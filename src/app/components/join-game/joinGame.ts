@@ -1,6 +1,6 @@
 import {Component, View} from 'angular2/angular2';
-import {ControlGroup, FormBuilder, formDirectives, Validators} from 'angular2/angular2';
-import {coreDirectives} from 'angular2/angular2';
+import {ControlGroup, FormBuilder, FORM_DIRECTIVES, Validators} from 'angular2/angular2';
+import {CORE_DIRECTIVES} from 'angular2/angular2';
 import {Router} from 'angular2/router';
 
 import {GameState} from 'app/pof-typings/game';
@@ -15,7 +15,7 @@ let template = require('./joinGame.html');
 @View({
     styles: [styles],
     template: template,
-    directives: [formDirectives, coreDirectives]
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES]
 })
 export class JoinGame {
     myForm: ControlGroup;

@@ -1,6 +1,6 @@
 import {Component, View} from 'angular2/angular2';
-import {ControlGroup, FormBuilder, formDirectives, Validators} from 'angular2/angular2'
-import {coreDirectives} from 'angular2/angular2'
+import {ControlGroup, FormBuilder, FORM_DIRECTIVES, Validators} from 'angular2/angular2'
+import {CORE_DIRECTIVES} from 'angular2/angular2'
 
 import {ISeedQuestion} from 'app/pof-typings/question';
 import {QuestionApi} from 'app/datacontext/repositories/questionApi';
@@ -12,7 +12,7 @@ let template = require('./createQuestion.html');
     selector: 'create-question'
 })
 @View({
-    directives: [formDirectives, coreDirectives],
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
     styles: [styles],
     template: template
 })
@@ -60,5 +60,6 @@ export class CreateQuestion {
 
     clearForm() {
         console.log(this.myForm);
+        // this.todoInput.updateValue('');
     }
 }

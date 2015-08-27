@@ -30,10 +30,10 @@
   },
   "homepage": "https://github.com/radotzki/pants-on-fire-client#readme",
   "dependencies": {
-    "angular2": "2.0.0-alpha.33",
+    "angular2": "2.0.0-alpha.35",
     "lodash": "^3.10.1",
     "reflect-metadata": "^0.1.0",
-    "rtts_assert": "2.0.0-alpha.33",
+    "rtts_assert": "2.0.0-alpha.35",
     "rx": "^2.5.3",
     "socket.io-client": "^1.3.6",
     "whatwg-fetch": "^0.9.0",

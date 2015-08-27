@@ -1,7 +1,7 @@
 import {Component, View} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
-import {ControlGroup, FormBuilder, formDirectives, Validators} from 'angular2/angular2'
-import {coreDirectives} from 'angular2/angular2';
+import {ControlGroup, FormBuilder, FORM_DIRECTIVES, Validators} from 'angular2/angular2'
+import {CORE_DIRECTIVES} from 'angular2/angular2';
 
 import {IQuestion, QuestionState} from 'app/pof-typings/question';
 import {GameState} from 'app/pof-typings/game';
@@ -15,7 +15,7 @@ let template = require('./showAnswers.html');
     selector: 'show-question'
 })
 @View({
-    directives: [formDirectives, coreDirectives],
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
     styles: [styles],
     template: template
 })

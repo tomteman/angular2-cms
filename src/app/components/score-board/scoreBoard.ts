@@ -1,6 +1,6 @@
 import {Component, View} from 'angular2/angular2';
 import {RouteParams, Router} from 'angular2/router';
-import {coreDirectives} from 'angular2/angular2';
+import {CORE_DIRECTIVES} from 'angular2/angular2';
 
 import * as _ from 'lodash';
 import {QuestionState, IQuestion} from 'app/pof-typings/question';
@@ -16,7 +16,7 @@ let scoreBoardShowTime = 5000;
     selector: 'score-board'
 })
 @View({
-    directives: [coreDirectives],
+    directives: [CORE_DIRECTIVES],
     styles: [styles],
     template: template
 })

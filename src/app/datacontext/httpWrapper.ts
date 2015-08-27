@@ -1,4 +1,4 @@
-import {Injectable, bind} from 'angular2/di';
+import {Injectable, bind} from 'angular2/angular2';
 import {Observable} from 'rx';
 
 import {checkStatus, parseJSON} from './fetchFunctions';

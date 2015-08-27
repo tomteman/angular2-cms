@@ -1,6 +1,6 @@
 import {Component, View} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
-import {coreDirectives} from 'angular2/angular2';
+import {CORE_DIRECTIVES} from 'angular2/angular2';
 
 import {GameState} from 'app/pof-typings/game';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
@@ -12,7 +12,7 @@ let template = require('./gameStaging.html');
     selector: 'create-game'
 })
 @View({
-    directives: [coreDirectives],
+    directives: [CORE_DIRECTIVES],
     styles: [styles],
     template: template
 })

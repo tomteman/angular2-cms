@@ -1,6 +1,6 @@
 import {Directive, Attribute, ElementRef, DynamicComponentLoader} from 'angular2/angular2';
 import {Router, RouterOutlet} from 'angular2/router';
-import {Injector} from 'angular2/di';
+import {Injector} from 'angular2/angular2';
 
 import {Session} from './session';
 import {SessionApi} from 'app/datacontext/repositories/sessionApi';

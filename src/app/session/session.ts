@@ -1,8 +1,8 @@
-import {Injectable} from 'angular2/di';
+import {Injectable} from 'angular2/angular2';
 import * as Rx from 'rx';
 
 import {Base64} from 'app/facade/base64';
-import {getCookie, setCookie} from 'app/facade/cookie';
+import {getCookie} from 'app/facade/cookie';
 import {isJsObject} from 'app/facade/lang';
 
 const SESSION_KEY = 'sessionData';
