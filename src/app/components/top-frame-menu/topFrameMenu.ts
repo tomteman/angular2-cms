@@ -1,6 +1,6 @@
 import {Component, View} from 'angular2/angular2';
 import {CORE_DIRECTIVES} from 'angular2/angular2';
-import {routerDirectives} from 'angular2/router';
+import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {Session} from 'app/session/session';
 
@@ -11,7 +11,7 @@ let template = require('./topFrameMenu.html');
     selector: 'top-frame-menu'
 })
 @View({
-    directives: [routerDirectives, CORE_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, CORE_DIRECTIVES],
     styles: [styles],
     template: template
 })

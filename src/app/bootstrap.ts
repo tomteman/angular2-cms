@@ -1,6 +1,6 @@
 import {bootstrap} from 'angular2/angular2';
 import {FORM_BINDINGS} from 'angular2/angular2';
-import {routerInjectables as ROUTER_BINDINGS} from 'angular2/router';
+import {ROUTER_BINDINGS} from 'angular2/router';
 
 import {App} from './components/app';
 import {DATACONTEXT_BINDINGS} from './datacontext/index';

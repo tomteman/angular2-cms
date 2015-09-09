@@ -1,5 +1,5 @@
 import {Component, View} from 'angular2/angular2';
-import {RouteConfig, routerDirectives} from 'angular2/router';
+import {RouteConfig} from 'angular2/router';
 
 // Components
 import {Home} from './home/home';
@@ -28,7 +28,7 @@ let template = require('./app.html');
   template: template
 })
 @RouteConfig([
-  { path: '/', as: 'home', component: Home },
+  { path: '/', redirectTo: '/home' },
   { path: '/home', as: 'home', component: Home },
   { path: '/create-question', as: 'create-question', component: CreateQuestion },
   { path: '/create-game', as: 'create-game', component: CreateGame },

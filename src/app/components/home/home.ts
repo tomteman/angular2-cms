@@ -1,5 +1,5 @@
 import {Component, View} from 'angular2/angular2';
-import {routerDirectives, RouteConfig} from 'angular2/router';
+import {ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router';
 
 let styles = require('./home.css');
 let template = require('./home.html');
@@ -8,7 +8,7 @@ let template = require('./home.html');
     selector: 'home'
 })
 @View({
-    directives: [routerDirectives],
+    directives: [ROUTER_DIRECTIVES],
     styles: [styles],
     template: template
 })
