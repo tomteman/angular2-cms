@@ -29,7 +29,6 @@ export class TopFrameMenu {
         Session.signout();
     }
 
-    // TODO: should be a directive (mdl-drawer)
     closeDrawer() {
         var drawer = document.getElementsByClassName('mdl-layout__drawer')[0];
         drawer.classList.toggle('is-visible');
