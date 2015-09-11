@@ -6,42 +6,32 @@ import {Session} from './session';
 import {SessionApi} from 'app/datacontext/repositories/sessionApi';
 
 @Directive({
-  selector: 'router-outlet'
+    selector: 'router-outlet'
 })
 export class LoggedInRouterOutlet extends RouterOutlet {
-  publicRoutes: any;
 
-  constructor(public _elementRef: ElementRef, public _loader: DynamicComponentLoader,
-    public _parentRouter: Router, @Attribute('name') nameAttr: string,
-    public session: Session, public sessionApi: SessionApi) {
-    super(_elementRef, _loader, _parentRouter, nameAttr);
-
-    this.publicRoutes = {
-      'signin': true,
-      'create-game': true,
-      'home': true,
-      '/': true
-    };
-  }
-
-  commit(instruction) {
-    var url = this._parentRouter.lastNavigationAttempt;
-
-    if (!this.isPublicBaseUrl(url) && !this.session.isPlayer() && !this.session.isPresenter()) {
-      return this.sessionApi.getUserDetails()
-        .then(user => {
-          this.session.setUser(user);
-          return super.commit(instruction);
-        })
-        .catch(err => {
-          	Session.signin(instruction.capturedUrl);
-        });
-    } else {
-      return super.commit(instruction);
+    constructor(public _elementRef: ElementRef, public _loader: DynamicComponentLoader,
+        public _parentRouter: Router, @Attribute('name') nameAttr: string,
+        public session: Session, public sessionApi: SessionApi) {
+        super(_elementRef, _loader, _parentRouter, nameAttr);
     }
-  }
 
-  isPublicBaseUrl(url) {
-      return url === '' || url === '/' || this.publicRoutes[url.split('/')[1]];
-  }
+    activate(instruction) {
+        if (!this.isPublicBaseUrl(instruction) && !this.session.isPlayer() && !this.session.isPresenter()) {
+            return this.sessionApi.getUserDetails()
+                .then(user => {
+                    this.session.setUser(user);
+                    return super.activate(instruction);
+                })
+                .catch(err => {
+                    Session.signin('#/' + instruction.urlPath);
+                });
+        } else {
+            return super.activate(instruction);
+        }
+    }
+
+    isPublicBaseUrl(instruction) {
+        return instruction._recognizer.handler.data && instruction._recognizer.handler.data.publicRoute;
+    }
 }

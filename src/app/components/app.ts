@@ -20,25 +20,25 @@ let styles = require('./app.css');
 let template = require('./app.html');
 
 @Component({
-  selector: 'app'
+    selector: 'app'
 })
 @View({
-  directives: [LoggedInRouterOutlet, TopFrame, TopFrameMenu],
-  styles: [styles],
-  template: template
+    directives: [LoggedInRouterOutlet, TopFrame, TopFrameMenu],
+    styles: [styles],
+    template: template
 })
 @RouteConfig([
-  { path: '/', redirectTo: '/home' },
-  { path: '/home', as: 'home', component: Home },
-  { path: '/create-question', as: 'create-question', component: CreateQuestion },
-  { path: '/create-game', as: 'create-game', component: CreateGame },
-  { path: '/join-game', as: 'join-game', component: JoinGame },
-  { path: '/game-staging/:gameName', as: 'game-staging', component: GameStaging },
-  { path: '/show-question/:gameName', as: 'show-question', component: ShowQuestion },
-  { path: '/show-answers/:gameName', as: 'show-answers', component: ShowAnswers },
-  { path: '/reveal-the-truth/:gameName', as: 'reveal-the-truth', component: RevealTheTruth },
-  { path: '/score-board/:gameName', as: 'score-board', component: ScoreBoard }
+    { path: '/', redirectTo: '/home' },
+    { path: '/home', as: 'home', component: Home, data: { publicRoute: true } },
+    { path: '/create-question', as: 'create-question', component: CreateQuestion },
+    { path: '/create-game', as: 'create-game', component: CreateGame, data: { publicRoute: true } },
+    { path: '/join-game', as: 'join-game', component: JoinGame },
+    { path: '/game-staging/:gameName', as: 'game-staging', component: GameStaging },
+    { path: '/show-question/:gameName', as: 'show-question', component: ShowQuestion },
+    { path: '/show-answers/:gameName', as: 'show-answers', component: ShowAnswers },
+    { path: '/reveal-the-truth/:gameName', as: 'reveal-the-truth', component: RevealTheTruth },
+    { path: '/score-board/:gameName', as: 'score-board', component: ScoreBoard }
 ])
 export class App {
-  constructor() { }
+    constructor() { }
 }
