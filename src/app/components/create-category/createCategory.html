@@ -1,0 +1,39 @@
+<section class="create-question text-center">
+    <form [ng-form-model]="myForm"
+          (submit)="onSubmit(myForm.value)"
+          class="mdl-grid">
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
+            <input type="text"
+                   class="mdl-textfield__input"
+                   id="name"
+                   required
+                   [ng-form-control]="myForm.controls.name">
+            <label class="mdl-textfield__label" for="name">Category Name</label>
+            <span
+                class="mdl-textfield__error"
+                *ng-if="myForm.find('name').touched && myForm.find('name').hasError('required')">
+                Category Name is required </span>
+        </div>
+
+
+        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="public">
+            <input
+                type="checkbox"
+                id="public"
+                class="mdl-switch__input"
+                checked
+                [ng-form-control]="myForm.controls.public"/>
+            <span class="mdl-switch__label"></span>
+        </label>
+
+        <div class="mdl-cell mdl-cell--12-col">
+            <button type="submit"
+              class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+              [disabled]="!myForm.valid">Create</button>
+        </div>
+    </form>
+
+    <p *ng-if="showSuccessMsg"> Category added successfully </p>
+    <p *ng-if="showErrorMsg"> {{ errorMsg }} </p>
+</section>

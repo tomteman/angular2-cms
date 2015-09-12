@@ -10,6 +10,10 @@
 		(click)="closeDrawer()">Create Question</a>
 	<a
 		class="mdl-navigation__link"
+		[router-link]="['/create-category']"
+		(click)="closeDrawer()">Create Category</a>
+	<a
+		class="mdl-navigation__link"
 		*ng-if="activeUser"
 		(click)="signout()">Signout</a>
 
