@@ -3,6 +3,15 @@
           (submit)="onSubmit(myForm.value)"
           class="mdl-grid">
 
+        <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet">
+            <select id="category" [ng-form-control]="myForm.controls.categoryId">
+                <option
+                    *ng-for="#category of categories"
+                    value="{{ category.id }}"> {{ category.name }} </option>
+            </select>
+            <label class="mdl-textfield__label" for="category">Category</label>
+        </div>
+
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
             <input type="text"
                    class="mdl-textfield__input"

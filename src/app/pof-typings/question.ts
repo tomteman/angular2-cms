@@ -5,12 +5,14 @@ export interface IQuestion {
   fakeAnswers: FakeAnswerArray;
   creatorId: string;
   state: QuestionState;
+  categoryId: string;
 }
 
 export interface ISeedQuestion {
   questionText: string;
   realAnswer: RealAnswer;
   fakeAnswers: Array<string>;
+  categoryId: string;
 }
 
 export interface FakeAnswerArray {
