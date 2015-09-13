@@ -23,6 +23,9 @@ export class CreateCategory {
     errorMsg: string;
 
     constructor(formBuilder: FormBuilder, public categoryApi: CategoryApi) {
+        // MDL issue
+        componentHandler.upgradeDom();
+        
         this.myForm = formBuilder.group({
             name: ['', Validators.required],
             public: [true]
