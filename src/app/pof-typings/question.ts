@@ -1,4 +1,3 @@
-
 export interface IQuestion {
   questionText: string;
   realAnswer: RealAnswer;
@@ -6,6 +5,7 @@ export interface IQuestion {
   creatorId: string;
   state: QuestionState;
   categoryId: string;
+  approved: boolean;
 }
 
 export interface ISeedQuestion {

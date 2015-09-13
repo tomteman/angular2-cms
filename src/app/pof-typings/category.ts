@@ -4,6 +4,7 @@ export interface ICategory {
 	name: string;
 	root: boolean;
 	public: boolean;
+	editors: Array<string>;
 }
 
 export interface ISeedCategory {

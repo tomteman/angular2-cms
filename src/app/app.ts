@@ -18,6 +18,7 @@ import {ScoreBoard} from './game-components/score-board/scoreBoard';
 // Questions management
 import {CreateQuestion} from './content-management-components/create-question/createQuestion';
 import {CreateCategory} from './content-management-components/create-category/createCategory';
+import {ManageCategory} from './content-management-components/manage-category/manageCategory';
 
 import {LoggedInRouterOutlet} from 'app/session/loggedInRouterOutlet'
 
@@ -53,7 +54,8 @@ import {LoggedInRouterOutlet} from 'app/session/loggedInRouterOutlet'
 
     // Questions management
     { path: '/create-question', as: 'create-question', component: CreateQuestion },
-    { path: '/create-category', as: 'create-category', component: CreateCategory }
+    { path: '/create-category', as: 'create-category', component: CreateCategory },
+    { path: '/manage-category/:categoryName', as: 'manage-category', component: ManageCategory }
 ])
 export class App {
     constructor() { }

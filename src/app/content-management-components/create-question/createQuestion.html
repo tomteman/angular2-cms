@@ -1,15 +1,27 @@
-<section class="create-question text-center">
+<section class="create-question">
     <form [ng-form-model]="myForm"
           (submit)="onSubmit(myForm.value)"
           class="mdl-grid">
 
-        <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet">
+        <!--<div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet">
             <select id="category" [ng-form-control]="myForm.controls.categoryId">
                 <option
-                    *ng-for="#category of categories"
+                    *ng-for="#category of rootCategories"
                     value="{{ category.id }}"> {{ category.name }} </option>
             </select>
             <label class="mdl-textfield__label" for="category">Category</label>
+        </div>-->
+
+        <div
+            class="mdl-cell mdl-cell--2-col mdl-cell--2-col-phone mdl-cell--2-col-tablet"
+            *ng-for="#category of rootCategories">
+            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+                <input type="radio"
+                       class="mdl-radio__button"
+                       name="categoryId"
+                       (click)="selectedCategoryId = category.id"/>
+                <span class="mdl-radio__label">{{ category.name }}</span>
+            </label>
         </div>
 
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
@@ -54,13 +66,14 @@
             <label class="mdl-textfield__label" for="fakeAnswer2">Fake Answer</label>
         </div>
 
-        <div class="mdl-cell mdl-cell--12-col">
+        <div class="mdl-cell mdl-cell--12-col text-center">
             <button type="submit"
               class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-              [disabled]="!myForm.valid">Create</button>
+              [disabled]="!myForm.valid || !selectedCategoryId">Create</button>
         </div>
     </form>
 
     <p *ng-if="showSuccessMsg"> Question added successfully </p>
+    <p *ng-if="showWaitForApproveMsg"> Question added successfully but need to be approved </p>
     <p *ng-if="showErrorMsg"> {{ errorMsg }} </p>
 </section>

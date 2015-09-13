@@ -11,6 +11,10 @@ export class CategoryApi {
 		return this.http.get('/api/categories');
 	}
 
+	getAllForEditor() {
+		return this.http.get('/api/categories/editor');
+	}
+
 	get(categoryName: string) {
 		return this.http.get(`/api/categories/${categoryName}`);
 	}

@@ -1,6 +1,7 @@
 import {Component, View} from 'angular2/angular2';
 import {ControlGroup, FormBuilder, FORM_DIRECTIVES, Validators} from 'angular2/angular2'
 import {CORE_DIRECTIVES} from 'angular2/angular2'
+import * as _ from 'lodash';
 
 import {ISeedQuestion} from 'app/pof-typings/question';
 import {ICategory} from 'app/pof-typings/category';
@@ -20,20 +21,22 @@ let template = require('./createQuestion.html');
 })
 export class CreateQuestion {
     myForm: ControlGroup;
-    categories: Array<ICategory>;
+    rootCategories: Array<ICategory>;
+    otherCategories: Array<ICategory>;
+    selectedCategoryId: string;
     showSuccessMsg: boolean;
+    showWaitForApproveMsg: boolean;
     showErrorMsg: boolean;
     errorMsg: string;
 
     constructor(formBuilder: FormBuilder, public questionApi: QuestionApi,
-                public categoryApi: CategoryApi) {
+        public categoryApi: CategoryApi) {
         // MDL issue
         componentHandler.upgradeDom();
 
         this.myForm = formBuilder.group({
             questionText: ['', Validators.required],
             realAnswer: ['', Validators.required],
-            categoryId: [],
             fakeAnswers: formBuilder.group({
                 one: [''],
                 two: ['']
@@ -44,28 +47,32 @@ export class CreateQuestion {
     }
 
     getCategories() {
-        this.categoryApi.getAll().then(resp => {
-            this.myForm._value.categoryId = resp[0].id
-
-            this.categories = resp;
-        })
+        this.categoryApi.getAll()
+            .then(resp => {
+                this.rootCategories = _.filter(resp, { root: true });
+                this.otherCategories = _.filter(resp, { root: false });
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     onSubmit(formValue) {
         this.showSuccessMsg = false;
         this.showErrorMsg = false;
+        this.showWaitForApproveMsg = false;
 
         var newQuestion: ISeedQuestion = {
             fakeAnswers: _.toArray(formValue.fakeAnswers),
             questionText: formValue.questionText,
             realAnswer: formValue.realAnswer,
-            categoryId: formValue.categoryId
+            categoryId: this.selectedCategoryId
         };
 
         this.questionApi.create(newQuestion)
             .then(res => {
                 this.clearForm();
-                this.showSuccessMsg = true;
+                res.approved ? this.showSuccessMsg = true : this.showWaitForApproveMsg = true;
             })
             .catch(err => {
                 this.showErrorMsg = true;
