@@ -3,6 +3,7 @@ import * as Rx from 'rx';
 
 import {Base64} from 'app/util/base64';
 import {isJsObject} from 'app/util/lang';
+import {safeJsonParse} from 'app/util/safeJsonParse';
 import {IPlayer} from 'app/pof-typings/player'
 
 const SESSION_KEY = 'sessionData';
@@ -15,14 +16,15 @@ export class Session {
 	activeUser: Rx.Subject<IPlayer> = new Rx.BehaviorSubject<IPlayer>(null);
 
 	constructor() {
+		this._initUser();
+	}
+
+	@safeJsonParse(Session.signout)
+	_initUser() {
 		var user = localStorage.getItem(SESSION_KEY);
 		if (user) {
-			try {
-				this.activeUser.onNext(JSON.parse(user));
-				this.activeUser.onCompleted();
-			} catch (e) {
-				console.error('Error while parsing user detail from localStorage', e);
-			}
+			this.activeUser.onNext(JSON.parse(user));
+			this.activeUser.onCompleted();
 		}
 	}
 
@@ -47,18 +49,17 @@ export class Session {
 	}
 
 	static signin(returnUrl) {
-		this.deleteSession();
+		Session.deleteSession();
 		var signInState = Base64.encode(JSON.stringify({ returnUrl: returnUrl }));
 		location.href = config.serverLocation + '/api/auth/signin/' + signInState;
 	}
 
 	static signout() {
-		this.deleteSession();
+		Session.deleteSession();
 		location.href = config.serverLocation + '/api/auth/signout';
 	}
 
 	private static deleteSession() {
 		localStorage.removeItem(SESSION_KEY);
 	}
-
 }
