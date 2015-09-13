@@ -2,35 +2,40 @@ import {Component, View} from 'angular2/angular2';
 import {RouteConfig} from 'angular2/router';
 
 // Layout
-import {Home} from './home/home';
-import {TopFrame} from './top-frame/topFrame';
-import {TopFrameMenu} from './top-frame-menu/topFrameMenu';
+import {Home} from './layout-components/home/home';
+import {TopFrame} from './layout-components/top-frame/topFrame';
+import {TopFrameMenu} from './layout-components/top-frame-menu/topFrameMenu';
 
 // Game
-import {CreateGame} from './create-game/createGame';
-import {JoinGame} from './join-game/joinGame';
-import {GameStaging} from './game-staging/gameStaging';
-import {ShowQuestion} from './show-question/showQuestion';
-import {ShowAnswers} from './show-answers/showAnswers';
-import {RevealTheTruth} from './reveal-the-truth/revealTheTruth';
-import {ScoreBoard} from './score-board/scoreBoard';
+import {CreateGame} from './game-components/create-game/createGame';
+import {JoinGame} from './game-components/join-game/joinGame';
+import {GameStaging} from './game-components/game-staging/gameStaging';
+import {ShowQuestion} from './game-components/show-question/showQuestion';
+import {ShowAnswers} from './game-components/show-answers/showAnswers';
+import {RevealTheTruth} from './game-components/reveal-the-truth/revealTheTruth';
+import {ScoreBoard} from './game-components/score-board/scoreBoard';
 
 // Questions management
-import {CreateQuestion} from './create-question/createQuestion';
-import {CreateCategory} from './create-category/createCategory';
+import {CreateQuestion} from './content-management-components/create-question/createQuestion';
+import {CreateCategory} from './content-management-components/create-category/createCategory';
 
 import {LoggedInRouterOutlet} from 'app/session/loggedInRouterOutlet'
-
-let styles = require('./app.css');
-let template = require('./app.html');
 
 @Component({
     selector: 'app'
 })
 @View({
     directives: [LoggedInRouterOutlet, TopFrame, TopFrameMenu],
-    styles: [styles],
-    template: template
+    template: `
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <top-frame class="mdl-layout__header"> </top-frame>
+            <top-frame-menu class="mdl-layout__drawer"></top-frame-menu>
+            <main class="mdl-layout__content">
+                <router-outlet class="page-content"></router-outlet>
+            </main>
+            <footer></footer>
+        </div>
+     `
 })
 @RouteConfig([
     // Layout

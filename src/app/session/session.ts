@@ -1,12 +1,12 @@
 import {Injectable} from 'angular2/angular2';
 import * as Rx from 'rx';
 
-import {Base64} from 'app/facade/base64';
-import {getCookie} from 'app/facade/cookie';
-import {isJsObject} from 'app/facade/lang';
+import {Base64} from 'app/util/base64';
+import {isJsObject} from 'app/util/lang';
 
 const SESSION_KEY = 'sessionData';
 const PRESENTER_KEY = 'presenter';
+
 let config = require('config.json');
 
 @Injectable()
