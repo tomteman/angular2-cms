@@ -5,6 +5,7 @@ import {CORE_DIRECTIVES} from 'angular2/angular2';
 
 import {IQuestion, QuestionState} from 'app/pof-typings/question';
 import {GameState} from 'app/pof-typings/game';
+import {IPlayer} from 'app/pof-typings/player'
 import {Session} from 'app/session/session';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 
@@ -97,13 +98,13 @@ export class ShowAnswers {
     }
 
     checkIfAnswerSelected() {
-        this.session.getUser().subscribe(user => {
+        this.session.activeUser.subscribe((player: IPlayer) => {
 
             var fakeAnswerSelected = _.find(this.question.fakeAnswers, fakeAnswer => {
-                return ~fakeAnswer.selectedBy.indexOf(user.id);
+                return ~fakeAnswer.selectedBy.indexOf(player.id);
             });
 
-            var realAnswerSelected = ~this.question.realAnswer.selectedBy.indexOf(user.id);
+            var realAnswerSelected = ~this.question.realAnswer.selectedBy.indexOf(player.id);
 
             if (fakeAnswerSelected) {
                 this.answerSelected = fakeAnswerSelected.text;

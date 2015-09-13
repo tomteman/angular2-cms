@@ -3,6 +3,7 @@ import * as Rx from 'rx';
 
 import {Base64} from 'app/util/base64';
 import {isJsObject} from 'app/util/lang';
+import {IPlayer} from 'app/pof-typings/player'
 
 const SESSION_KEY = 'sessionData';
 const PRESENTER_KEY = 'presenter';
@@ -11,17 +12,17 @@ let config = require('config.json');
 
 @Injectable()
 export class Session {
-	activeUser = new Rx.Subject();
+	activeUser: Rx.Subject<IPlayer> = new Rx.BehaviorSubject<IPlayer>(null);
 
 	constructor() {
-	}
-
-	getUser() {
 		var user = localStorage.getItem(SESSION_KEY);
 		if (user) {
-			return { subscribe: cb => { return cb(JSON.parse(user)) } };
-		} else {
-			return this.activeUser;
+			try {
+				this.activeUser.onNext(JSON.parse(user));
+				this.activeUser.onCompleted();
+			} catch (e) {
+				console.error('Error while parsing user detail from localStorage', e);
+			}
 		}
 	}
 
