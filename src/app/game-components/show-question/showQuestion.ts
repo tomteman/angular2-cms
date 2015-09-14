@@ -5,6 +5,7 @@ import {CORE_DIRECTIVES} from 'angular2/angular2';
 
 import {IQuestion, QuestionState} from 'app/pof-typings/question';
 import {GameState} from 'app/pof-typings/game';
+import {IPlayer} from 'app/pof-typings/player'
 import {Session} from 'app/session/session';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 
@@ -80,9 +81,9 @@ export class ShowQuestion {
     }
 
     checkIfQuestionSubmitted() {
-        this.session.getUser().subscribe(user => {
+        this.session.activeUser.subscribe((player: IPlayer) => {
             this.questionSubmitted = _.any(this.question.fakeAnswers, fakeAnswer =>
-                _.contains(fakeAnswer.createdBy, user.id)
+                _.contains(fakeAnswer.createdBy, player.id)
             )
         });
     }

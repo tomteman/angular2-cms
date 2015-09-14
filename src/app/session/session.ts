@@ -1,27 +1,30 @@
 import {Injectable} from 'angular2/angular2';
 import * as Rx from 'rx';
 
-import {Base64} from 'app/facade/base64';
-import {getCookie} from 'app/facade/cookie';
-import {isJsObject} from 'app/facade/lang';
+import {Base64} from 'app/util/base64';
+import {isJsObject} from 'app/util/lang';
+import {safeJsonParse} from 'app/util/safeJsonParse';
+import {IPlayer} from 'app/pof-typings/player'
 
 const SESSION_KEY = 'sessionData';
 const PRESENTER_KEY = 'presenter';
+
 let config = require('config.json');
 
 @Injectable()
 export class Session {
-	activeUser = new Rx.Subject();
+	activeUser: Rx.Subject<IPlayer> = new Rx.BehaviorSubject<IPlayer>(null);
 
 	constructor() {
+		this._initUser();
 	}
 
-	getUser() {
+	@safeJsonParse(Session.signout)
+	_initUser() {
 		var user = localStorage.getItem(SESSION_KEY);
 		if (user) {
-			return { subscribe: cb => { return cb(JSON.parse(user)) } };
-		} else {
-			return this.activeUser;
+			this.activeUser.onNext(JSON.parse(user));
+			this.activeUser.onCompleted();
 		}
 	}
 
@@ -46,18 +49,17 @@ export class Session {
 	}
 
 	static signin(returnUrl) {
-		this.deleteSession();
+		Session.deleteSession();
 		var signInState = Base64.encode(JSON.stringify({ returnUrl: returnUrl }));
 		location.href = config.serverLocation + '/api/auth/signin/' + signInState;
 	}
 
 	static signout() {
-		this.deleteSession();
+		Session.deleteSession();
 		location.href = config.serverLocation + '/api/auth/signout';
 	}
 
 	private static deleteSession() {
 		localStorage.removeItem(SESSION_KEY);
 	}
-
 }

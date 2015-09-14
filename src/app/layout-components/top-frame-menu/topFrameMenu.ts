@@ -3,6 +3,7 @@ import {CORE_DIRECTIVES} from 'angular2/angular2';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {Session} from 'app/session/session';
+import {IPlayer} from 'app/pof-typings/player'
 
 let styles = require('./topFrameMenu.css');
 let template = require('./topFrameMenu.html');
@@ -16,11 +17,11 @@ let template = require('./topFrameMenu.html');
     template: template
 })
 export class TopFrameMenu {
-    activeUser;
+    activeUser: IPlayer;
 
     constructor(public session: Session) {
-        session.getUser().subscribe(data => {
-            this.activeUser = data;
+        session.activeUser.subscribe((player: IPlayer) => {
+            this.activeUser = player;
         });
     }
 
