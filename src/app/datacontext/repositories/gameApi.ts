@@ -14,8 +14,8 @@ export class GameApi {
 		return this.http.get('/api/games/' + gameName);
 	}
 
-	create() {
-		return this.http.post('/api/games');
+	create(options) {
+		return this.http.post('/api/games', options);
 	}
 
 	present(gameName: string) {

@@ -13,7 +13,7 @@ let styles = require('./manageCategory.css');
 let template = require('./manageCategory.html');
 
 @Component({
-    selector: 'create-question'
+    selector: 'manage-category'
 })
 @View({
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],

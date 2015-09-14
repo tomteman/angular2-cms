@@ -6,7 +6,7 @@
         <!--<div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet">
             <select id="category" [ng-form-control]="myForm.controls.categoryId">
                 <option
-                    *ng-for="#category of rootCategories"
+                    *ng-for="#category of defaultCategories"
                     value="{{ category.id }}"> {{ category.name }} </option>
             </select>
             <label class="mdl-textfield__label" for="category">Category</label>
@@ -14,12 +14,12 @@
 
         <div
             class="mdl-cell mdl-cell--2-col mdl-cell--2-col-phone mdl-cell--2-col-tablet"
-            *ng-for="#category of rootCategories">
+            *ng-for="#category of defaultCategories">
             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                 <input type="radio"
                        class="mdl-radio__button"
                        name="categoryId"
-                       (click)="selectedCategoryId = category.id"/>
+                       (click)="selectedCategoryName = category.name"/>
                 <span class="mdl-radio__label">{{ category.name }}</span>
             </label>
         </div>
@@ -69,8 +69,9 @@
         <div class="mdl-cell mdl-cell--12-col text-center">
             <button type="submit"
               class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-              [disabled]="!myForm.valid || !selectedCategoryId">Create</button>
+              [disabled]="!myForm.valid || !selectedCategoryName">Create</button>
         </div>
+        <pre> {{selectedCategoryName | json}} </pre>
     </form>
 
     <p *ng-if="showSuccessMsg"> Question added successfully </p>

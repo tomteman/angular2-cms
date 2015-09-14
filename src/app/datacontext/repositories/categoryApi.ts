@@ -1,18 +1,22 @@
 import {Injectable} from 'angular2/angular2';
 import {HttpWrapper} from 'app/datacontext/httpWrapper';
+import {Observable} from 'rx';
+import * as io from 'socket.io-client';
 
 import {ISeedCategory} from 'app/pof-typings/category';
+
+let config = require('config.json');
 
 @Injectable()
 export class CategoryApi {
 	constructor(public http: HttpWrapper) { }
 
-	getAll() {
-		return this.http.get('/api/categories');
+	getAll(noQuestions: boolean) {
+		return this.http.get(`/api/categories?noQuestions=${noQuestions}`);
 	}
 
-	getAllForEditor() {
-		return this.http.get('/api/categories/editor');
+	getMyCategories() {
+		return this.http.get('/api/categories/me');
 	}
 
 	get(categoryName: string) {
@@ -23,8 +27,18 @@ export class CategoryApi {
 		return this.http.post('/api/categories', category);
 	}
 
-	getQuestionByCategory(categoryName: string) {
-		return this.http.get(`/api/categories/${categoryName}/questions`);
+	feedByCategoryName(categoryName: string) {
+		var socket = io(config.serverLocation);
+		return Observable
+			.fromEvent(socket, 'category:' + categoryName + ':feed')
+			.map(res => JSON.parse(res));
+	}
+
+	feedMyCategory(playerId) {
+		var socket = io(config.serverLocation);
+		return Observable
+			.fromEvent(socket, 'myCategory:' + playerId + ':feed')
+			.map(res => JSON.parse(res));
 	}
 
 }

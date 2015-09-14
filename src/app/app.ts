@@ -19,6 +19,7 @@ import {PresentGame} from './game-components/present-game/presentGame';
 // CMS
 import {CreateQuestion} from './cms-components/create-question/createQuestion';
 import {CreateCategory} from './cms-components/create-category/createCategory';
+import {ManageCategories} from './cms-components/manage-categories/manageCategories';
 import {ManageCategory} from './cms-components/manage-category/manageCategory';
 
 import {LoggedInRouterOutlet} from 'app/session/loggedInRouterOutlet';
@@ -58,6 +59,7 @@ import {LoggedInRouterOutlet} from 'app/session/loggedInRouterOutlet';
     // CMS
     { path: '/create-question', as: 'create-question', component: CreateQuestion },
     { path: '/create-category', as: 'create-category', component: CreateCategory },
+    { path: '/manage-categories', as: 'manage-categories', component: ManageCategories },
     { path: '/manage-category/:categoryName', as: 'manage-category', component: ManageCategory }
 
 ])

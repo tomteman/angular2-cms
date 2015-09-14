@@ -1,0 +1,31 @@
+<section *ng-if="categories" class="mdl-grid manage-categories">
+
+	<div *ng-for="#category of categories" class="demo-card-square mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
+		<div class="mdl-card__title mdl-card--expand"
+			[ng-class]="{'private-category': !category.public}">
+			<h2 class="mdl-card__title-text">{{ category.name }}</h2>
+		</div>
+		<div class="mdl-card__supporting-text">
+			<p [ng-class]="{'too-few-questions': category.questions.length < numberOfQuestions}"> # of questions: {{ category.questions.length }} </p>
+			<p> # of times played: {{ category.playCount }} </p>
+
+		</div>
+		<div class="mdl-card__actions mdl-card--border">
+			<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+				Manage
+			</a>
+
+			<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+				Delete
+			</a>
+		</div>
+		<div class="mdl-card__menu" *ng-if="category.pendingRequests">
+			<span class="mdl-badge" data-badge="4">{{category.pendingRequests}}</span>
+		</div>
+	</div>
+
+	<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored add-category">
+		<i class="material-icons">add</i>
+	</button>
+
+</section>

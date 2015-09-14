@@ -10,12 +10,8 @@ export class QuestionApi {
 	constructor(public http: HttpWrapper) {
 	}
 
-	get() {
-		return this.http.get('/api/questions');
-	}
-
-	create(question) {
-		return this.http.post('/api/questions', question);
+	create(categoryName, question) {
+		return this.http.post(`/api/questions/${categoryName}`, question);
 	}
 
 	feed() {

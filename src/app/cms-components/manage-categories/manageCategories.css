@@ -1,0 +1,24 @@
+.demo-card-square.mdl-card {
+  height: 320px;
+}
+.demo-card-square > .mdl-card__title {
+  color: #fff;
+  background-color: #46B6AC;
+}
+
+.demo-card-square > .mdl-card__title.private-category {
+  color: #fff;
+  background-color: red;
+}
+
+.too-few-questions {
+    color: red;
+    font-weight: bolder;
+}
+
+.add-category {
+    position: fixed;
+    bottom: 23px;
+    right: 23px;
+    z-index: 999;
+}

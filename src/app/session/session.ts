@@ -24,7 +24,6 @@ export class Session {
 		var user = localStorage.getItem(SESSION_KEY);
 		if (user) {
 			this.activeUser.onNext(JSON.parse(user));
-			this.activeUser.onCompleted();
 		}
 	}
 
@@ -44,7 +43,6 @@ export class Session {
 		if (isJsObject(user)) {
 			localStorage.setItem(SESSION_KEY, JSON.stringify(user));
 			this.activeUser.onNext(user);
-			this.activeUser.onCompleted();
 		}
 	}
 

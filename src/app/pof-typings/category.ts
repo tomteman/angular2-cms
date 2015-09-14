@@ -1,10 +1,8 @@
 export interface ICategory {
-	id: string;
-	creatorId: string;
 	name: string;
-	root: boolean;
+	default: boolean;
 	public: boolean;
-	editors: Array<string>;
+	admins: Array<string>;
 }
 
 export interface ISeedCategory {

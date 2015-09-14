@@ -21,9 +21,9 @@ let template = require('./createQuestion.html');
 })
 export class CreateQuestion {
     myForm: ControlGroup;
-    rootCategories: Array<ICategory>;
-    otherCategories: Array<ICategory>;
-    selectedCategoryId: string;
+    defaultCategories: Array<ICategory>;
+    customCategories: Array<ICategory>;
+    selectedCategoryName: string;
     showSuccessMsg: boolean;
     showWaitForApproveMsg: boolean;
     showErrorMsg: boolean;
@@ -49,8 +49,8 @@ export class CreateQuestion {
     getCategories() {
         this.categoryApi.getAll()
             .then(resp => {
-                this.rootCategories = _.filter(resp, { root: true });
-                this.otherCategories = _.filter(resp, { root: false });
+                this.defaultCategories = _.filter(resp, { default: true });
+                this.customCategories = _.filter(resp, { default: false });
             })
             .catch(err => {
                 console.log(err);
@@ -65,12 +65,13 @@ export class CreateQuestion {
         var newQuestion: ISeedQuestion = {
             fakeAnswers: _.toArray(formValue.fakeAnswers),
             questionText: formValue.questionText,
-            realAnswer: formValue.realAnswer,
-            categoryId: this.selectedCategoryId
+            realAnswer: formValue.realAnswer
         };
 
-        this.questionApi.create(newQuestion)
+        this.questionApi.create(this.selectedCategoryName, newQuestion)
             .then(res => {
+                console.log(res);
+
                 this.clearForm();
                 res.approved ? this.showSuccessMsg = true : this.showWaitForApproveMsg = true;
             })
