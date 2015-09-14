@@ -1,16 +1,6 @@
 import {Component, View} from 'angular2/angular2';
 import {RouteConfig} from 'angular2/router';
 
-
-// Components
-import {Home} from './layout-components/home/home';
-import {TopFrame} from './layout-components/top-frame/topFrame';
-import {TopFrameMenu} from './layout-components/top-frame-menu/topFrameMenu';
-import {CreateQuestion} from './content-management-components/create-question/createQuestion';
-import {CreateGame} from './game-components/create-game/createGame';
-import {JoinGame} from './game-components/join-game/joinGame';
-import {PresentGame} from './game-components/present-game/presentGame';
-
 // Layout
 import {Home} from './layout-components/home/home';
 import {TopFrame} from './layout-components/top-frame/topFrame';
@@ -24,12 +14,12 @@ import {ShowQuestion} from './game-components/show-question/showQuestion';
 import {ShowAnswers} from './game-components/show-answers/showAnswers';
 import {RevealTheTruth} from './game-components/reveal-the-truth/revealTheTruth';
 import {ScoreBoard} from './game-components/score-board/scoreBoard';
+import {PresentGame} from './game-components/present-game/presentGame';
 
-
-// Questions management
-import {CreateQuestion} from './content-management-components/create-question/createQuestion';
-import {CreateCategory} from './content-management-components/create-category/createCategory';
-import {ManageCategory} from './content-management-components/manage-category/manageCategory';
+// CMS
+import {CreateQuestion} from './cms-components/create-question/createQuestion';
+import {CreateCategory} from './cms-components/create-category/createCategory';
+import {ManageCategory} from './cms-components/manage-category/manageCategory';
 
 import {LoggedInRouterOutlet} from 'app/session/loggedInRouterOutlet';
 
@@ -65,7 +55,7 @@ import {LoggedInRouterOutlet} from 'app/session/loggedInRouterOutlet';
     { path: '/reveal-the-truth/:gameName', as: 'reveal-the-truth', component: RevealTheTruth },
     { path: '/score-board/:gameName', as: 'score-board', component: ScoreBoard },
 
-    // Questions management
+    // CMS
     { path: '/create-question', as: 'create-question', component: CreateQuestion },
     { path: '/create-category', as: 'create-category', component: CreateCategory },
     { path: '/manage-category/:categoryName', as: 'manage-category', component: ManageCategory }
