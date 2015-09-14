@@ -19,14 +19,14 @@ export class CreateGame {
                 public session: Session) {
         // MDL issue
         componentHandler.upgradeDom();
-
+        console.log('inside createGame constructor');
         this.createGame();
     }
 
     createGame() {
         this.gameApi.create()
             .then(result => {
-                this.session.setPresenter();
+                console.log('game created', result.name);
                 this.router.navigate('/game-staging/' + result.name);
             })
             .catch(err => {

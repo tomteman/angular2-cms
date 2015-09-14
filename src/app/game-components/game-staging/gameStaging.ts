@@ -9,7 +9,7 @@ let styles = require('./gameStaging.css');
 let template = require('./gameStaging.html');
 
 @Component({
-    selector: 'create-game'
+    selector: 'game-staging'
 })
 @View({
     directives: [CORE_DIRECTIVES],
@@ -26,6 +26,7 @@ export class GameStaging {
 
         var gameName = routeParams.get('gameName');
         this.getGame(gameName);
+        console.log('inside game-staging constructor', gameName);
     }
 
     getGame(gameName: string) {
@@ -33,6 +34,7 @@ export class GameStaging {
             .then(result => {
                 this.game = result;
                 this.subscribe(gameName);
+                console.log('game', this.game);
             })
             .catch(err => {
                 console.log(err);

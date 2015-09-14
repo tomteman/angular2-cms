@@ -1,0 +1,28 @@
+<section class="present-game text-center">
+    <form [ng-form-model]="myForm"
+          (submit)="onSubmit(myForm.value)">
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left">
+        <input type="text"
+               class="mdl-textfield__input game-name__input"
+               id="gameName"
+               required
+               [ng-form-control]="myForm.controls['gameName']">
+        <label class="mdl-textfield__label" for="gameName">Game name</label>
+        <span
+            class="mdl-textfield__error"
+            *ng-if="myForm.find('gameName').touched && myForm.find('gameName').hasError('required')">
+            Game name is required </span>
+        </div>
+      </div>
+
+        <div class="present-btn">
+            <button
+              type="submit"
+              class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+              [disabled]="!myForm.valid">Present</button>
+        </div>
+    </form>
+
+    <p *ng-if="serverErrorMsg"> {{ serverErrorMsg }} </p>
+</section>

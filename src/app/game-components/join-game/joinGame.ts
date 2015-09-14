@@ -20,6 +20,7 @@ let template = require('./joinGame.html');
 export class JoinGame {
     myForm: ControlGroup;
     serverErrorMsg: string;
+    routeGameName: string;
 
     constructor(formBuilder: FormBuilder, public gameApi: GameApi, routeParams: RouteParams, public router: Router) {
         // MDL issue
@@ -28,6 +29,10 @@ export class JoinGame {
         this.myForm = formBuilder.group({
             gameName: ['', Validators.required]
         });
+        var routeGameName = routeParams.get('gameName');
+        if (routeGameName) {
+            this.joinGame(routeGameName);
+        }
     }
 
     onSubmit(formValue) {

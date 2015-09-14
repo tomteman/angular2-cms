@@ -18,6 +18,10 @@ export class GameApi {
 		return this.http.post('/api/games');
 	}
 
+	present(gameName: string) {
+		return this.http.put('/api/games/' + gameName + '/present');
+	}
+
 	feed(gameName: string) {
 		var socket = io(config.serverLocation);
 		return Observable
