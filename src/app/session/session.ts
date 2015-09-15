@@ -57,6 +57,10 @@ export class Session {
 		location.href = config.serverLocation + '/api/auth/signout';
 	}
 
+	static deletePresenterFlag() {
+		sessionStorage.removeItem(PRESENTER_KEY);
+	}
+
 	private static deleteSession() {
 		localStorage.removeItem(SESSION_KEY);
 	}

@@ -9,4 +9,8 @@ export class SessionApi {
 		return this.http.get('/api/auth/user');
 	}
 
+	presenterSignout() {
+		return this.http.get('/api/auth/presenterSignout');
+	}
+
 }

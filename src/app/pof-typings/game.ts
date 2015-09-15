@@ -6,6 +6,7 @@ export interface IGame {
   players: PlayersArray;
   questions: Questions;
   createdAt: any;
+  numberOfQuestions: number;
 }
 
 export interface PlayersArray {

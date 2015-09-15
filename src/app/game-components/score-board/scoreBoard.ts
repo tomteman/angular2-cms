@@ -9,6 +9,7 @@ import {QuestionState, IQuestion} from 'app/pof-typings/question';
 import {GameState} from 'app/pof-typings/game';
 
 import {GameApi} from 'app/datacontext/repositories/gameApi';
+import {SessionApi} from 'app/datacontext/repositories/sessionApi';
 import {Session} from 'app/session/session';
 
 let styles = require('./scoreBoard.css');
@@ -31,7 +32,8 @@ export class ScoreBoard {
     subscribeSource;
 
     constructor(public gameApi: GameApi, public router: Router,
-        public routeParams: RouteParams, public session: Session) {
+        public routeParams: RouteParams, public session: Session,
+        public sessionApi: SessionApi) {
         // MDL issue
         componentHandler.upgradeDom();
 
@@ -65,10 +67,21 @@ export class ScoreBoard {
 
     navigateToNextStep(game) {
         if (game.state === GameState.GameOver) {
-            this.router.navigate('/home');
+            if (this.session.isPresenter()) {
+                this.clearPresenter();
+            } else {
+                this.router.navigate('/home');
+            }
         } else {
             this.router.navigate('/show-question/' + game.name);
         }
+    }
+
+    clearPresenter() {
+        Session.deletePresenterFlag();
+        this.sessionApi.presenterSignout().then(() => {
+            this.router.navigate('/home');
+        });
     }
 
     startTimer(gameName: string, question: IQuestion) {
