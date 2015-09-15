@@ -20,6 +20,7 @@ let template = require('./createGame.html');
     template: template
 })
 export class CreateGame {
+    errorMsg: string;
     defaultCategories;
     customCategories;
     selecetedCategories = [];
@@ -44,6 +45,7 @@ export class CreateGame {
     }
 
     onSubmit() {
+        this.errorMsg = '';
         let options = {
             categories: this.selecetedCategories
         };
@@ -55,6 +57,7 @@ export class CreateGame {
             })
             .catch(err => {
                 console.log(err);
+                this.errorMsg = err.data.message;
             })
     }
 

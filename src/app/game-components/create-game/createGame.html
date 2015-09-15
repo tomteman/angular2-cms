@@ -32,7 +32,5 @@
         </div>
     </form>
 
-    <p *ng-if="showSuccessMsg"> Question added successfully </p>
-    <p *ng-if="showWaitForApproveMsg"> Question added successfully but need to be approved </p>
-    <p *ng-if="showErrorMsg"> {{ errorMsg }} </p>
+    <p *ng-if="errorMsg"> {{ errorMsg }} </p>
 </section>
