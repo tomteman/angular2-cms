@@ -42,10 +42,10 @@ export class ScoreBoard {
 
             if (!this.question) {
                 this.navigateToNextStep(this.game);
+            } else {
+                this.subscribe(gameName);
+                this.startTimer(game.name, this.question);
             }
-
-            this.subscribe(gameName);
-            this.startTimer(game.name, this.question);
         });
     }
 
@@ -58,9 +58,8 @@ export class ScoreBoard {
 
     subscribe(gameName: string) {
         this.subscribeSource = this.gameApi.feed(gameName).subscribe(change => {
-            console.log(change);
             this.subscribeSource.dispose();
-            this.navigateToNextStep(this.game);
+            this.navigateToNextStep(change.new_val);
         });
     }
 

@@ -1,8 +1,12 @@
-import {Component, View} from 'angular2/angular2';
+import {
+Component, View,
+FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
-import {CORE_DIRECTIVES} from 'angular2/angular2';
+import * as _ from 'lodash';
 
-import {GameState} from 'app/pof-typings/game';
+import {GameState, IGame} from 'app/pof-typings/game';
+import {QuestionState} from 'app/pof-typings/question';
+
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 
 let styles = require('./gameStaging.css');
@@ -17,7 +21,7 @@ let template = require('./gameStaging.html');
     template: template
 })
 export class GameStaging {
-    game;
+    game: IGame;
     subscribeSource;
 
     constructor(public gameApi: GameApi, routeParams: RouteParams, public router: Router) {
@@ -25,33 +29,32 @@ export class GameStaging {
         componentHandler.upgradeDom();
 
         var gameName = routeParams.get('gameName');
-        this.getGame(gameName);
-        console.log('inside game-staging constructor', gameName);
+        this.getGame(gameName).then(game => {
+            this.game = game;
+            this.subscribe(gameName);
+
+            if (game.state !== GameState.Registration) {
+                this.navigateToNextState(game.name);
+            }
+        });
     }
 
     getGame(gameName: string) {
-        this.gameApi.get(gameName)
-            .then(result => {
-                this.game = result;
-                this.subscribe(gameName);
-                console.log('game', this.game);
-            })
+        return this.gameApi.get(gameName)
             .catch(err => {
                 console.log(err);
             });
     }
 
     subscribe(gameName: string) {
-        this.subscribeSource = this.gameApi.feed(gameName).subscribe(change => {
-            console.log(change);
+        this.subscribeSource = this.gameApi.feed(gameName).subscribe(changes => {
 
-            if (change.new_val.players.length !== change.old_val.players.length) {
-                this.game.players = change.new_val.players;
+            if (changes.new_val.players.length !== changes.old_val.players.length) {
+                this.game.players = changes.new_val.players;
             }
 
-            if (change.new_val.state === GameState.InProgress) {
-                this.subscribeSource.dispose();
-                this.router.navigate('/show-question/' + gameName);
+            if (changes.new_val.state === GameState.InProgress) {
+                this.navigateToNextState(gameName);
             }
 
         });
@@ -59,11 +62,16 @@ export class GameStaging {
 
     startGame() {
         this.gameApi.start(this.game.name)
-            .then(result => {
-                this.router.navigate('/show-question/' + result.name);
+            .then(game => {
+                this.navigateToNextState(game.name);
             })
             .catch(err => {
                 console.log(err);
             })
+    }
+
+    navigateToNextState(gameName: string) {
+        this.subscribeSource.dispose();
+        this.router.navigate('/show-question/' + gameName);
     }
 }

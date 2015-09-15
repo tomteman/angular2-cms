@@ -1,7 +1,9 @@
-import {Component, View} from 'angular2/angular2';
-import {ControlGroup, FormBuilder, FORM_DIRECTIVES, Validators} from 'angular2/angular2';
-import {CORE_DIRECTIVES} from 'angular2/angular2';
-import {Router, RouteParams} from 'angular2/router';
+import {
+Component, View,
+ControlGroup, FormBuilder, Validators,
+FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
+import {Router} from 'angular2/router';
+import * as _ from 'lodash';
 
 import {GameState} from 'app/pof-typings/game';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
@@ -19,10 +21,10 @@ let template = require('./presentGame.html');
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES]
 })
 export class PresentGame {
-     myForm: ControlGroup;
+    myForm: ControlGroup;
     serverErrorMsg: string;
     constructor(formBuilder: FormBuilder, public gameApi: GameApi, public router: Router,
-                public session: Session) {
+        public session: Session) {
         // MDL issue
         componentHandler.upgradeDom();
 

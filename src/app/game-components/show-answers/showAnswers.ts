@@ -53,10 +53,10 @@ export class ShowAnswers {
 
                 if (!this.question) {
                     this.router.navigate(NEXT_STATE_ROUTE + game.name);
+                } else {
+                    this.isPlayer ? this.checkIfAnswerSelected() : null;
+                    this.subscribe(game.name, this.question);
                 }
-
-                this.isPlayer ? this.checkIfAnswerSelected() : null;
-                this.subscribe(game.name, this.question);
             });
     }
 
@@ -73,7 +73,7 @@ export class ShowAnswers {
             });
     }
 
-     subscribe(gameName: string, question) {
+    subscribe(gameName: string, question) {
         this.subscribeSource = this.gameApi.feed(gameName).subscribe(changes => {
             let currentQuestion = _.find(changes.new_val.questions, q => q.id === question.id);
 
@@ -92,7 +92,6 @@ export class ShowAnswers {
         this.gameApi.chooseAnswer(this.game.name, answerText)
             .then(res => {
                 this.answerSelected = answerText;
-                console.log(res);
             })
             .catch(err => {
                 console.log(err);

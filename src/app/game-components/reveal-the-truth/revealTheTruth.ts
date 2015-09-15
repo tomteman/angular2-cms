@@ -52,9 +52,9 @@ export class RevealTheTruth {
 
                 if (!this.question) {
                     this.router.navigate(NEXT_STATE_ROUTE + game.name);
+                } else {
+                    this.subscribe(game.name, this.question);
                 }
-
-                this.subscribe(game.name, this.question);
             });
     }
 

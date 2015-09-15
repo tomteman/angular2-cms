@@ -1,7 +1,9 @@
-import {Component, View} from 'angular2/angular2';
-import {ControlGroup, FormBuilder, FORM_DIRECTIVES, Validators} from 'angular2/angular2';
-import {CORE_DIRECTIVES} from 'angular2/angular2';
+import {
+Component, View,
+ControlGroup, FormBuilder, Validators,
+FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
+import * as _ from 'lodash';
 
 import {GameState} from 'app/pof-typings/game';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
@@ -19,9 +21,9 @@ let template = require('./joinGame.html');
 })
 export class JoinGame {
     myForm: ControlGroup;
-    serverErrorMsg: string;
+    errorMsg: string;
 
-    constructor(formBuilder: FormBuilder, public gameApi: GameApi, routeParams: RouteParams, public router: Router) {
+    constructor(formBuilder: FormBuilder, public gameApi: GameApi, public router: Router) {
         // MDL issue
         componentHandler.upgradeDom();
 
@@ -35,20 +37,19 @@ export class JoinGame {
     }
 
     joinGame(gameName: string) {
-           this.gameApi.join(gameName)
-            .then((game) => {
-                console.log(game);
+        this.gameApi.join(gameName)
+            .then(game => {
                 if (game.state === GameState.Registration) {
                     this.router.navigate('/game-staging/' + gameName);
                 } else if (game.state === GameState.InProgress) {
                     this.router.navigate('/show-question/' + gameName);
-                } else {
-                    this.router.navigate('/score-board/' + gameName);
+                } else if (game.state === GameState.GameOver) {
+                    this.errorMsg = 'This game is not available';
                 }
             })
             .catch(err => {
                 console.log(err);
-                this.serverErrorMsg = err.data.message;
+                this.errorMsg = err.data.message;
             })
     }
 }

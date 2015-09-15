@@ -53,10 +53,10 @@ export class ShowQuestion {
 
                 if (!this.question) {
                     this.router.navigate(NEXT_STATE_ROUTE + game.name);
+                } else {
+                    this.isPlayer ? this.checkIfQuestionSubmitted() : null;
+                    this.subscribe(game.name, this.question);
                 }
-
-                this.isPlayer ? this.checkIfQuestionSubmitted() : null;
-                this.subscribe(game.name, this.question);
             });
     }
 

@@ -1,7 +1,8 @@
-import {Component, View} from 'angular2/angular2';
-import {ControlGroup, FormBuilder, FORM_DIRECTIVES, Validators} from 'angular2/angular2'
+import {
+Component, View,
+ControlGroup, FormBuilder, Validators,
+FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Router} from 'angular2/router';
-import {CORE_DIRECTIVES} from 'angular2/angular2'
 import * as _ from 'lodash';
 
 import {GameApi} from 'app/datacontext/repositories/gameApi';
@@ -52,7 +53,6 @@ export class CreateGame {
 
         this.gameApi.create(options)
             .then(result => {
-                console.log('game created', result.name);
                 this.router.navigate('/game-staging/' + result.name);
             })
             .catch(err => {
