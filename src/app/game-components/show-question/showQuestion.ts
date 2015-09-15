@@ -7,12 +7,17 @@ import * as _ from 'lodash';
 
 import {IQuestion, QuestionState} from 'app/pof-typings/question';
 import {GameState} from 'app/pof-typings/game';
-import {IPlayer} from 'app/pof-typings/player'
+import {IPlayer} from 'app/pof-typings/player';
+
 import {Session} from 'app/session/session';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 
 let styles = require('./showQuestion.css');
 let template = require('./showQuestion.html');
+
+const CURRENT_STATE = QuestionState.ShowQuestion;
+const NEXT_STATE = QuestionState.ShowAnswers;
+const NEXT_STATE_ROUTE = '/show-answers/';
 
 @Component({
     selector: 'show-question'
@@ -44,10 +49,10 @@ export class ShowQuestion {
         this.getGame(this.routeParams.get('gameName'))
             .then((game) => {
                 this.game = game;
-                this.question = this.getCurrentQuestion(this.game, QuestionState.ShowQuestion);
+                this.question = this.getCurrentQuestion(this.game, CURRENT_STATE);
 
                 if (!this.question) {
-                    this.router.navigate('/show-answers/' + game.name);
+                    this.router.navigate(NEXT_STATE_ROUTE + game.name);
                 }
 
                 this.isPlayer ? this.checkIfQuestionSubmitted() : null;
@@ -72,9 +77,9 @@ export class ShowQuestion {
         this.subscribeSource = this.gameApi.feed(gameName).subscribe(changes => {
             let currentQuestion = _.find(changes.new_val.questions, q => q.id === question.id);
 
-            if (currentQuestion.state === QuestionState.ShowAnswers) {
+            if (currentQuestion.state === NEXT_STATE) {
                 this.subscribeSource.dispose();
-                this.router.navigate('/show-answers/' + gameName);
+                this.router.navigate(NEXT_STATE_ROUTE + gameName);
             }
         });
     }

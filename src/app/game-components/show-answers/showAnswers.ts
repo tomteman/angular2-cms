@@ -1,19 +1,26 @@
-import {Component, View} from 'angular2/angular2';
+import {
+Component, View,
+ControlGroup, FormBuilder, Validators,
+FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
-import {ControlGroup, FormBuilder, FORM_DIRECTIVES, Validators} from 'angular2/angular2'
-import {CORE_DIRECTIVES} from 'angular2/angular2';
+import * as _ from 'lodash';
 
 import {IQuestion, QuestionState} from 'app/pof-typings/question';
 import {GameState} from 'app/pof-typings/game';
-import {IPlayer} from 'app/pof-typings/player'
+import {IPlayer} from 'app/pof-typings/player';
+
 import {Session} from 'app/session/session';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 
 let styles = require('./showAnswers.css');
 let template = require('./showAnswers.html');
 
+const CURRENT_STATE = QuestionState.ShowAnswers;
+const NEXT_STATE = QuestionState.RevealTheTruth;
+const NEXT_STATE_ROUTE = '/reveal-the-truth/';
+
 @Component({
-    selector: 'show-question'
+    selector: 'show-answer'
 })
 @View({
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
@@ -22,7 +29,7 @@ let template = require('./showAnswers.html');
 })
 export class ShowAnswers {
     game;
-    question;
+    question: IQuestion;
     subscribeSource;
     answerSelected: string;
     isPlayer: boolean;
@@ -30,21 +37,27 @@ export class ShowAnswers {
     errorMsg: string;
     myForm: ControlGroup;
 
-    constructor(public gameApi: GameApi, routeParams: RouteParams,
+    constructor(public gameApi: GameApi, public routeParams: RouteParams,
         public formBuilder: FormBuilder, public session: Session,
         public router: Router) {
         // MDL issue
         componentHandler.upgradeDom();
 
-        var gameName = routeParams.get('gameName');
-        this.setGame(gameName)
-            .then(() => {
-                this.setCurrentQuestion();
-                this.checkIfAnswerSelected();
-            });
-
         this.buildForm();
-        this.isPlayer = session.isPlayer();
+        this.isPlayer = this.session.isPlayer();
+
+        this.getGame(this.routeParams.get('gameName'))
+            .then((game) => {
+                this.game = game;
+                this.question = this.getCurrentQuestion(this.game, CURRENT_STATE);
+
+                if (!this.question) {
+                    this.router.navigate(NEXT_STATE_ROUTE + game.name);
+                }
+
+                this.isPlayer ? this.checkIfAnswerSelected() : null;
+                this.subscribe(game.name, this.question);
+            });
     }
 
     buildForm() {
@@ -53,37 +66,26 @@ export class ShowAnswers {
         });
     }
 
-    setGame(gameName: string) {
+    getGame(gameName: string) {
         return this.gameApi.get(gameName)
-            .then(result => {
-                console.log(result);
-                this.game = result;
-                this.subscribe(gameName);
-            })
             .catch(err => {
                 console.log(err);
             });
     }
 
-    subscribe(gameName: string) {
-        this.subscribeSource = this.gameApi.feed(gameName).subscribe(change => {
-            console.log(change);
+     subscribe(gameName: string, question) {
+        this.subscribeSource = this.gameApi.feed(gameName).subscribe(changes => {
+            let currentQuestion = _.find(changes.new_val.questions, q => q.id === question.id);
 
-            var currentQuestion = _.find(change.new_val.questions, q => {
-                return q.id === this.question.id;
-            });
-
-            if (currentQuestion.state === QuestionState.RevealTheTruth) {
+            if (currentQuestion.state === NEXT_STATE) {
                 this.subscribeSource.dispose();
-                this.router.navigate('/reveal-the-truth/' + gameName);
+                this.router.navigate(NEXT_STATE_ROUTE + gameName);
             }
         });
     }
 
-    setCurrentQuestion() {
-        this.question = _.find(this.game.questions, function(q: IQuestion) {
-            return q.state === QuestionState.ShowAnswers;
-        });
+    getCurrentQuestion(game, questionState: QuestionState) {
+        return _.find(game.questions, (q: IQuestion) => q.state === questionState);
     }
 
     choose(answerText) {

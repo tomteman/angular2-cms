@@ -3,6 +3,8 @@ import {HttpWrapper} from 'app/datacontext/httpWrapper';
 import {Observable} from 'rx';
 import * as io from 'socket.io-client';
 
+import {QuestionState} from 'app/pof-typings/question';
+
 let config = require('config.json');
 
 @Injectable()
@@ -37,8 +39,8 @@ export class GameApi {
 		return this.http.put('/api/games/' + gameName + '/join');
 	}
 
-	tick(gameName: string) {
-		return this.http.put('/api/games/' + gameName + '/tick');
+	tick(gameName: string, questionId: string, currentState: QuestionState) {
+		return this.http.put(`/api/games/${gameName}/tick/${questionId}/${currentState}`);
 	}
 
 	answer(gameName: string, answer: string) {
