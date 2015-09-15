@@ -48,7 +48,8 @@ export class CreateGame {
     onSubmit() {
         this.errorMsg = '';
         let options = {
-            categories: this.selecetedCategories
+            categories: this.selecetedCategories,
+            numberOfQuestions: 3
         };
 
         this.gameApi.create(options)
