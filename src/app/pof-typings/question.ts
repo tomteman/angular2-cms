@@ -1,29 +1,30 @@
 export interface IQuestion {
-  questionText: string;
-  realAnswer: RealAnswer;
-  fakeAnswers: FakeAnswerArray;
-  creatorId: string;
-  state: QuestionState;
-  approved: boolean;
+    id: string;
+    questionText: string;
+    realAnswer: RealAnswer;
+    fakeAnswers: FakeAnswerArray;
+    creatorId: string;
+    state: QuestionState;
+    approved: boolean;
 }
 
 export interface ISeedQuestion {
-  questionText: string;
-  realAnswer: RealAnswer;
-  fakeAnswers: Array<string>;
+    questionText: string;
+    realAnswer: RealAnswer;
+    fakeAnswers: Array<string>;
 }
 
 export interface FakeAnswerArray {
-  text: string;
-  selectedBy: Array<string>;
-  createdBy: Array<string>;
+    text: string;
+    selectedBy: Array<string>;
+    createdBy: Array<string>;
 }
 
 export interface RealAnswer {
-  text: string;
-  selectedBy: Array<string>;
+    text: string;
+    selectedBy: Array<string>;
 }
 
 export enum QuestionState {
-  Pending, ShowQuestion, ShowAnswers, RevealTheTruth, ScoreBoard, End
+    Pending, ShowQuestion, ShowAnswers, RevealTheTruth, ScoreBoard, End
 }

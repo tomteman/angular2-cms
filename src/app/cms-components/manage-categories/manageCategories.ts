@@ -7,7 +7,6 @@ import * as _ from 'lodash';
 import {ISeedQuestion} from 'app/pof-typings/question';
 import {IPlayer} from 'app/pof-typings/player'
 import {ICategory} from 'app/pof-typings/category';
-import {QuestionApi} from 'app/datacontext/repositories/questionApi';
 import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
 import {Session} from 'app/session/session';
 

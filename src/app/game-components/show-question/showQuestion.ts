@@ -1,7 +1,9 @@
-import {Component, View} from 'angular2/angular2';
+import {
+Component, View,
+ControlGroup, FormBuilder, Validators,
+FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
-import {ControlGroup, FormBuilder, FORM_DIRECTIVES, Validators} from 'angular2/angular2'
-import {CORE_DIRECTIVES} from 'angular2/angular2';
+import * as _ from 'lodash';
 
 import {IQuestion, QuestionState} from 'app/pof-typings/question';
 import {GameState} from 'app/pof-typings/game';
@@ -22,7 +24,7 @@ let template = require('./showQuestion.html');
 })
 export class ShowQuestion {
     game;
-    question;
+    question: IQuestion;
     subscribeSource;
     isPlayer: boolean;
     questionSubmitted: boolean;
@@ -30,21 +32,27 @@ export class ShowQuestion {
     errorMsg: string;
     myForm: ControlGroup;
 
-    constructor(public gameApi: GameApi, routeParams: RouteParams,
+    constructor(public gameApi: GameApi, public routeParams: RouteParams,
         public formBuilder: FormBuilder, public session: Session,
         public router: Router) {
         // MDL issue
         componentHandler.upgradeDom();
 
-        var gameName = routeParams.get('gameName');
-        this.setGame(gameName)
-            .then(() => {
-                this.setCurrentQuestion();
-                this.checkIfQuestionSubmitted();
-            });
-
         this.buildForm();
-        this.isPlayer = session.isPlayer();
+        this.isPlayer = this.session.isPlayer();
+
+        this.getGame(this.routeParams.get('gameName'))
+            .then((game) => {
+                this.game = game;
+                this.question = this.getCurrentQuestion(this.game, QuestionState.ShowQuestion);
+
+                if (!this.question) {
+                    this.router.navigate('/show-answers/' + game.name);
+                }
+
+                this.isPlayer ? this.checkIfQuestionSubmitted() : null;
+                this.subscribe(game.name, this.question);
+            });
     }
 
     buildForm() {
@@ -53,25 +61,16 @@ export class ShowQuestion {
         });
     }
 
-    setGame(gameName: string) {
+    getGame(gameName: string) {
         return this.gameApi.get(gameName)
-            .then(result => {
-                console.log(result);
-                this.game = result;
-                this.subscribe(gameName);
-            })
             .catch(err => {
                 console.log(err);
             });
     }
 
-    subscribe(gameName: string) {
-        this.subscribeSource = this.gameApi.feed(gameName).subscribe(change => {
-            console.log(change);
-
-            var currentQuestion = _.find(change.new_val.questions, q => {
-                return q.id === this.question.id;
-            });
+    subscribe(gameName: string, question) {
+        this.subscribeSource = this.gameApi.feed(gameName).subscribe(changes => {
+            let currentQuestion = _.find(changes.new_val.questions, q => q.id === question.id);
 
             if (currentQuestion.state === QuestionState.ShowAnswers) {
                 this.subscribeSource.dispose();
@@ -82,14 +81,11 @@ export class ShowQuestion {
 
     checkIfQuestionSubmitted() {
         this.session.activeUser.subscribe((player: IPlayer) => {
-            this.questionSubmitted = _.any(this.question.fakeAnswers, fakeAnswer =>
-                _.contains(fakeAnswer.createdBy, player.id)
-            )
+            this.questionSubmitted = _.any(this.question.fakeAnswers, fakeAnswer => _.contains(fakeAnswer.createdBy, player.id))
         });
     }
 
     answer(formValue) {
-        console.log(formValue.answerText);
         this.warningMsg = '';
         this.errorMsg = '';
         this.gameApi.answer(this.game.name, formValue.answerText)
@@ -106,10 +102,8 @@ export class ShowQuestion {
             });
     }
 
-    setCurrentQuestion() {
-        this.question = _.find(this.game.questions, (q: IQuestion) =>
-            q.state === QuestionState.ShowQuestion
-        );
+    getCurrentQuestion(game, questionState: QuestionState) {
+        return _.find(game.questions, (q: IQuestion) => q.state === questionState);
     }
 
     clearAnswer() {

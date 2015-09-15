@@ -6,7 +6,6 @@ import * as _ from 'lodash';
 
 import {ISeedQuestion} from 'app/pof-typings/question';
 import {ICategory} from 'app/pof-typings/category';
-import {QuestionApi} from 'app/datacontext/repositories/questionApi';
 import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
 
 let styles = require('./manageCategory.css');
@@ -22,8 +21,8 @@ let template = require('./manageCategory.html');
 })
 export class ManageCategory {
 
-    constructor(formBuilder: FormBuilder, public questionApi: QuestionApi,
-        public categoryApi: CategoryApi, public routeParams: RouteParams) {
+    constructor(formBuilder: FormBuilder, public categoryApi: CategoryApi,
+        public routeParams: RouteParams) {
         // MDL issue
         componentHandler.upgradeDom();
 

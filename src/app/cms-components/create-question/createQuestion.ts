@@ -5,7 +5,6 @@ import * as _ from 'lodash';
 
 import {ISeedQuestion} from 'app/pof-typings/question';
 import {ICategory} from 'app/pof-typings/category';
-import {QuestionApi} from 'app/datacontext/repositories/questionApi';
 import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
 
 let styles = require('./createQuestion.css');
@@ -29,8 +28,7 @@ export class CreateQuestion {
     showErrorMsg: boolean;
     errorMsg: string;
 
-    constructor(formBuilder: FormBuilder, public questionApi: QuestionApi,
-        public categoryApi: CategoryApi) {
+    constructor(formBuilder: FormBuilder, public categoryApi: CategoryApi) {
         // MDL issue
         componentHandler.upgradeDom();
 
@@ -47,7 +45,7 @@ export class CreateQuestion {
     }
 
     getCategories() {
-        this.categoryApi.getAll()
+        this.categoryApi.getAll(false)
             .then(resp => {
                 this.defaultCategories = _.filter(resp, { default: true });
                 this.customCategories = _.filter(resp, { default: false });
@@ -68,7 +66,7 @@ export class CreateQuestion {
             realAnswer: formValue.realAnswer
         };
 
-        this.questionApi.create(this.selectedCategoryName, newQuestion)
+        this.categoryApi.createQuestion(this.selectedCategoryName, newQuestion)
             .then(res => {
                 console.log(res);
 
