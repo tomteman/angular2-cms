@@ -39,10 +39,10 @@ export class CategoryApi {
 			.map(res => JSON.parse(res));
 	}
 
-	feedMyCategory(playerId) {
+	myCategoriesFeed(playerId) {
 		var socket = io(config.serverLocation);
 		return Observable
-			.fromEvent(socket, 'myCategory:' + playerId + ':feed')
+			.fromEvent(socket, 'myCategories:' + playerId + ':feed')
 			.map(res => JSON.parse(res));
 	}
 

@@ -52,7 +52,7 @@ export class ManageCategories {
 
     subscribe() {
         this.session.activeUser.subscribe((player: IPlayer) => {
-            this.categoryApi.feedMyCategory(player.id)
+            this.categoryApi.myCategoriesFeed(player.id)
                 .subscribe(changes => {
                     console.log(changes);
 
