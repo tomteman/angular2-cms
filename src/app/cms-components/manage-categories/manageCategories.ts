@@ -30,22 +30,24 @@ export class ManageCategories {
         // MDL issue
         componentHandler.upgradeDom();
 
-        // TODO: URI
-        // this.getMyCategories().then(this.subscribe);
-        this.getMyCategories().then(() => { this.subscribe() });
+        this.getMyCategories().then(this.subscribe.bind(this));
     }
 
     getMyCategories() {
+        function pendingRequestsCount(category) {
+            category.pendingRequests = _.reduce(category.questions, (sum, question) => sum + Number(!question.approved), 0);
+        }
+
         return this.categoryApi.getMyCategories()
             .then(resp => {
                 this.categories = resp;
 
-                _.forEach(this.categories, this.calcPendingRequests);
+                _.forEach(this.categories, pendingRequestsCount);
                 console.log(resp);
             })
             .catch(err => {
                 console.log(err);
-            })
+            });
     }
 
     subscribe() {
@@ -55,7 +57,7 @@ export class ManageCategories {
                     console.log(changes);
 
                     if (changes.new_val) {
-                        let index = _.findIndex(this.categories, category => { category.name ===  changes.new_val.name});
+                        let index = _.findIndex(this.categories, category => { category.name === changes.new_val.name });
                         if (~index) {
                             this.categories[index] = changes.new_val;
                         } else {
@@ -69,8 +71,6 @@ export class ManageCategories {
         });
     }
 
-    calcPendingRequests(category) {
-        category.pendingRequests = _.reduce(category.questions, (sum, question) => sum + Number(!question.approved), 0);
-    }
+
 
 }
