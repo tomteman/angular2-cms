@@ -18,6 +18,7 @@ let template = require('./showAnswers.html');
 const CURRENT_STATE = QuestionState.ShowAnswers;
 const NEXT_STATE = QuestionState.RevealTheTruth;
 const NEXT_STATE_ROUTE = '/reveal-the-truth/';
+const SHOW_ANSWERS_TIME = 5000;
 
 @Component({
     selector: 'show-answer'
@@ -56,6 +57,7 @@ export class ShowAnswers {
                 } else {
                     this.isPlayer ? this.checkIfAnswerSelected() : null;
                     this.subscribe(game.name, this.question);
+                    this.startTimer();
                 }
             });
     }
@@ -113,5 +115,10 @@ export class ShowAnswers {
                 this.answerSelected = this.question.realAnswer.text;
             }
         });
+    }
+
+    startTimer() {
+        setTimeout(() => this.gameApi.tick(this.game.name, this.question.id, this.question.state),
+            SHOW_ANSWERS_TIME);
     }
 }

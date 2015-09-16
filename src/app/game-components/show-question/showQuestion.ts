@@ -18,6 +18,7 @@ let template = require('./showQuestion.html');
 const CURRENT_STATE = QuestionState.ShowQuestion;
 const NEXT_STATE = QuestionState.ShowAnswers;
 const NEXT_STATE_ROUTE = '/show-answers/';
+const SHOW_QUESTION_TIME = 5000;
 
 @Component({
     selector: 'show-question'
@@ -56,6 +57,7 @@ export class ShowQuestion {
                 } else {
                     this.isPlayer ? this.checkIfQuestionSubmitted() : null;
                     this.subscribe(game.name, this.question);
+                    this.startTimer();
                 }
             });
     }
@@ -109,6 +111,11 @@ export class ShowQuestion {
 
     getCurrentQuestion(game, questionState: QuestionState) {
         return _.find(game.questions, (q: IQuestion) => q.state === questionState);
+    }
+
+    startTimer() {
+        setTimeout(() => this.gameApi.tick(this.game.name, this.question.id, this.question.state),
+            SHOW_QUESTION_TIME);
     }
 
     clearAnswer() {

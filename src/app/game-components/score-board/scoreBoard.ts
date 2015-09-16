@@ -46,7 +46,7 @@ export class ScoreBoard {
                 this.navigateToNextStep(this.game);
             } else {
                 this.subscribe(gameName);
-                this.startTimer(game.name, this.question);
+                this.startTimer();
             }
         });
     }
@@ -84,14 +84,13 @@ export class ScoreBoard {
         });
     }
 
-    startTimer(gameName: string, question: IQuestion) {
-        setTimeout(() => {
-            this.gameApi.tick(gameName, question.id, question.state);
-        }, SCORE_BOARD_SHOW_TIME);
-    }
-
     getCurrentQuestion(game, questionState: QuestionState) {
         return _.find(game.questions, (q: IQuestion) => q.state === questionState);
+    }
+
+    startTimer() {
+        setTimeout(() => this.gameApi.tick(this.game.name, this.question.id, this.question.state),
+            SCORE_BOARD_SHOW_TIME);
     }
 
 }

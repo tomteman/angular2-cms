@@ -17,6 +17,7 @@ let template = require('./revealTheTruth.html');
 const CURRENT_STATE = QuestionState.RevealTheTruth;
 const NEXT_STATE = QuestionState.ScoreBoard;
 const NEXT_STATE_ROUTE = '/score-board/';
+const REVEALING_THE_TRUTH_TIME = 3000;
 
 @Component({
     selector: 'reveal-the-truth'
@@ -54,6 +55,7 @@ export class RevealTheTruth {
                     this.router.navigate(NEXT_STATE_ROUTE + game.name);
                 } else {
                     this.subscribe(game.name, this.question);
+                    this.startTimer();
                 }
             });
     }
@@ -86,11 +88,9 @@ export class RevealTheTruth {
         return _.find(game.questions, (q: IQuestion) => q.state === questionState);
     }
 
-    finish() {
-        this.gameApi.finishRevealingTheTruth(this.game.name)
-            .catch(err => {
-                console.log(err);
-            })
+    startTimer() {
+        setTimeout(() => this.gameApi.tick(this.game.name, this.question.id, this.question.state),
+            REVEALING_THE_TRUTH_TIME);
     }
 
 }
