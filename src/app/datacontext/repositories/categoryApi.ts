@@ -28,6 +28,10 @@ export class CategoryApi {
 		return this.http.post('/api/categories', category);
 	}
 
+	delete(categoryName: string) {
+		return this.http.delete(`/api/categories/${categoryName}`);
+	}
+
 	createQuestion(categoryName: string, question: ISeedQuestion) {
 		return this.http.post(`/api/categories/${categoryName}/questions/`, question);
 	}

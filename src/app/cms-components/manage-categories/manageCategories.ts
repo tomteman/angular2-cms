@@ -57,20 +57,31 @@ export class ManageCategories {
                     console.log(changes);
 
                     if (changes.new_val) {
-                        let index = _.findIndex(this.categories, category => { category.name === changes.new_val.name });
+                        let index = _.findIndex(this.categories, category => category.name === changes.new_val.name );
                         if (~index) {
-                            this.categories[index] = changes.new_val;
+                            if (changes.new_val.deleteDate) {
+                                this.categories.splice(index, 1);
+                            } else {
+                                this.categories[index] = changes.new_val;
+                            }
                         } else {
                             this.categories.push(changes.new_val);
                         }
-                    } else {
-                        // TODO: check if deleted
                     }
 
                 })
         });
     }
 
+    delete(category: ICategory) {
+        this.categoryApi.delete(category.name)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
 
 
 }
