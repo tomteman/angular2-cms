@@ -16,7 +16,7 @@ let styles = require('./scoreBoard.css');
 let template = require('./scoreBoard.html');
 
 const CURRENT_STATE = QuestionState.ScoreBoard;
-const SCORE_BOARD_SHOW_TIME = 5000;
+const SCORE_BOARD_SHOW_TIME = 10000;
 
 @Component({
     selector: 'score-board'

@@ -17,7 +17,7 @@ let template = require('./revealTheTruth.html');
 const CURRENT_STATE = QuestionState.RevealTheTruth;
 const NEXT_STATE = QuestionState.ScoreBoard;
 const NEXT_STATE_ROUTE = '/score-board/';
-const REVEALING_THE_TRUTH_TIME = 3000;
+const REVEALING_THE_TRUTH_TIME = 5000;
 
 @Component({
     selector: 'reveal-the-truth'

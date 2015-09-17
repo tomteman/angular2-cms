@@ -18,7 +18,7 @@ let template = require('./showAnswers.html');
 const CURRENT_STATE = QuestionState.ShowAnswers;
 const NEXT_STATE = QuestionState.RevealTheTruth;
 const NEXT_STATE_ROUTE = '/reveal-the-truth/';
-const SHOW_ANSWERS_TIME = 5000;
+const SHOW_ANSWERS_TIME = 60000;
 
 @Component({
     selector: 'show-answer'
