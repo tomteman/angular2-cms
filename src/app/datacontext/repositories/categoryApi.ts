@@ -20,6 +20,10 @@ export class CategoryApi {
 		return this.http.get('/api/categories/me');
 	}
 
+	getPotentialCategoryAdmins(categoryName: string) {
+		return this.http.get(`/api/categories/${categoryName}/potentialCategoryAdmins`)
+	}
+
 	get(categoryName: string) {
 		return this.http.get(`/api/categories/${categoryName}`);
 	}

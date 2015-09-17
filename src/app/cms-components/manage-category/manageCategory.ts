@@ -8,6 +8,7 @@ import {ISeedQuestion} from 'app/pof-typings/question';
 import {ICategory} from 'app/pof-typings/category';
 import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
 
+
 let styles = require('./manageCategory.css');
 let template = require('./manageCategory.html');
 
@@ -20,6 +21,7 @@ let template = require('./manageCategory.html');
     template: template
 })
 export class ManageCategory {
+    potentialAdmins;
 
     constructor(formBuilder: FormBuilder, public categoryApi: CategoryApi,
         public routeParams: RouteParams) {
@@ -28,18 +30,22 @@ export class ManageCategory {
 
         var categoryName = routeParams.get('categoryName');
         console.log(categoryName);
-        this.getQuestions(categoryName);
+        this.getPotentialCategoryAdmins(categoryName);
 
     }
 
-    getQuestions(categoryName) {
-        this.categoryApi.getQuestionByCategory(categoryName)
+    getPotentialCategoryAdmins(category: string) {
+        this.categoryApi.getPotentialCategoryAdmins(category)
             .then(resp => {
                 console.log(resp);
+                this.potentialAdmins = resp;
             })
             .catch(err => {
                 console.log(err);
             })
     }
 
+    addAdmin(potentialAdmin) {
+        console.log(potentialAdmin);
+    }
 }

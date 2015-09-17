@@ -1,0 +1,9 @@
+<section *ng-if="potentialAdmins" class="mdl-grid manage-categories">
+
+	<div *ng-for="#potentialAdmin of potentialAdmins">
+		<div>{{potentialAdmin.name}}</div>
+		<button (click)="addAdmin(potentialAdmin)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+				Add Admin
+			</button>
+	</div>
+</section>
