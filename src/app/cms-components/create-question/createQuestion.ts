@@ -22,7 +22,8 @@ export class CreateQuestion {
     myForm: ControlGroup;
     defaultCategories: Array<ICategory>;
     customCategories: Array<ICategory>;
-    selectedCategoryName: string;
+    selectedCategoryName;
+    secretCategoryName: string;
     showSuccessMsg: boolean;
     showWaitForApproveMsg: boolean;
     showErrorMsg: boolean;
@@ -66,7 +67,12 @@ export class CreateQuestion {
             realAnswer: formValue.realAnswer
         };
 
-        this.categoryApi.createQuestion(this.selectedCategoryName, newQuestion)
+        let categoryName = this.selectedCategoryName;
+        if (this.selectedCategoryName === -999) {
+            categoryName = this.secretCategoryName;
+        }
+
+        this.categoryApi.createQuestion(categoryName, newQuestion)
             .then(res => {
                 console.log(res);
 
@@ -80,7 +86,9 @@ export class CreateQuestion {
     }
 
     clearForm() {
-        console.log(this.myForm);
-        // this.todoInput.updateValue('');
+        this.myForm.controls.questionText.updateValue('');
+        this.myForm.controls.realAnswer.updateValue('');
+        this.myForm.controls.fakeAnswers.controls.one.updateValue('');
+        this.myForm.controls.fakeAnswers.controls.two.updateValue('');
     }
 }

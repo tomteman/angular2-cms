@@ -12,6 +12,24 @@
             <label class="mdl-textfield__label" for="category">Category</label>
         </div>-->
 
+        <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-phone mdl-cell--2-col-tablet">
+        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+                <input type="radio"
+                       class="mdl-radio__button"
+                       name="categoryId"
+                       (click)="selectedCategoryName = -999"/>
+                <span class="mdl-radio__label">Secret Category</span>
+            </label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left mdl-cell mdl-cell--8-col mdl-cell--2-col-phone mdl-cell--6-col-tablet">
+
+            <input type="text"
+                   class="mdl-textfield__input"
+                   id="secretCategoryName"
+                   [(ng-model)]="secretCategoryName">
+            <label class="mdl-textfield__label" for="secretCategoryName">Secret Category Name</label>
+        </div>
+
         <div
             class="mdl-cell mdl-cell--2-col mdl-cell--2-col-phone mdl-cell--2-col-tablet"
             *ng-for="#category of defaultCategories">
@@ -23,6 +41,26 @@
                 <span class="mdl-radio__label">{{ category.name }}</span>
             </label>
         </div>
+
+        <button (click)="showCustomCategories = !showCustomCategories"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            <span *ng-if="showCustomCategories"> Hide Custom Categories </span>
+            <span *ng-if="!showCustomCategories"> Show Custom Categories </span>
+        </button>
+
+        <section *ng-if="showCustomCategories">
+            <div
+                class="mdl-cell mdl-cell--2-col mdl-cell--2-col-phone mdl-cell--2-col-tablet"
+                *ng-for="#category of customCategories">
+                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+                    <input type="radio"
+                        class="mdl-radio__button"
+                        name="categoryId"
+                        (click)="selectedCategoryName = category.name"/>
+                    <span class="mdl-radio__label">{{ category.name }}</span>
+                </label>
+            </div>
+        </section>
 
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
             <input type="text"

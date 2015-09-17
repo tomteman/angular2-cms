@@ -1,7 +1,7 @@
 import {Component, View} from 'angular2/angular2';
 import {ControlGroup, FormBuilder, FORM_DIRECTIVES, Validators} from 'angular2/angular2'
 import {CORE_DIRECTIVES} from 'angular2/angular2'
-import {RouteParams} from 'angular2/router';
+import {RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
 import * as _ from 'lodash';
 
 import {ISeedQuestion} from 'app/pof-typings/question';
@@ -17,7 +17,7 @@ let template = require('./manageCategories.html');
     selector: 'manage-categories'
 })
 @View({
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES],
     styles: [styles],
     template: template
 })
