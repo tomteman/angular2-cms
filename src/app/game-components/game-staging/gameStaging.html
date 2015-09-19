@@ -1,10 +1,19 @@
-<section *ng-if="game" class="game-staging">
-	<p class="game-name"> {{ game.name | uppercase }} </p>
-	
-	<p> Players: </p>
-	<ul>
-		<li *ng-for="#player of game.players"> {{ player.name }} </li>
-	</ul>
-	
-	<button (click)="startGame()">Start</button>
+<section *ng-if="game" class="game-staging mdl-grid">
+	<p class="game-name mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet"> GAME NAME: {{ game.name | uppercase }} </p>
+
+	<section
+		*ng-for="#player of game.players"
+		class="players-in-game mdl-cell mdl-cell--4-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
+			<img src="{{player.picture}}" height="54" width="54"/>
+			<span class="">
+				{{ player.name }}
+			</span>
+	</section>
+
+	<div class="start-game-btn mdl-cell mdl-cell--12-col">
+		<button
+			(click)="startGame()"
+			class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+			Start</button>
+	</div>
 </section>

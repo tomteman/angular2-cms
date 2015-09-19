@@ -1,6 +1,7 @@
 import {
 Component, View,
 ControlGroup, FormBuilder, Validators,
+LifecycleEvent,
 FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
 import * as _ from 'lodash';
@@ -16,10 +17,11 @@ let styles = require('./scoreBoard.css');
 let template = require('./scoreBoard.html');
 
 const CURRENT_STATE = QuestionState.ScoreBoard;
-const SCORE_BOARD_SHOW_TIME = 5000;
+const SCORE_BOARD_SHOW_TIME = 10000;
 
 @Component({
-    selector: 'score-board'
+    selector: 'score-board',
+    lifecycle: [LifecycleEvent.OnDestroy]
 })
 @View({
     directives: [CORE_DIRECTIVES],
@@ -30,6 +32,7 @@ export class ScoreBoard {
     game;
     question: IQuestion;
     subscribeSource;
+    timerSource;
 
     constructor(public gameApi: GameApi, public router: Router,
         public routeParams: RouteParams, public session: Session,
@@ -60,7 +63,6 @@ export class ScoreBoard {
 
     subscribe(gameName: string) {
         this.subscribeSource = this.gameApi.feed(gameName).subscribe(change => {
-            this.subscribeSource.dispose();
             this.navigateToNextStep(change.new_val);
         });
     }
@@ -89,8 +91,12 @@ export class ScoreBoard {
     }
 
     startTimer() {
-        setTimeout(() => this.gameApi.tick(this.game.name, this.question.id, this.question.state),
+        this.timerSource = setTimeout(() => this.gameApi.tick(this.game.name, this.question.id, this.question.state),
             SCORE_BOARD_SHOW_TIME);
     }
 
+    onDestroy() {
+        this.subscribeSource.dispose();
+        clearTimeout(this.timerSource);
+    }
 }

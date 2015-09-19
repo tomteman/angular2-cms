@@ -1,6 +1,7 @@
 import {
 Component, View,
 ControlGroup, FormBuilder, Validators,
+LifecycleEvent,
 FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
 import * as _ from 'lodash';
@@ -18,10 +19,11 @@ let template = require('./showAnswers.html');
 const CURRENT_STATE = QuestionState.ShowAnswers;
 const NEXT_STATE = QuestionState.RevealTheTruth;
 const NEXT_STATE_ROUTE = '/reveal-the-truth/';
-const SHOW_ANSWERS_TIME = 5000;
+const SHOW_ANSWERS_TIME = 60000;
 
 @Component({
-    selector: 'show-answer'
+    selector: 'show-answer',
+    lifecycle: [LifecycleEvent.OnDestroy]
 })
 @View({
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
@@ -32,6 +34,7 @@ export class ShowAnswers {
     game;
     question: IQuestion;
     subscribeSource;
+    timerSource;
     answerSelected: string;
     isPlayer: boolean;
     warningMsg: string;
@@ -80,7 +83,6 @@ export class ShowAnswers {
             let currentQuestion = _.find(changes.new_val.questions, q => q.id === question.id);
 
             if (currentQuestion.state === NEXT_STATE) {
-                this.subscribeSource.dispose();
                 this.router.navigate(NEXT_STATE_ROUTE + gameName);
             }
         });
@@ -118,7 +120,12 @@ export class ShowAnswers {
     }
 
     startTimer() {
-        setTimeout(() => this.gameApi.tick(this.game.name, this.question.id, this.question.state),
+        this.timerSource = setTimeout(() => this.gameApi.tick(this.game.name, this.question.id, this.question.state),
             SHOW_ANSWERS_TIME);
+    }
+
+    onDestroy() {
+        this.subscribeSource.dispose();
+        clearTimeout(this.timerSource);
     }
 }

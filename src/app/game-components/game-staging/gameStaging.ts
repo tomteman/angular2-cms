@@ -1,5 +1,6 @@
 import {
 Component, View,
+LifecycleEvent,
 FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
 import * as _ from 'lodash';
@@ -13,7 +14,8 @@ let styles = require('./gameStaging.css');
 let template = require('./gameStaging.html');
 
 @Component({
-    selector: 'game-staging'
+    selector: 'game-staging',
+    lifecycle: [LifecycleEvent.OnDestroy]
 })
 @View({
     directives: [CORE_DIRECTIVES],
@@ -62,16 +64,16 @@ export class GameStaging {
 
     startGame() {
         this.gameApi.start(this.game.name)
-            .then(game => {
-                this.navigateToNextState(game.name);
-            })
             .catch(err => {
                 console.log(err);
             })
     }
 
     navigateToNextState(gameName: string) {
-        this.subscribeSource.dispose();
         this.router.navigate('/show-question/' + gameName);
+    }
+
+    onDestroy() {
+        this.subscribeSource.dispose();
     }
 }

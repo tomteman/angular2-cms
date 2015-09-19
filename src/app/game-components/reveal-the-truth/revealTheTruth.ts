@@ -1,6 +1,7 @@
 import {
 Component, View,
 ControlGroup, FormBuilder, Validators,
+LifecycleEvent,
 FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
 import * as _ from 'lodash';
@@ -17,10 +18,11 @@ let template = require('./revealTheTruth.html');
 const CURRENT_STATE = QuestionState.RevealTheTruth;
 const NEXT_STATE = QuestionState.ScoreBoard;
 const NEXT_STATE_ROUTE = '/score-board/';
-const REVEALING_THE_TRUTH_TIME = 3000;
+const REVEALING_THE_TRUTH_TIME = 5000;
 
 @Component({
-    selector: 'reveal-the-truth'
+    selector: 'reveal-the-truth',
+    lifecycle: [LifecycleEvent.OnDestroy]
 })
 @View({
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
@@ -31,6 +33,7 @@ export class RevealTheTruth {
     game;
     question: IQuestion;
     subscribeSource;
+    timerSource;
     answerSelected: string;
     isPlayer: boolean;
     warningMsg: string;
@@ -78,7 +81,6 @@ export class RevealTheTruth {
             let currentQuestion = _.find(changes.new_val.questions, q => q.id === question.id);
 
             if (currentQuestion.state === NEXT_STATE) {
-                this.subscribeSource.dispose();
                 this.router.navigate(NEXT_STATE_ROUTE + gameName);
             }
         });
@@ -89,8 +91,13 @@ export class RevealTheTruth {
     }
 
     startTimer() {
-        setTimeout(() => this.gameApi.tick(this.game.name, this.question.id, this.question.state),
+        this.timerSource = setTimeout(() => this.gameApi.tick(this.game.name, this.question.id, this.question.state),
             REVEALING_THE_TRUTH_TIME);
+    }
+    
+    onDestroy() {
+        this.subscribeSource.dispose();
+        clearTimeout(this.timerSource);
     }
 
 }
