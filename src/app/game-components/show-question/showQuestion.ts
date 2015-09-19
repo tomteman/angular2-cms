@@ -1,6 +1,7 @@
 import {
 Component, View,
 ControlGroup, FormBuilder, Validators,
+LifecycleEvent,
 FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
 import * as _ from 'lodash';
@@ -20,8 +21,10 @@ const NEXT_STATE = QuestionState.ShowAnswers;
 const NEXT_STATE_ROUTE = '/show-answers/';
 const SHOW_QUESTION_TIME = 60000;
 
+
 @Component({
-    selector: 'show-question'
+    selector: 'show-question',
+    lifecycle: [LifecycleEvent.OnDestroy]
 })
 @View({
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
@@ -32,6 +35,7 @@ export class ShowQuestion {
     game;
     question: IQuestion;
     subscribeSource;
+    timerSource;
     isPlayer: boolean;
     questionSubmitted: boolean;
     warningMsg: string;
@@ -80,7 +84,6 @@ export class ShowQuestion {
             let currentQuestion = _.find(changes.new_val.questions, q => q.id === question.id);
 
             if (currentQuestion.state === NEXT_STATE) {
-                this.subscribeSource.dispose();
                 this.router.navigate(NEXT_STATE_ROUTE + gameName);
             }
         });
@@ -114,12 +117,17 @@ export class ShowQuestion {
     }
 
     startTimer() {
-        setTimeout(() => this.gameApi.tick(this.game.name, this.question.id, this.question.state),
+        this.timerSource = setTimeout(() => this.gameApi.tick(this.game.name, this.question.id, this.question.state),
             SHOW_QUESTION_TIME);
     }
 
     clearAnswer() {
 
+    }
+
+    onDestroy() {
+        this.subscribeSource.dispose();
+        clearTimeout(this.timerSource);
     }
 
 }
