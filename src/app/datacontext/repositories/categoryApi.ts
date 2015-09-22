@@ -54,4 +54,10 @@ export class CategoryApi {
 			.map(res => JSON.parse(res));
 	}
 
+	removeAdminFromCategory(categoryName: string, playerId: string) {
+		return this.http.get(`/api/categories/${categoryName}/admins/${playerId}/remove`);
+	}
+	addAdminToCategory(categoryName: string, playerId: string) {
+		return this.http.get(`/api/categories/${categoryName}/admins/${playerId}/add`);
+	}
 }

@@ -13,4 +13,8 @@ export class SessionApi {
 		return this.http.get('/api/auth/presenterSignout');
 	}
 
+	getPlayers(ids: Array<string>) {
+		return this.http.post('/api/auth/players', { 'ids': ids });
+	}
+
 }

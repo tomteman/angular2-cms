@@ -1,9 +1,39 @@
-<section *ng-if="potentialAdmins" class="mdl-grid manage-categories">
+<div *ng-if="category" layout="column" flex layout-fill>
+	<md-toolbar md-scroll-shrink>
+		<div class="md-toolbar-tools">{{category.name}} - Administrators</div>
+	</md-toolbar>
+	<md-content md-theme="altTheme">
 
-	<div *ng-for="#potentialAdmin of potentialAdmins">
-		<div>{{potentialAdmin.name}}</div>
-		<button (click)="addAdmin(potentialAdmin)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-				Add Admin
-			</button>
-	</div>
-</section>
+		<md-content layout-padding  class="mdl-grid manage-categories">
+			<md-subheader>Current Admins</md-subheader>
+			<md-list layout-padding>
+				<md-list-item *ng-for="#admin of category.adminsFull" class="players-in-game mdl-cell mdl-cell--4-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
+					<img src="{{admin.picture}}" height="54" width="54" />
+					<span class="">
+				{{admin.name }}
+			</span>
+					<button (click)="removeAdmin(admin)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+						Remove Admin
+					</button>
+
+				</md-list-item>
+			</md-list>
+		</md-content>
+
+		<md-content layout-padding *ng-if="potentialAdmins" class="mdl-grid manage-categories">
+			<md-subheader>Potential Admins</md-subheader>
+			<md-list layout-padding>
+				<md-list-item *ng-for="#potentialAdmin of potentialAdmins" class="players-in-game mdl-cell mdl-cell--4-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
+					<img src="{{potentialAdmin.picture}}" height="54" width="54" />
+					<span class="">
+				{{potentialAdmin.name }}
+			</span>
+					<button (click)="addAdmin(potentialAdmin)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+						Add Admin
+					</button>
+				</md-list-item>
+
+			</md-list>
+		</md-content>
+	</md-content>
+</div>
