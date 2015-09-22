@@ -1,0 +1,7 @@
+button.input-button-addon {
+	right: 0;
+}
+
+input.input-button-addon, label.input-button-addon {
+	width: calc(100% - 35px);
+}

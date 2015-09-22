@@ -1,118 +1,112 @@
-<section class="create-question">
-    <form [ng-form-model]="myForm"
-          (submit)="onSubmit(myForm.value)"
-          class="mdl-grid">
+<section class="create-question mdl-grid">
 
-        <!--<div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet">
-            <select id="category" [ng-form-control]="myForm.controls.categoryId">
-                <option
-                    *ng-for="#category of defaultCategories"
-                    value="{{ category.id }}"> {{ category.name }} </option>
-            </select>
-            <label class="mdl-textfield__label" for="category">Category</label>
-        </div>-->
+    <div class="mdl-card mdl-shadow--8dp create-question-card">
 
-        <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-phone mdl-cell--2-col-tablet">
-        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                <input type="radio"
-                       class="mdl-radio__button"
-                       name="categoryId"
-                       (click)="selectedCategoryName = -999"/>
-                <span class="mdl-radio__label">Secret Category</span>
-            </label>
-        </div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left mdl-cell mdl-cell--8-col mdl-cell--2-col-phone mdl-cell--6-col-tablet">
-
-            <input type="text"
-                   class="mdl-textfield__input"
-                   id="secretCategoryName"
-                   [(ng-model)]="secretCategoryName">
-            <label class="mdl-textfield__label" for="secretCategoryName">Secret Category Name</label>
+        <div class="mdl-card__title mdl-color--light-green">
+            <h2 class="mdl-card__title-text">New question</h2>
         </div>
 
-        <div
-            class="mdl-cell mdl-cell--2-col mdl-cell--2-col-phone mdl-cell--2-col-tablet"
-            *ng-for="#category of defaultCategories">
-            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                <input type="radio"
-                       class="mdl-radio__button"
-                       name="categoryId"
-                       (click)="selectedCategoryName = category.name"/>
-                <span class="mdl-radio__label">{{ category.name }}</span>
-            </label>
-        </div>
+        <form [ng-form-model]="myForm" (submit)="onSubmit(myForm.value)">
 
-        <button (click)="showCustomCategories = !showCustomCategories"
-            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-            <span *ng-if="showCustomCategories"> Hide Custom Categories </span>
-            <span *ng-if="!showCustomCategories"> Show Custom Categories </span>
-        </button>
+            <!-- SELECT CATEGORY -->
+            <div class="mdl-card__supporting-text mdl-grid">
+                <!-- DEFAULT CATEGORIES -->
+                <div class="mdl-cell mdl-cell--4-col"
+                    *ng-for="#category of defaultCategories">
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+                        <input type="radio"
+                            class="mdl-radio__button"
+                            name="categoryId"
+                            (click)="selectedCategoryName = category.name; showCustomCategory = false;"/>
+                        <span class="mdl-radio__label">{{ category.name }}</span>
+                    </label>
+                </div>
 
-        <section *ng-if="showCustomCategories">
-            <div
-                class="mdl-cell mdl-cell--2-col mdl-cell--2-col-phone mdl-cell--2-col-tablet"
-                *ng-for="#category of customCategories">
-                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-                    <input type="radio"
-                        class="mdl-radio__button"
-                        name="categoryId"
-                        (click)="selectedCategoryName = category.name"/>
-                    <span class="mdl-radio__label">{{ category.name }}</span>
-                </label>
+                <!-- CUSTOM CATEGORY RADIO BUTTON -->
+                <div class="mdl-cell mdl-cell--4-col">
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+                        <input type="radio"
+                            class="mdl-radio__button"
+                            name="categoryId"
+                            (click)="showCustomCategory = true; selectedCategoryName = '';"/>
+                        <span class="mdl-radio__label">Custom</span>
+                    </label>
+                </div>
+
+                <!-- CUSTOM CATEGORIES -->
+                <div *ng-if="showCustomCategory" class="mdl-grid custom-category-picker">
+                    <!-- CATEGORY NAME -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                        <input type="text"
+                            class="mdl-textfield__input"
+                            [(ng-model)]="selectedCategoryName"
+                            (keydown)="clearCustomCategoriesRadioButtons()"
+                            id="customCategoryName">
+                        <label class="mdl-textfield__label" for="customCategoryName">Category name</label>
+                    </div>
+
+                    <!-- TOP 5 CUSTOM CATEGORIES -->
+                    <p class="mdl-cell mdl-cell--12-col"> Top five custom categories: </p>
+                    <div class="mdl-cell mdl-cell--4-col"
+                        *ng-for="#category of customCategories">
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+                            <input type="radio"
+                                class="mdl-radio__button"
+                                name="categoryId2"
+                                (click)="selectedCategoryName = category.name;"/>
+                            <span class="mdl-radio__label">{{ category.name }}</span>
+                        </label>
+                    </div>
+                </div>
             </div>
-        </section>
 
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
-            <input type="text"
-                   class="mdl-textfield__input"
-                   id="question"
-                   required
-                   [ng-form-control]="myForm.controls.questionText">
-            <label class="mdl-textfield__label" for="question">Question</label>
-            <span
-                class="mdl-textfield__error"
-                *ng-if="myForm.find('questionText').touched && myForm.find('questionText').hasError('required')">
-                Question is required </span>
-        </div>
+            <!-- QUESTION DETAILS -->
+            <div class="mdl-card__supporting-text mdl-grid">
+                <!-- QUESTION TEXT -->
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                    <input type="text"
+                        autofocus
+                        class="mdl-textfield__input"
+                        id="question"
+                        required
+                        [ng-form-control]="myForm.controls.questionText">
+                    <label class="mdl-textfield__label" for="question">Question</label>
+                    <span
+                        class="mdl-textfield__error"
+                        *ng-if="myForm.find('questionText').touched && myForm.find('questionText').hasError('required')">
+                        Question is required </span>
+                </div>
 
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
-            <input type="text"
-                   class="mdl-textfield__input"
-                   id="answer"
-                   required
-                   [ng-form-control]="myForm.controls.realAnswer">
-            <label class="mdl-textfield__label" for="answer">Answer</label>
-            <span
-                class="mdl-textfield__error"
-                *ng-if="myForm.find('realAnswer').touched && myForm.find('realAnswer').hasError('required')">
-                Answer is required </span>
-        </div>
+                <!-- REAL ANSWER -->
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                    <input type="text"
+                        class="mdl-textfield__input"
+                        id="answer"
+                        required
+                        [ng-form-control]="myForm.controls.realAnswer">
+                    <label class="mdl-textfield__label" for="answer">Answer</label>
+                    <span
+                        class="mdl-textfield__error"
+                        *ng-if="myForm.find('realAnswer').touched && myForm.find('realAnswer').hasError('required')">
+                        Answer is required </span>
+                </div>
 
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
-            <input type="text"
-                   class="mdl-textfield__input"
-                   id="fakeAnswer1"
-                   [ng-form-control]="myForm.controls.fakeAnswers.controls.one">
-            <label class="mdl-textfield__label" for="fakeAnswer1">Fake Answer</label>
-        </div>
+                <!-- FAKE ANSWERS -->
+                <chips
+                    [collection]="fakeAnswers"
+                    [label]="'Fake answer'"
+                    [grid]="'mdl-cell--12-col'"> </chips>
 
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
-            <input type="text"
-                   class="mdl-textfield__input"
-                   id="fakeAnswer2"
-                   [ng-form-control]="myForm.controls.fakeAnswers.controls.two">
-            <label class="mdl-textfield__label" for="fakeAnswer2">Fake Answer</label>
-        </div>
+            </div>
 
-        <div class="mdl-cell mdl-cell--12-col text-center">
-            <button type="submit"
-              class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-              [disabled]="!myForm.valid || !selectedCategoryName">Create</button>
-        </div>
-        <pre> {{selectedCategoryName | json}} </pre>
-    </form>
-
-    <p *ng-if="showSuccessMsg"> Question added successfully </p>
-    <p *ng-if="showWaitForApproveMsg"> Question added successfully but need to be approved </p>
-    <p *ng-if="showErrorMsg"> {{ errorMsg }} </p>
+            <!-- ACTIONS -->
+            <div class="mdl-card__actions mdl-card--border">
+                <button type="submit"
+                    class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                    [disabled]="!myForm.valid || !selectedCategoryName">
+                    Create
+                </button>
+            </div>
+        </form>
+    </div>
 </section>

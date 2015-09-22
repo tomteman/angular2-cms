@@ -5,6 +5,8 @@ import {ROUTER_BINDINGS} from 'angular2/router';
 import {App} from './app';
 import {DATACONTEXT_BINDINGS} from './datacontext/index';
 import {SESSION_BINDINGS} from './session/index';
+import {APP_DIRECTIVES} from './directives/index'
+
 
 import {HASH_LOCATION_BINDINGS} from '../common/location_bindings';
 
@@ -19,7 +21,8 @@ const PLATFORM_BINDINGS = [
 
 const APP_BINDINGS = [
     DATACONTEXT_BINDINGS,
-    SESSION_BINDINGS
+    SESSION_BINDINGS,
+    APP_DIRECTIVES
 ]
 
 const ALL_BINDINGS = [
