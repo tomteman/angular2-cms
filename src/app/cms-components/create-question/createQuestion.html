@@ -16,8 +16,8 @@
                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                         <input type="radio"
                             class="mdl-radio__button"
-                            name="categoryId"
-                            (click)="selectedCategoryName = category.name; showCustomCategory = false;"/>
+                            name="defaultCategoryId"
+                            (click)="selectedCategoryName = category.name; hideCustomCategory();"/>
                         <span class="mdl-radio__label">{{ category.name }}</span>
                     </label>
                 </div>
@@ -27,14 +27,14 @@
                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                         <input type="radio"
                             class="mdl-radio__button"
-                            name="categoryId"
-                            (click)="showCustomCategory = true; selectedCategoryName = '';"/>
+                            name="defaultCategoryId"
+                            (click)="selectedCategoryName = ''; showCustomCategory();"/>
                         <span class="mdl-radio__label">Custom</span>
                     </label>
                 </div>
 
                 <!-- CUSTOM CATEGORIES -->
-                <div *ng-if="showCustomCategory" class="mdl-grid custom-category-picker">
+                <div *ng-if="customCategoryEnable" class="mdl-grid custom-category-picker">
                     <!-- CATEGORY NAME -->
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
                         <input type="text"
@@ -52,7 +52,7 @@
                         <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
                             <input type="radio"
                                 class="mdl-radio__button"
-                                name="categoryId2"
+                                name="customCategoryId"
                                 (click)="selectedCategoryName = category.name;"/>
                             <span class="mdl-radio__label">{{ category.name }}</span>
                         </label>

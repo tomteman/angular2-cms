@@ -1,14 +1,21 @@
 <div *ng-for="#item of collection; #i = index"
 	class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell {{grid}}">
-	<input type="text" class="mdl-textfield__input" [ng-class]="{'input-button-addon': (i === collection.length - 1) && (collection[i] !== '')}"
-	[ng-model]="collection[i]" (blur)="onBlur($event, i)">
 
-	<label class="mdl-textfield__label" [ng-class]="{'input-button-addon': (i === collection.length - 1) && (collection[i] !== '')}">
-		{{label}} # {{i+1}}
+	<input type="text"
+		class="mdl-textfield__input"
+		[ng-class]="{'input-button-addon': (i === collection.length - 1) && (item !== '')}"
+		value="{{item}}"
+		(blur)="onBlur($event, i)">
+
+	<label class="mdl-textfield__label"
+		[ng-class]="{'input-button-addon': (i === collection.length - 1) && (item !== '')}">
+		{{label}} #{{i+1}}
 	</label>
 
-	<button *ng-if="(i === collection.length - 1) && (collection[i] !== '')" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored input-button-addon"
-	type="button" (click)="addItem()">
+	<button *ng-if="(i === collection.length - 1) && (item !== '')"
+		class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored input-button-addon"
+		type="button"
+		(click)="addItem()">
 		<i class="material-icons">add</i>
 	</button>
 </div>

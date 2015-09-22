@@ -3,7 +3,7 @@ import {APP_DIRECTIVES} from 'app/directives/index';
 import {ControlGroup, FormBuilder, Validators} from 'angular2/angular2';
 import * as _ from 'lodash';
 
-import {MDL_COMPONENTS} from 'app/mdl-components/index';
+import {MDL_COMPONENTS, MdlService} from 'app/mdl-components/index';
 import {ISeedQuestion} from 'app/pof-typings/question';
 import {ICategory} from 'app/pof-typings/category';
 import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
@@ -25,10 +25,10 @@ export class CreateQuestion {
     customCategories: Array<ICategory>;
     selectedCategoryName: string;
     fakeAnswers: Array<string> = [];
+    customCategoryEnable: boolean;
 
     constructor(formBuilder: FormBuilder, public categoryApi: CategoryApi) {
-        // MDL issue
-        componentHandler.upgradeDom();
+        MdlService.upgradeAllRegistered();
 
         this.myForm = formBuilder.group({
             questionText: ['', Validators.required],
@@ -55,9 +55,6 @@ export class CreateQuestion {
 
     onSubmit(formValue) {
         _.remove(this.fakeAnswers, f => f === '');
-        console.log(this.fakeAnswers);
-        console.log(this.selectedCategoryName);
-        console.log(formValue);
 
         var newQuestion: ISeedQuestion = {
             fakeAnswers: this.fakeAnswers,
@@ -82,8 +79,19 @@ export class CreateQuestion {
             });
     }
 
+    showCustomCategory() {
+        this.customCategoryEnable = true;
+        MdlService.upgradeAllRegistered();
+    }
+
+    hideCustomCategory() {
+        this.customCategoryEnable = false;
+        MdlService.upgradeAllRegistered();
+    }
+
     clearCustomCategoriesRadioButtons() {
-        let radioButtons = document.querySelectorAll("input[type=radio][name=categoryId2]");
+        let radioButtons = document.getElementsByName('customCategoryId');
+
         for (let btn of radioButtons) {
             btn.checked = false;
         }
