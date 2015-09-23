@@ -23,14 +23,16 @@ import {ManageCategories} from './cms-components/manage-categories/manageCategor
 import {ManageCategory} from './cms-components/manage-category/manageCategory';
 
 import {LoggedInRouterOutlet} from 'app/session/loggedInRouterOutlet';
+import {LoadingMask} from 'app/mdl-components/loadingMask/loadingMask';
 
 
 @Component({
     selector: 'app'
 })
 @View({
-    directives: [LoggedInRouterOutlet, TopFrame, TopFrameMenu],
+    directives: [LoggedInRouterOutlet, TopFrame, TopFrameMenu, LoadingMask],
     template: `
+        <loading-mask></loading-mask>
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
             <top-frame class="mdl-layout__header"> </top-frame>
             <top-frame-menu class="mdl-layout__drawer"></top-frame-menu>

@@ -3,7 +3,7 @@ import {APP_DIRECTIVES} from 'app/directives/index';
 import {ControlGroup, FormBuilder, Validators} from 'angular2/angular2';
 import * as _ from 'lodash';
 
-import {MDL_COMPONENTS, MdlService} from 'app/mdl-components/index';
+import {MDL_COMPONENTS, MdlService, LoadingMaskService} from 'app/mdl-components/index';
 import {ISeedQuestion} from 'app/pof-typings/question';
 import {ICategory} from 'app/pof-typings/category';
 import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
@@ -20,6 +20,7 @@ const template = require('./createQuestion.html');
     template: template
 })
 export class CreateQuestion {
+    initialLoading: boolean;
     myForm: ControlGroup;
     defaultCategories: Array<ICategory>;
     customCategories: Array<ICategory>;
@@ -33,7 +34,14 @@ export class CreateQuestion {
             realAnswer: ['', Validators.required]
         });
 
-        this.getCategories().then(MdlService.upgradeAllRegistered);
+        LoadingMaskService.show();
+        this.initialLoading = true;
+
+        this.getCategories().then(() => {
+            this.initialLoading = false;
+            LoadingMaskService.hide();
+            MdlService.upgradeAllRegistered();
+        });
     }
 
     getCategories() {

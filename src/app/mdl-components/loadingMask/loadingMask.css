@@ -1,0 +1,16 @@
+.pof-loading-mask {
+	display: none;
+	position: absolute;
+    bottom: 50%;
+    right: 50%;
+	z-index: 99;
+}
+
+.pof-loading-mask-container {
+    display: none;
+	width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0, 0.24);
+    position: absolute;
+    z-index: 99;
+ }
