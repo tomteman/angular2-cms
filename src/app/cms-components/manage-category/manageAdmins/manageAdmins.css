@@ -1,0 +1,34 @@
+.user-card.mdl-card {
+  width: 128px;
+  height: 128px;
+}
+
+
+.user-card > .mdl-card__actions {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.user-card > .mdl-card__title {
+  align-items: flex-start;
+}
+.user-card > .mdl-card__title > h4 {
+  margin-top: 0;
+}
+.user-card > .mdl-card__actions {
+  display: flex;
+  box-sizing:border-box;
+  align-items: center;
+}
+.user-card > .mdl-card__title {
+    color: #fff;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+.user-card > .mdl-card__actions,
+.user-card > .mdl-card__actions > .mdl-button {
+  color: #fff;
+}
+.user-card > .mdl-card__actions > .mdl-button.remove-button {
+    background-color: darkred;
+}
+.user-card > .mdl-card__actions > .mdl-button.add-button {
+    background-color: darkgreen;
+}
