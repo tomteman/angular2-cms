@@ -91,10 +91,11 @@ export class CreateQuestion {
 
     clearCustomCategoriesRadioButtons() {
         let radioButtons = document.getElementsByName('customCategoryId');
+        MdlService.clearRadioButtons(radioButtons);
+    }
 
-        for (let btn of radioButtons) {
-            btn.checked = false;
-        }
+    checkInputsDirty() {
+        MdlService.checkInputsDirty();
     }
 
     clearForm() {

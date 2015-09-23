@@ -20,7 +20,7 @@ const template = require('./chips.html');
 export class Chips {
 	collection: Array<string>;
 
-	constructor() {}
+	constructor() { }
 
 	onInit() {
 		if (!_.isArray(this.collection)) {
@@ -37,5 +37,6 @@ export class Chips {
 
     onBlur(event, index) {
         this.collection[index] = event.target.value;
+		MdlService.checkInputsDirty();
     }
 }
