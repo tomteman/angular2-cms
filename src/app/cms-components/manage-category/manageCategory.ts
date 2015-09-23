@@ -64,7 +64,7 @@ export class ManageCategory {
 
     subscribe(categoryName: string) {
 
-        this.categoryApi.feedByCategoryName(categoryName)
+        return this.categoryApi.feedByCategoryName(categoryName)
             .subscribe(changes => {
                 if (changes.new_val) {
                     this.category = changes.new_val;
