@@ -1,6 +1,6 @@
 import {Component, View} from 'angular2/angular2';
 import {ControlGroup, FormBuilder, FORM_DIRECTIVES, Validators} from 'angular2/angular2'
-import {CORE_DIRECTIVES} from 'angular2/angular2'
+import {CORE_DIRECTIVES, LifecycleEvent} from 'angular2/angular2';
 import {RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
 import * as _ from 'lodash';
 
@@ -14,7 +14,8 @@ let styles = require('./manageCategories.css');
 let template = require('./manageCategories.html');
 
 @Component({
-    selector: 'manage-categories'
+    selector: 'manage-categories',
+    lifecycle: [LifecycleEvent.OnDestroy]
 })
 @View({
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES],
@@ -24,6 +25,8 @@ let template = require('./manageCategories.html');
 export class ManageCategories {
     categories;
     numberOfQuestions = 2;
+    activeUserSubscribeSource;
+    categoriesSubscribeSource;
 
     constructor(formBuilder: FormBuilder, public categoryApi: CategoryApi,
         public session: Session) {
@@ -51,25 +54,24 @@ export class ManageCategories {
     }
 
     subscribe() {
-        this.session.activeUser.subscribe((player: IPlayer) => {
-            this.categoryApi.myCategoriesFeed(player.id)
-                .subscribe(changes => {
-                    console.log(changes);
+        this.activeUserSubscribeSource = this.session.activeUser.subscribe((player: IPlayer) => {
+            this.categoriesSubscribeSource = this.categoryApi.myCategoriesFeed(player.id).subscribe(changes => {
+                console.log(changes);
 
-                    if (changes.new_val) {
-                        let index = _.findIndex(this.categories, category => category.name === changes.new_val.name );
-                        if (~index) {
-                            if (changes.new_val.deleteDate) {
-                                this.categories.splice(index, 1);
-                            } else {
-                                this.categories[index] = changes.new_val;
-                            }
+                if (changes.new_val) {
+                    let index = _.findIndex(this.categories, category => category.name === changes.new_val.name);
+                    if (~index) {
+                        if (changes.new_val.deleteDate) {
+                            this.categories.splice(index, 1);
                         } else {
-                            this.categories.push(changes.new_val);
+                            this.categories[index] = changes.new_val;
                         }
+                    } else {
+                        this.categories.push(changes.new_val);
                     }
+                }
 
-                })
+            })
         });
     }
 
@@ -83,5 +85,9 @@ export class ManageCategories {
             })
     }
 
+    onDestroy() {
+        this.activeUserSubscribeSource.dispose();
+        this.categoriesSubscribeSource.dispose();
+    }
 
 }
