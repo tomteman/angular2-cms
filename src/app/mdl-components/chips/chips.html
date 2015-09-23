@@ -3,18 +3,19 @@
 
 	<input type="text"
 		class="mdl-textfield__input"
-		[ng-class]="{'input-button-addon': (i === collection.length - 1) && (item !== '')}"
+		[ng-class]="{'input-button-addon': (i === collection.length - 1)}"
 		value="{{item}}"
 		(blur)="onBlur($event, i)">
 
 	<label class="mdl-textfield__label"
-		[ng-class]="{'input-button-addon': (i === collection.length - 1) && (item !== '')}">
+		[ng-class]="{'input-button-addon': (i === collection.length - 1)}">
 		{{label}} #{{i+1}}
 	</label>
 
-	<button *ng-if="(i === collection.length - 1) && (item !== '')"
+	<button *ng-if="(i === collection.length - 1)"
 		class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored input-button-addon"
 		type="button"
+		[disabled]="item === ''"
 		(click)="addItem()">
 		<i class="material-icons">add</i>
 	</button>

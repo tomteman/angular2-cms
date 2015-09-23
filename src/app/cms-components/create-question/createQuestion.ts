@@ -28,18 +28,16 @@ export class CreateQuestion {
     customCategoryEnable: boolean;
 
     constructor(formBuilder: FormBuilder, public categoryApi: CategoryApi) {
-        MdlService.upgradeAllRegistered();
-
         this.myForm = formBuilder.group({
             questionText: ['', Validators.required],
             realAnswer: ['', Validators.required]
         });
 
-        this.getCategories();
+        this.getCategories().then(MdlService.upgradeAllRegistered);
     }
 
     getCategories() {
-        this.categoryApi.getAll(false)
+        return this.categoryApi.getAll(false)
             .then(resp => {
                 this.defaultCategories = _.filter(resp, { default: true });
                 this.customCategories = _.chain(resp)
@@ -85,6 +83,7 @@ export class CreateQuestion {
     }
 
     hideCustomCategory() {
+        this.clearCustomCategoriesRadioButtons();
         this.customCategoryEnable = false;
         MdlService.upgradeAllRegistered();
     }
