@@ -38,11 +38,11 @@ export class CreateQuestion {
         this.initialLoading = true;
 
         this.getCategories().then(() => {
-            setTimeout(() => {
+
             this.initialLoading = false;
             LoadingMaskService.hide();
             MdlService.upgradeAllRegistered();
-            }, 5000)
+
 
         });
     }
