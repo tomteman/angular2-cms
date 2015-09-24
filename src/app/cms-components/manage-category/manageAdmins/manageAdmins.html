@@ -1,0 +1,32 @@
+<div>
+	<h4>Current Administrators</h4>
+	<section class="mdl-grid " *ng-for="#admin of currentadmins">
+		<div class="user-card mdl-card mdl-shadow--2dp" [ng-style]="getBackgroundUrl(admin)">
+			<div class="mdl-card__title mdl-card--expand">
+				<h4>{{admin.name }}</h4>
+			</div>
+			<div class="mdl-card__actions mdl-card--border">
+				<button (click)="removeAdmin(admin)" class="remove-button mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+					Remove
+				</button>
+			</div>
+		</div>
+	</section>
+
+
+
+	<h4>Add Administrators:</h4>
+
+	<section class="mdl-grid " *ng-for="#admin of potentialadmins">
+		<div class="user-card mdl-card mdl-shadow--2dp" [ng-style]="getBackgroundUrl(admin)">
+			<div class="mdl-card__title mdl-card--expand">
+				<h4>{{admin.name }}</h4>
+			</div>
+			<div class="mdl-card__actions mdl-card--border">
+				<button (click)="addAdmin(admin)" class="add-button mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+					Add
+				</button>
+			</div>
+		</div>
+	</section>
+</div>

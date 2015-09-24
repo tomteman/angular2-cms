@@ -38,9 +38,12 @@ export class CreateQuestion {
         this.initialLoading = true;
 
         this.getCategories().then(() => {
+
             this.initialLoading = false;
             LoadingMaskService.hide();
             MdlService.upgradeAllRegistered();
+
+
         });
     }
 
