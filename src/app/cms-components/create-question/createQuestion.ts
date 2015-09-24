@@ -3,7 +3,7 @@ import {APP_DIRECTIVES} from 'app/directives/index';
 import {ControlGroup, FormBuilder, Validators} from 'angular2/angular2';
 import * as _ from 'lodash';
 
-import {MDL_COMPONENTS, MdlService, LoadingMaskService} from 'app/mdl-components/index';
+import {MDL_COMPONENTS, MdlService, LoadingMaskService, SnackbarService} from 'app/mdl-components/index';
 import {ISeedQuestion} from 'app/pof-typings/question';
 import {ICategory} from 'app/pof-typings/category';
 import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
@@ -68,6 +68,7 @@ export class CreateQuestion {
             realAnswer: formValue.realAnswer
         };
 
+        SnackbarService.show('Saving..');
         this.categoryApi.createQuestion(this.selectedCategoryName, newQuestion)
             .then(res => {
                 console.log(res);
@@ -75,9 +76,9 @@ export class CreateQuestion {
                 this.clearForm();
 
                 if (res.approved) {
-                    console.log('Question added successfully');
+                    SnackbarService.show('Question added successfully');
                 } else {
-                    console.log('Question added successfully but need to be approved');
+                    SnackbarService.show('Question added successfully but need to be approved');
                 }
             })
             .catch(err => {

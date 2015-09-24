@@ -22,15 +22,17 @@ import {CreateCategory} from './cms-components/create-category/createCategory';
 import {ManageCategories} from './cms-components/manage-categories/manageCategories';
 import {ManageCategory} from './cms-components/manage-category/manageCategory';
 
-import {LoggedInRouterOutlet} from 'app/session/loggedInRouterOutlet';
+// MDL
 import {LoadingMask} from 'app/mdl-components/loadingMask/loadingMask';
+import {Snackbar} from 'app/mdl-components/snackbar/snackbar';
 
+import {LoggedInRouterOutlet} from 'app/session/loggedInRouterOutlet';
 
 @Component({
     selector: 'app'
 })
 @View({
-    directives: [LoggedInRouterOutlet, TopFrame, TopFrameMenu, LoadingMask],
+    directives: [LoggedInRouterOutlet, TopFrame, TopFrameMenu, LoadingMask, Snackbar],
     template: `
         <loading-mask></loading-mask>
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -41,6 +43,7 @@ import {LoadingMask} from 'app/mdl-components/loadingMask/loadingMask';
             </main>
             <footer></footer>
         </div>
+        <snackbar></snackbar>
      `
 })
 @RouteConfig([
