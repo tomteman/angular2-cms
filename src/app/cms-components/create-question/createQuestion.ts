@@ -1,9 +1,9 @@
-import {Component, View} from 'angular2/angular2';
+import {Component, View, LifecycleEvent} from 'angular2/angular2';
 import {APP_DIRECTIVES} from 'app/directives/index';
 import {ControlGroup, FormBuilder, Validators} from 'angular2/angular2';
 import * as _ from 'lodash';
+import {MDL_COMPONENTS, MdlService, LoadingMaskService, NotificationService} from 'app/mdl-components/index';
 
-import {MDL_COMPONENTS, MdlService, LoadingMaskService, SnackbarService} from 'app/mdl-components/index';
 import {ISeedQuestion} from 'app/pof-typings/question';
 import {ICategory} from 'app/pof-typings/category';
 import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
@@ -12,7 +12,8 @@ const styles = require('./createQuestion.css');
 const template = require('./createQuestion.html');
 
 @Component({
-    selector: 'create-question'
+    selector: 'create-question',
+    lifecycle: [LifecycleEvent.OnDestroy]
 })
 @View({
     directives: [APP_DIRECTIVES, MDL_COMPONENTS],
@@ -37,17 +38,17 @@ export class CreateQuestion {
         LoadingMaskService.show();
         this.initialLoading = true;
 
-        this.getCategories().then(() => {
-
+        this.setCategories().then(() => {
             this.initialLoading = false;
             LoadingMaskService.hide();
             MdlService.upgradeAllRegistered();
-
-
+        })
+        .catch(err => {
+            console.log(err);
         });
     }
 
-    getCategories() {
+    setCategories() {
         return this.categoryApi.getAll(false)
             .then(resp => {
                 this.defaultCategories = _.filter(resp, { default: true });
@@ -56,9 +57,6 @@ export class CreateQuestion {
                     .sortByOrder(['playCount'], ['desc'])
                     .take(5)
                     .value();
-            })
-            .catch(err => {
-                console.log(err);
             })
     }
 
@@ -71,7 +69,7 @@ export class CreateQuestion {
             realAnswer: formValue.realAnswer
         };
 
-        SnackbarService.show('Saving..');
+        NotificationService.show('Saving..');
         this.categoryApi.createQuestion(this.selectedCategoryName, newQuestion)
             .then(res => {
                 console.log(res);
@@ -79,9 +77,9 @@ export class CreateQuestion {
                 this.clearForm();
 
                 if (res.approved) {
-                    SnackbarService.show('Question added successfully');
+                    NotificationService.show('Question added successfully');
                 } else {
-                    SnackbarService.show('Question added successfully but need to be approved');
+                    NotificationService.show('Question added successfully but need to be approved');
                 }
             })
             .catch(err => {
@@ -102,7 +100,7 @@ export class CreateQuestion {
 
     clearCustomCategoriesRadioButtons() {
         let radioButtons = document.getElementsByName('customCategoryId');
-        MdlService.clearRadioButtons(radioButtons);
+        MdlService.clearToggleButtons(radioButtons);
     }
 
     checkInputsDirty() {
@@ -113,5 +111,9 @@ export class CreateQuestion {
         this.myForm.controls.questionText.updateValue('');
         this.myForm.controls.realAnswer.updateValue('');
         this.fakeAnswers = [''];
+    }
+
+    onDestroy() {
+
     }
 }

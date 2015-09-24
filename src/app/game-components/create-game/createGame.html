@@ -1,37 +1,80 @@
-<section class="create-game">
-    <form
-          (submit)="onSubmit()"
-          class="mdl-grid">
+<section class="create-game mdl-grid" *ng-if="!initialLoading">
 
-        <!--<div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet">
-            <select id="category" [ng-form-control]="myForm.controls.categoryId">
-                <option
-                    *ng-for="#category of defaultCategories"
-                    value="{{ category.id }}"> {{ category.name }} </option>
-            </select>
-            <label class="mdl-textfield__label" for="category">Category</label>
-        </div>-->
+    <div class="mdl-card mdl-shadow--8dp create-game-card">
 
-        <p class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet"> Select categories </p>
-
-        <div
-            class="mdl-cell mdl-cell--2-col mdl-cell--2-col-phone mdl-cell--2-col-tablet"
-            *ng-for="#category of defaultCategories">
-            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-                <input type="checkbox"
-                       class="mdl-checkbox__input"
-                       name="categoryId"
-                       (click)="toggleCategory($event, category.name)"/>
-                <span class="mdl-radio__label">{{ category.name }}</span>
-            </label>
+        <div class="mdl-card__title mdl-color--light-green">
+            <h2 class="mdl-card__title-text">Create game</h2>
         </div>
 
-        <div class="mdl-cell mdl-cell--12-col text-center">
-            <button type="submit"
-              class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-              >Create</button>
-        </div>
-    </form>
+        <form (submit)="onSubmit()">
 
-    <p *ng-if="errorMsg"> {{ errorMsg }} </p>
+            <!-- SELECT CATEGORY -->
+            <div class="mdl-card__supporting-text mdl-grid">
+                <!-- DEFAULT CATEGORIES -->
+                <div class="mdl-cell mdl-cell--4-col"
+                    *ng-for="#category of defaultCategories">
+                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+                        <input type="checkbox"
+                            class="mdl-checkbox__input"
+                            name="defaultCategoryId"
+                            (click)="toggleCategory($event, category)"/>
+                        <span class="mdl-checkbox__label">{{ category.name }}</span>
+                    </label>
+                </div>
+
+                <!-- CUSTOM CATEGORY SWITCH -->
+                <div class="mdl-cell mdl-cell--12-col">
+                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+                        <input type="checkbox"
+                            class="mdl-switch__input"
+                            (click)="toggleCustomCategory();"/>
+                        <span class="mdl-switch__label">Custom categories</span>
+                    </label>
+                </div>
+
+                <!-- CUSTOM CATEGORIES -->
+                <div *ng-if="customCategoryEnable" class="mdl-grid custom-category-picker">
+                    <!-- CATEGORY NAME -->
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                        <input type="text"
+                            class="mdl-textfield__input"
+                            [(ng-model)]="customCategoryName"
+                            id="customCategoryName">
+                        <label class="mdl-textfield__label" for="customCategoryName">Category name</label>
+                    </div>
+
+                    <!-- TOP 5 CUSTOM CATEGORIES -->
+                    <p class="mdl-cell mdl-cell--12-col"> Top five custom categories: </p>
+                    <div class="mdl-cell mdl-cell--4-col"
+                        *ng-for="#category of customCategories">
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+                        <input type="checkbox"
+                            class="mdl-checkbox__input"
+                            name="customCategoryId"
+                            (click)="toggleCategory($event, category)"/>
+                        <span class="mdl-checkbox__label">{{ category.name }}</span>
+                    </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GAME OPTIONS -->
+            <div class="mdl-card__supporting-text mdl-grid">
+                <!-- GAME LENGTH -->
+                <label class="game-length--slider">
+                    <span> Game length: {{numberOfQuestions}} </span>
+                    <input class="mdl-slider mdl-js-slider" type="range" min="3" max="8" value="8" [(ng-model)]="numberOfQuestions"/>
+                </label>
+            </div>
+
+            <!-- ACTIONS -->
+            <div class="mdl-card__actions mdl-card--border">
+                <button type="submit"
+                    class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                    [disabled]="!selecetedCategories.length && !customCategoryName">
+                    Create
+                </button>
+            </div>
+        </form>
+    </div>
 </section>

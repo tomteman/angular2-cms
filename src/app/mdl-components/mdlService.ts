@@ -18,8 +18,8 @@ export class MdlService {
 		}, 0);
 	}
 
-	static clearRadioButtons(radioButtons) {
-		for (let btn of radioButtons) {
+	static clearToggleButtons(toggleButtons) {
+		for (let btn of toggleButtons) {
             btn.checked = false;
             btn.parentElement.classList.remove('is-checked');
         }

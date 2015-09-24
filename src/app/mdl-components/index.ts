@@ -3,7 +3,7 @@ import {Chips} from './chips/chips';
 import {LoadingMask} from './loadingMask/loadingMask';
 import {LoadingMaskService} from './loadingMask/loadingMaskService';
 import {Snackbar} from './snackbar/snackbar';
-import {SnackbarService} from './snackbar/snackbarService';
+import {NotificationService} from './snackbar/notificationService';
 
 export var MDL_COMPONENTS: Array<any> = [
   Chips,
@@ -14,9 +14,9 @@ export var MDL_COMPONENTS: Array<any> = [
 export var MDL_BINDINGS: Array<any> = [
   MdlService,
   LoadingMaskService,
-  SnackbarService
+  NotificationService
 ];
 
 export {MdlService} from './mdlService';
 export {LoadingMaskService} from './loadingMask/loadingMaskService';
-export {SnackbarService} from './snackbar/snackbarService';
+export {NotificationService} from './snackbar/notificationService';

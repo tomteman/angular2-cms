@@ -1,0 +1,13 @@
+.create-game .create-game-card {
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.create-game .game-length--slider {
+	width: 100%;
+}
+
+.create-game .game-length--slider span {
+	margin: 0 20px;
+}
