@@ -1,36 +1,39 @@
-<section *ng-if="question">
-    {{question.questionText}}
+<section class="show-question" *ng-if="!initialLoading">
+
+    <!--<div class="mdl-card mdl-shadow--8dp show-question-card">
+        <div class="mdl-card__supporting-text mdl-grid">
+            <p> {{question.questionText}} </p>
+        </div>
+    </div>-->
+
+    <countdown [total]="30" [panic]="10" [super-panic]="5"> </countdown>
+
+    <section *ng-if="question">
+        {{question.questionText}}
+    </section>
+
+    <form *ng-if="isPlayer && !questionSubmitted"
+        [ng-form-model]="myForm"
+        (submit)="answer(myForm.value)"
+        class="mdl-grid">
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
+                <input type="text"
+                    class="mdl-textfield__input"
+                    id="answer"
+                    required
+                    [ng-form-control]="myForm.controls['answerText']">
+                <label class="mdl-textfield__label" for="answer">Answer</label>
+                <span
+                    class="mdl-textfield__error"
+                    *ng-if="myForm.find('answerText').touched && myForm.find('answerText').hasError('required')">
+                    Answer is required </span>
+            </div>
+
+            <div class="mdl-cell mdl-cell--12-col">
+                <button type="submit"
+                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                [disabled]="!myForm.valid">Send</button>
+            </div>
+    </form>
 </section>
-
-<form *ng-if="isPlayer && !questionSubmitted"
-	[ng-form-model]="myForm"
-	(submit)="answer(myForm.value)"
-	class="mdl-grid">
-
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label text-left mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
-            <input type="text"
-                   class="mdl-textfield__input"
-                   id="answer"
-                   required
-                   [ng-form-control]="myForm.controls['answerText']">
-            <label class="mdl-textfield__label" for="answer">Answer</label>
-            <span
-                class="mdl-textfield__error"
-                *ng-if="myForm.find('answerText').touched && myForm.find('answerText').hasError('required')">
-                Answer is required </span>
-        </div>
-
-        <div class="mdl-cell mdl-cell--12-col">
-            <button type="submit"
-              class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-              [disabled]="!myForm.valid">Send</button>
-        </div>
-</form>
-
-<p *ng-if="warningMsg">
-    You entered the truth! Try another answer..
-</p>
-
-<p *ng-if="errorMsg">
-    {{errorMsg}}
-</p>

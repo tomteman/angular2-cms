@@ -38,7 +38,7 @@ export class CreateQuestion {
         LoadingMaskService.show();
         this.initialLoading = true;
 
-        this.setCategories().then(() => {
+        this.getCategories().then(() => {
             this.initialLoading = false;
             LoadingMaskService.hide();
             MdlService.upgradeAllRegistered();
@@ -48,7 +48,7 @@ export class CreateQuestion {
         });
     }
 
-    setCategories() {
+    getCategories() {
         return this.categoryApi.getAll(false)
             .then(resp => {
                 this.defaultCategories = _.filter(resp, { default: true });
