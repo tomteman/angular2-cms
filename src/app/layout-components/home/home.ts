@@ -15,7 +15,6 @@ let template = require('./home.html');
 
 export class Home {
     constructor() {
-        // MDL issue
-        componentHandler.upgradeDom();
+        navigator.vibrate(1000);
     }
 }
