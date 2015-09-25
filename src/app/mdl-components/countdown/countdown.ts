@@ -66,6 +66,9 @@ export class Countdown {
 
 	onDestroy() {
 		clearInterval(this.intervalSource);
+		this.timerCircle.style.strokeDashoffset = 0;
+		this.timerText.classList.remove('panic');
+		this.timerCircle.classList.remove('panic');
 	}
 
 }
