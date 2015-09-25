@@ -15,6 +15,5 @@ let template = require('./home.html');
 
 export class Home {
     constructor() {
-        navigator.vibrate(1000);
     }
 }

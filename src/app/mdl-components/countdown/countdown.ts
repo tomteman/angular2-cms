@@ -65,7 +65,9 @@ function radialTimer() {
 			self.number.innerHTML = '' + (self.seconds - self.count);
 			self.count++;
 
-			if (self.count > (self.seconds - 1)) clearInterval(self.interval);
+			if (self.count > (self.seconds - 1)) {
+				clearInterval(self.interval);
+			}
 
 			if (self.seconds - self.count < panicTime) {
 				self.slice.classList.add('panic');
