@@ -1,5 +1,4 @@
 import {Component, View, ElementRef, LifecycleEvent} from 'angular2/angular2';
-import {APP_DIRECTIVES} from 'app/directives/index';
 import * as _ from 'lodash';
 
 const styles = require('./countdown.css');
@@ -8,10 +7,9 @@ const template = require('./countdown.html');
 @Component({
 	selector: 'countdown',
 	properties: ['total', 'panic', 'superPanic'],
-	lifecycle: [LifecycleEvent.OnInit]
+	lifecycle: [LifecycleEvent.OnInit, LifecycleEvent.OnDestroy]
 })
 @View({
-	directives: [APP_DIRECTIVES],
 	styles: [styles],
 	template: template
 })
@@ -20,74 +18,54 @@ export class Countdown {
 	panic;
 	superPanic;
 
+	intervalSource;
+	currentTime;
+	percentTime;
+	timerText;
+	timerCircle;
+
 	constructor(public elem: ElementRef) {
 	}
 
 	onInit() {
-		let Timer = new radialTimer();
-		Timer.init(this.elem.nativeElement, this.total, this.panic, this.superPanic);
-	}
-
-}
-
-function radialTimer() {
-	var self = this;
-
-	this.seconds = 0;
-	this.count = 0;
-	this.degrees = 0;
-	this.interval = null;
-	this.timerContainer = null;
-	this.number = null;
-	this.slice = null;
-	this.pie = null;
-	this.pieRight = null;
-	this.pieLeft = null;
-	this.quarter = null;
-
-	this.init = function(e, totalTime, panicTime, superPanic) {
 		navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
-		self.timerContainer = e;
+		this.currentTime = this.total;
+		this.percentTime = 100;
+		this.timerText = document.querySelector('.text');
+		this.timerCircle = document.querySelector('.circle');
 
-		self.number = self.timerContainer.getElementsByClassName("n")[0];
-		self.slice = self.timerContainer.getElementsByClassName("slice")[0];
-		self.pieRight = self.timerContainer.getElementsByClassName("r")[0];
-		self.pieLeft = self.timerContainer.getElementsByClassName("l")[0];
-		self.quarter = self.timerContainer.getElementsByClassName("q")[0];
+		requestAnimationFrame(() => { this.timerId() });
 
-		// start timer
-		self.start(totalTime, panicTime, superPanic);
-	}
-
-	this.start = function(totalTime, panicTime, superPanic) {
-		self.seconds = totalTime;
-		self.interval = window.setInterval(function() {
-			self.number.innerHTML = '' + (self.seconds - self.count);
-			self.count++;
-
-			if (self.count > (self.seconds - 1)) {
-				clearInterval(self.interval);
-			}
-
-			if (self.seconds - self.count < panicTime) {
-				self.slice.classList.add('panic');
-			}
-
-			if ((self.seconds - self.count < superPanic) && navigator.vibrate) {
-				navigator.vibrate(300);
-			}
-
-			self.degrees = self.degrees + (360 / self.seconds);
-			if (self.count >= (self.seconds / 2)) {
-				self.slice.classList.add("nc");
-				if (!self.slice.classList.contains("mth")) self.pieRight.style.transform = "rotate(180deg)";
-				self.pieLeft.style.transform = "rotate(" + self.degrees + "deg)";
-				self.slice.classList.add("mth");
-				if (self.count >= (self.seconds * 0.75)) self.quarter.remove();
-			} else {
-				self.pieLeft.style.transform = "rotate(" + self.degrees + "deg)";
-				self.pieRight.style.transform = "rotate(" + self.degrees + "deg)";
-			}
+		this.intervalSource = setInterval(() => {
+			requestAnimationFrame(() => { this.timerId() });
 		}, 1000);
+
 	}
+
+	timerId() {
+        if (this.currentTime === -1) {
+			clearInterval(this.intervalSource);
+			return;
+		}
+
+		if (this.currentTime <= this.panic) {
+			this.timerText.classList.add('panic');
+			this.timerCircle.classList.add('panic');
+		}
+
+		if (this.currentTime <= this.superPanic && navigator.vibrate) {
+			navigator.vibrate(300);
+		}
+
+        this.timerText.textContent = this.currentTime;
+        this.percentTime = Math.round((this.currentTime / this.total) * 100);
+        this.timerCircle.style.strokeDashoffset = this.percentTime - 100;
+
+		this.currentTime -= 1;
+    };
+
+	onDestroy() {
+		clearInterval(this.intervalSource);
+	}
+
 }

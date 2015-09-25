@@ -12,14 +12,16 @@ import {IPlayer} from 'app/pof-typings/player';
 import {Session} from 'app/session/session';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 
-let styles = require('./showQuestion.css');
-let template = require('./showQuestion.html');
+const styles = require('./showQuestion.css');
+const template = require('./showQuestion.html');
 
 const CURRENT_STATE = QuestionState.ShowQuestion;
 const NEXT_STATE = QuestionState.ShowAnswers;
 const NEXT_STATE_ROUTE = '/show-answers/';
-const SHOW_QUESTION_TIME = 6000000;
 
+const SHOW_QUESTION_TIME = 30;
+const PANIC_TIME = 10;
+const SUPER_PANIC_TIME = 5;
 
 @Component({
     selector: 'show-question',
@@ -39,6 +41,9 @@ export class ShowQuestion {
     isPlayer: boolean;
     questionSubmitted: boolean;
     myForm: ControlGroup;
+    showQuestionTime = SHOW_QUESTION_TIME;
+    panicTime = PANIC_TIME;
+    superPanicTime = SUPER_PANIC_TIME;
 
     constructor(public gameApi: GameApi, public routeParams: RouteParams,
         public formBuilder: FormBuilder, public session: Session,
@@ -118,8 +123,9 @@ export class ShowQuestion {
     }
 
     startTimer() {
-        return setTimeout(() => this.gameApi.tick(this.game.name, this.question.id, this.question.state),
-            SHOW_QUESTION_TIME);
+        return setTimeout(() => {
+            this.gameApi.tick(this.game.name, this.question.id, this.question.state)
+        }, SHOW_QUESTION_TIME * 1000);
     }
 
     onDestroy() {

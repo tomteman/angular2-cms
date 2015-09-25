@@ -6,8 +6,6 @@
         </div>
     </div>-->
 
-    <countdown [total]="30" [panic]="10" [super-panic]="5"> </countdown>
-
     <section *ng-if="question">
         {{question.questionText}}
     </section>
@@ -36,4 +34,6 @@
                 [disabled]="!myForm.valid">Send</button>
             </div>
     </form>
+
+    <countdown [total]="showQuestionTime" [panic]="panicTime" [super-panic]="superPanicTime"> </countdown>
 </section>
