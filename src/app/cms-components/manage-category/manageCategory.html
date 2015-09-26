@@ -10,5 +10,6 @@
 	<div class="mdl-tabs__panel" id="approved-questions">
 	</div>
 	<div class="mdl-tabs__panel" id="pending-questions">
+		<manage-pending-questions *ng-if="questionsLoaded" [categoryName]="category.name" [pendingQuestions]="pendingQuestions"></manage-pending-questions>
 	</div>
 </div>

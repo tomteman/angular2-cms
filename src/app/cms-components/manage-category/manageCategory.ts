@@ -30,9 +30,12 @@ let template = require('./manageCategory.html');
 export class ManageCategory {
     currentAdminsLoaded: boolean;
     potentialAdminsLoaded: boolean;
+    questionsLoaded: boolean;
     category;
     currentAdmins;
     potentialAdmins;
+    pendingQuestions;
+    approvedQuestions;
     subscribeSource;
 
     constructor(formBuilder: FormBuilder, public categoryApi: CategoryApi, public sessionApi: SessionApi,
@@ -46,6 +49,14 @@ export class ManageCategory {
         });
     }
 
+    filterQuestions() {
+        if (this.category) {
+
+            this.approvedQuestions = _.filter(this.category.questions, 'approved', true);
+            this.pendingQuestions = _.filter(this.category.questions, 'approved', false);
+            this.questionsLoaded = true;
+        }
+    }
 
     getCategory(categoryName: string) {
         LoadingMaskService.show();
@@ -56,6 +67,7 @@ export class ManageCategory {
                 this.category = resp;
                 this.populatePlayersData();
                 this.getPotentialCategoryAdmins(this.category.name);
+                this.filterQuestions();
             })
             .catch(err => {
                 console.log(err);
@@ -70,6 +82,7 @@ export class ManageCategory {
                     this.category = changes.new_val;
                     this.populatePlayersData();
                     this.getPotentialCategoryAdmins(this.category.name);
+                    this.filterQuestions();
                 }
 
             });

@@ -4,7 +4,7 @@ import {Observable} from 'rx';
 import * as io from 'socket.io-client';
 
 import {ISeedCategory} from 'app/pof-typings/category';
-import {ISeedQuestion} from 'app/pof-typings/question';
+import {ISeedQuestion, IQuestion} from 'app/pof-typings/question';
 
 let config = require('config.json');
 
@@ -38,6 +38,10 @@ export class CategoryApi {
 
 	createQuestion(categoryName: string, question: ISeedQuestion) {
 		return this.http.post(`/api/categories/${categoryName}/questions/`, question);
+	}
+
+	updateQuestion(categoryName: string, question: IQuestion) {
+		return this.http.post(`/api/categories/${categoryName}/questions/update`, question);
 	}
 
 	feedByCategoryName(categoryName: string) {
