@@ -3,7 +3,7 @@ import {APP_DIRECTIVES} from 'app/directives/index';
 import {ControlGroup, FormBuilder, Validators} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
 import * as _ from 'lodash';
-import {MDL_COMPONENTS, MdlService, LoadingMaskService, NotificationService} from 'app/mdl-components/index';
+import {MDL_COMPONENTS, MdlService, LoadingMaskService} from 'app/mdl-components/index';
 
 import {IQuestion, QuestionState} from 'app/pof-typings/question';
 import {GameState} from 'app/pof-typings/game';

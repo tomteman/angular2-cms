@@ -3,7 +3,7 @@ import {APP_DIRECTIVES} from 'app/directives/index';
 import {ControlGroup, FormBuilder, Validators} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
 import * as _ from 'lodash';
-import {MDL_COMPONENTS, MdlService, LoadingMaskService, NotificationService} from 'app/mdl-components/index';
+import {MDL_COMPONENTS, MdlService, LoadingMaskService, Snackbar} from 'app/mdl-components/index';
 
 import {IQuestion, QuestionState} from 'app/pof-typings/question';
 import {GameState} from 'app/pof-typings/game';
@@ -78,6 +78,11 @@ export class ShowQuestion {
                 this.game = game;
                 this.question = this.getCurrentQuestion(this.game, CURRENT_STATE);
 
+                // console.log('this.question.startedAt', this.question.startedAt);
+
+                // console.log(new Date());
+
+
                 if (!this.question) {
                     this.router.navigate(NEXT_STATE_ROUTE + game.name);
                 } else {
@@ -111,9 +116,9 @@ export class ShowQuestion {
             })
             .catch(err => {
                 if (err.data.code === 'CORRECT_ANSWER') {
-                    NotificationService.show(err.data.message);
+                    Snackbar.show(err.data.message);
                 } else {
-                    NotificationService.show(err.data.message);
+                    Snackbar.show(err.data.message);
                 }
             });
     }

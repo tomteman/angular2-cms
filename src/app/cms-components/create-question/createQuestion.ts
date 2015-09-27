@@ -2,7 +2,7 @@ import {Component, View, LifecycleEvent} from 'angular2/angular2';
 import {APP_DIRECTIVES} from 'app/directives/index';
 import {ControlGroup, FormBuilder, Validators} from 'angular2/angular2';
 import * as _ from 'lodash';
-import {MDL_COMPONENTS, MdlService, LoadingMaskService, NotificationService} from 'app/mdl-components/index';
+import {MDL_COMPONENTS, MdlService, LoadingMaskService, Snackbar} from 'app/mdl-components/index';
 
 import {ISeedQuestion} from 'app/pof-typings/question';
 import {ICategory} from 'app/pof-typings/category';
@@ -69,17 +69,16 @@ export class CreateQuestion {
             realAnswer: formValue.realAnswer
         };
 
-        NotificationService.show('Saving..');
+        let savingMessage = Snackbar.show('Saving..', {delay: 1000});
         this.categoryApi.createQuestion(this.selectedCategoryName, newQuestion)
             .then(res => {
-                console.log(res);
-
+                Snackbar.remove(savingMessage);
                 this.clearForm();
 
                 if (res.approved) {
-                    NotificationService.show('Question added successfully');
+                    Snackbar.show('Question added successfully');
                 } else {
-                    NotificationService.show('Question added successfully but need to be approved');
+                    Snackbar.show('Question added successfully but need to be approved');
                 }
             })
             .catch(err => {

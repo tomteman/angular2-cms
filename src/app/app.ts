@@ -28,6 +28,8 @@ import {Snackbar} from 'app/mdl-components/snackbar/snackbar';
 
 import {LoggedInRouterOutlet} from 'app/session/loggedInRouterOutlet';
 
+const snackbarCss = require('app/mdl-components/snackbar/snackbar.css');
+
 @Component({
     selector: 'app'
 })
@@ -42,9 +44,10 @@ import {LoggedInRouterOutlet} from 'app/session/loggedInRouterOutlet';
                 <router-outlet class="page-content"></router-outlet>
             </main>
             <footer></footer>
+            <snackbar></snackbar>
         </div>
-        <snackbar></snackbar>
-     `
+     `,
+     styles: [snackbarCss]
 })
 @RouteConfig([
     // Layout

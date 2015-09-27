@@ -3,7 +3,7 @@ import {APP_DIRECTIVES} from 'app/directives/index';
 import {ControlGroup, FormBuilder, Validators} from 'angular2/angular2';
 import {Router} from 'angular2/router';
 import * as _ from 'lodash';
-import {MDL_COMPONENTS, MdlService, LoadingMaskService, NotificationService} from 'app/mdl-components/index';
+import {MDL_COMPONENTS, MdlService, LoadingMaskService, Snackbar} from 'app/mdl-components/index';
 
 import {ICategory} from 'app/pof-typings/category';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
@@ -71,15 +71,16 @@ export class CreateGame {
             numberOfQuestions: this.numberOfQuestions
         };
 
-        NotificationService.show('Creating..');
+        let cratingMessage = Snackbar.show('Creating..', { delay: 1000 });
         this.gameApi.create(options)
             .then(result => {
-                NotificationService.hide();
+                Snackbar.remove(cratingMessage);
+                Snackbar.hide();
                 this.router.navigate('/game-staging/' + result.name);
             })
             .catch(err => {
                 console.log(err);
-                NotificationService.show(err.data.message);
+                Snackbar.show(err.data.message);
             });
     }
 
