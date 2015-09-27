@@ -80,6 +80,7 @@ export class CreateGame {
             })
             .catch(err => {
                 console.log(err);
+                Snackbar.remove(cratingMessage);
                 Snackbar.show(err.data.message);
             });
     }
