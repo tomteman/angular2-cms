@@ -42,7 +42,8 @@ export class ShowQuestion {
     isPlayer: boolean;
     questionSubmitted: boolean;
     myForm: ControlGroup;
-    showQuestionTime;
+    showQuestionRemainTime;
+    showQuestionTotalTime = SHOW_QUESTION_TIME;
     panicTime = PANIC_TIME;
     superPanicTime = SUPER_PANIC_TIME;
 
@@ -78,7 +79,7 @@ export class ShowQuestion {
             .then((game) => {
                 this.game = game;
                 this.question = this.getCurrentQuestion(this.game, CURRENT_STATE);
-                this.showQuestionTime = Math.round(SHOW_QUESTION_TIME - (timeDiff(this.game.currentTime, this.question.startedAt) / 1000));
+                this.showQuestionRemainTime = Math.round(SHOW_QUESTION_TIME - (timeDiff(this.game.currentTime, this.question.startedAt) / 1000));
 
                 if (!this.question) {
                     this.router.navigate(NEXT_STATE_ROUTE + game.name);
@@ -128,7 +129,7 @@ export class ShowQuestion {
     startTimer() {
         return setTimeout(() => {
             this.gameApi.tick(this.game.name, this.question.id, this.question.state)
-        }, this.showQuestionTime * 1000);
+        }, this.showQuestionRemainTime * 1000);
     }
 
     onDestroy() {

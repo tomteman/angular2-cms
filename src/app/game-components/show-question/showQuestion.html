@@ -35,5 +35,10 @@
             </div>
     </form>
 
-    <countdown [total]="showQuestionTime" [panic]="panicTime" [super-panic]="superPanicTime"> </countdown>
+    <countdown
+        [total]="showQuestionTotalTime"
+        [panic]="panicTime"
+        [super-panic]="superPanicTime"
+        [current-time]="showQuestionRemainTime">
+    </countdown>
 </section>

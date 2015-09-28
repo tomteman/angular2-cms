@@ -34,5 +34,10 @@
 		{{answerSelected}}
 	</p>
 
-	<countdown [total]="showAnswersTime" [panic]="panicTime" [super-panic]="superPanicTime"> </countdown>
+	<countdown
+        [total]="showAnswersTotalTime"
+        [panic]="panicTime"
+        [super-panic]="superPanicTime"
+        [current-time]="showAnswersRemainTime">
+	</countdown>
 </section>
