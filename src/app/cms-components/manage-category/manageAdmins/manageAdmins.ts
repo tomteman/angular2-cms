@@ -3,6 +3,7 @@ import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
 import {APP_DIRECTIVES} from 'app/directives/index';
 import {NgStyle} from 'angular2/directives';
 import * as _ from 'lodash';
+import {MDL_COMPONENTS, Snackbar} from 'app/mdl-components/index';
 
 
 
@@ -10,17 +11,17 @@ let styles = require('./manageAdmins.css');
 let template = require('./manageAdmins.html');
 
 @Component({
-	selector: 'manage-admins',
-	properties: ['currentadmins', 'potentialadmins', 'categoryname'],
-	lifecycle: [LifecycleEvent.OnInit]
+    selector: 'manage-admins',
+    properties: ['currentadmins', 'potentialadmins', 'categoryname'],
+    lifecycle: [LifecycleEvent.OnInit]
 })
 @View({
-	directives: [APP_DIRECTIVES, NgStyle],
-	styles: [styles],
-	template: template
+    directives: [APP_DIRECTIVES, MDL_COMPONENTS, NgStyle],
+    styles: [styles],
+    template: template
 })
 export class ManageAdmins {
-	currentadmins: Array<any>;
+    currentadmins: Array<any>;
     potentialadmins: Array<any>;
     categoryname: string;
 
@@ -29,30 +30,40 @@ export class ManageAdmins {
 
     }
 
-	onInit() {
+    onInit() {
 
-	}
+    }
 
-	getBackgroundUrl(admin) {
+    getBackgroundUrl(admin) {
         return {
             'background': 'url(' + admin.picture + ') no-repeat',
             'background-size': '100%'
         }
     }
 
-	addAdmin(potentialAdmin) {
-        this.categoryApi.addAdminToCategory(this.categoryname, potentialAdmin.id)
-            .then(response=> {
-                console.log(response);
+    addAdmin(admin) {
+        let delayMessage = Snackbar.show('Adding...', { delay: 1000 });
+        _.remove(this.potentialadmins, potentialadmin => {
+            return admin.id === potentialadmin.id;
+        });
+        this.categoryApi.addAdminToCategory(this.categoryname, admin.id)
+            .then(res=> {
+                Snackbar.remove(delayMessage);
+                Snackbar.show(admin.name + ' is now an administrator');
+                console.log(res);
             }).catch(err => {
                 console.log(err);
             })
     }
 
-    removeAdmin(potentialAdmin) {
-        this.categoryApi.removeAdminFromCategory(this.categoryname, potentialAdmin.id)
-            .then(response=> {
-                console.log(response);
+    removeAdmin(admin) {
+        let delayMessage = Snackbar.show('Removing...', { delay: 1000 });
+
+        this.categoryApi.removeAdminFromCategory(this.categoryname, admin.id)
+            .then(res=> {
+                Snackbar.remove(delayMessage);
+                Snackbar.show(admin.name + ' is no longer an administrator');
+                console.log(res);
             }).catch(err => {
                 console.log(err);
             })
