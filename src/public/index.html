@@ -21,8 +21,15 @@
     <base href="/">
 
     <script src="/lib/es6-shim.js"></script>
-    <script src="/lib/requestAnimationFrame.min.js"> </script>
-    <script src="/lib/fastclick.min.js"> </script>
+    <script src="/lib/requestAnimationFrame.min.js"></script>
+    <script src="/lib/fastclick.min.js"></script>
+    <script>
+        if ('addEventListener' in document) {
+            document.addEventListener('DOMContentLoaded', function() {
+                FastClick.attach(document.body);
+            }, false);
+        }
+    </script>
 </head>
 
 <body>
