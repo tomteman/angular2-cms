@@ -1,10 +1,10 @@
 
 import {ManageAdmins} from './manageAdmins/manageAdmins';
-import {ManagePendingQuestions} from './managePendingQuestions/managePendingQuestions';
+import {ManageQuestions} from './manageQuestions/manageQuestions';
 
 
 
 export var CATEGORY_COMPONENTS: Array<any> = [
     ManageAdmins,
-    ManagePendingQuestions
+    ManageQuestions
 ];

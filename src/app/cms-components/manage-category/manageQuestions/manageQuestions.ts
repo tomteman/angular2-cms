@@ -6,12 +6,12 @@ import * as _ from 'lodash';
 
 
 
-let styles = require('./managePendingQuestions.css');
-let template = require('./managePendingQuestions.html');
+let styles = require('./manageQuestions.css');
+let template = require('./manageQuestions.html');
 
 @Component({
-    selector: 'manage-pending-questions',
-    properties: ['pendingquestions', 'categoryname'],
+    selector: 'manage-questions',
+    properties: ['questions', 'categoryname', 'approved'],
     lifecycle: [LifecycleEvent.OnInit]
 })
 @View({
@@ -19,9 +19,10 @@ let template = require('./managePendingQuestions.html');
     styles: [styles],
     template: template
 })
-export class ManagePendingQuestions {
-    pendingquestions: Array<any>;
+export class ManageQuestions {
+    questions: Array<any>;
     categoryname: string;
+    approved: boolean;
 
 
     constructor(public categoryApi: CategoryApi) {

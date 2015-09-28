@@ -1,15 +1,16 @@
 <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 	<div class="mdl-tabs__tab-bar">
-		<a href="#admins" class="mdl-tabs__tab is-active">Administrators</a>
-		<a href="#approved-questions" class="mdl-tabs__tab">Approved</a>
+		<a href="#approved-questions" class="mdl-tabs__tab is-active">Approved</a>
 		<a href="#pending-questions" class="mdl-tabs__tab">Pending</a>
+		<a href="#admins" class="mdl-tabs__tab">Administrators</a>
 	</div>
-	<div class="mdl-tabs__panel is-active" id="admins">
-		<manage-admins *ng-if="currentAdminsLoaded && potentialAdminsLoaded" [categoryName]="category.name" [currentAdmins]="currentAdmins" [potentialAdmins]="potentialAdmins"></manage-admins>
-	</div>
-	<div class="mdl-tabs__panel" id="approved-questions">
+	<div class="mdl-tabs__panel is-active" id="approved-questions">
+		<manage-questions *ng-if="questionsLoaded" [approved]="true" [categoryName]="category.name" [questions]="approvedQuestions"></manage-questions>
 	</div>
 	<div class="mdl-tabs__panel" id="pending-questions">
-		<manage-pending-questions *ng-if="questionsLoaded" [categoryName]="category.name" [pendingQuestions]="pendingQuestions"></manage-pending-questions>
+		<manage-questions *ng-if="questionsLoaded" [categoryName]="category.name" [questions]="pendingQuestions"></manage-questions>
+	</div>
+	<div class="mdl-tabs__panel" id="admins">
+		<manage-admins *ng-if="currentAdminsLoaded && potentialAdminsLoaded" [categoryName]="category.name" [currentAdmins]="currentAdmins" [potentialAdmins]="potentialAdmins"></manage-admins>
 	</div>
 </div>
