@@ -41,3 +41,9 @@ export function isNumber(obj): boolean {
 export function isDate(obj): boolean {
   return obj instanceof Date && !isNaN(obj.valueOf());
 }
+
+export function timeDiff(from, to): number {
+    let toTime = new Date(to);
+    let fromTime = new Date(from);
+    return Math.abs(fromTime.getTime() - toTime.getTime());
+}

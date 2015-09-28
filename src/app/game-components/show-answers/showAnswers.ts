@@ -8,6 +8,7 @@ import {MDL_COMPONENTS, MdlService, LoadingMaskService} from 'app/mdl-components
 import {IQuestion, QuestionState} from 'app/pof-typings/question';
 import {GameState} from 'app/pof-typings/game';
 import {IPlayer} from 'app/pof-typings/player';
+import {timeDiff} from 'app/util/lang';
 
 import {Session} from 'app/session/session';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
@@ -41,7 +42,7 @@ export class ShowAnswers {
     answerSelected: string;
     isPlayer: boolean;
     myForm: ControlGroup;
-    showAnswersTime = SHOW_ANSWERS_TIME;
+    showAnswersTime;
     panicTime = PANIC_TIME;
     superPanicTime = SUPER_PANIC_TIME;
 
@@ -76,6 +77,7 @@ export class ShowAnswers {
         return this.gameApi.get(gameName).then((game) => {
             this.game = game;
             this.question = this.getCurrentQuestion(this.game, CURRENT_STATE);
+            this.showAnswersTime = Math.round(SHOW_ANSWERS_TIME - (timeDiff(this.game.currentTime, this.question.startedAt) / 1000));
 
             if (!this.question) {
                 this.router.navigate(NEXT_STATE_ROUTE + game.name);
@@ -131,7 +133,7 @@ export class ShowAnswers {
     startTimer() {
          return setTimeout(() => {
              this.gameApi.tick(this.game.name, this.question.id, this.question.state)
-         }, SHOW_ANSWERS_TIME * 1000);
+         }, this.showAnswersTime * 1000);
     }
 
     onDestroy() {
