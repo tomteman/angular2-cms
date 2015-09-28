@@ -31,14 +31,20 @@ export class ManagePendingQuestions {
     }
 
 
-    approveQuestion(question) {
+    approve(question) {
         question.approved = true;
         this.categoryApi.updateQuestion(this.categoryname, question).then(response=> {
             console.log(response);
         })
     }
 
-    deleteQuestion(question) {
+    delete(question) {
+        this.categoryApi.deleteQuestion(this.categoryname, question.id).then(response=> {
+            console.log(response);
+        })
+    }
+
+    edit(question) {
 
     }
 }

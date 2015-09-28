@@ -44,6 +44,10 @@ export class CategoryApi {
 		return this.http.post(`/api/categories/${categoryName}/questions/update`, question);
 	}
 
+	deleteQuestion(categoryName: string, questionId: string) {
+		return this.http.get(`/api/categories/${categoryName}/questions/${questionId}/delete`);
+	}
+
 	feedByCategoryName(categoryName: string) {
 		var socket = io(config.serverLocation);
 		return Observable
