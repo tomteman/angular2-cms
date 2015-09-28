@@ -15,7 +15,7 @@
 	<button *ng-if="(i === collection.length - 1)"
 		class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored input-button-addon"
 		type="button"
-		[disabled]="item === ''"
+		id="addItem"
 		(click)="addItem()">
 		<i class="material-icons">add</i>
 	</button>

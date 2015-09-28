@@ -49,10 +49,8 @@ export class Countdown {
 		}
 
 		if (this.currentTime <= this.panic) {
-			this.timerText.classList.add('panic');
 			this.timerCircle.classList.add('panic');
 		} else {
-			this.timerText.classList.remove('panic');
 			this.timerCircle.classList.remove('panic');
 		}
 
@@ -70,7 +68,6 @@ export class Countdown {
 	onDestroy() {
 		clearInterval(this.intervalSource);
 		this.timerCircle.style.strokeDashoffset = 0;
-		this.timerText.classList.remove('panic');
 		this.timerCircle.classList.remove('panic');
 	}
 
