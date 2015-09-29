@@ -42,6 +42,7 @@ export class ShowAnswers {
     answerSelected: string;
     isPlayer: boolean;
     myForm: ControlGroup;
+    displayAnswersArray: Array<IQuestion>;
     showAnswersRemainTime;
     showAnswersTotalTime = SHOW_ANSWERS_TIME;
     panicTime = PANIC_TIME;
@@ -83,11 +84,27 @@ export class ShowAnswers {
             if (!this.question) {
                 this.router.navigate(NEXT_STATE_ROUTE + game.name);
             } else {
+                this.createDisplayAnswersArray();
                 this.isPlayer ? this.checkIfAnswerSelected() : null;
                 this.subscribe(game.name, this.question);
                 this.timerSource = this.startTimer();
             }
         })
+    }
+
+    createDisplayAnswersArray() {
+        // remove prepopulate fake answers if they are not necessarily
+        while (this.question.fakeAnswers.length > this.game.players.length) {
+            for (let fakeAnswer of this.question.fakeAnswers) {
+                if (fakeAnswer.createdBy.length === 1 && fakeAnswer.createdBy[0] === 'house') {
+                    this.question.fakeAnswers = _.without(this.question.fakeAnswers, fakeAnswer);
+                }
+            }
+        }
+
+        let allAnswers = this.question.fakeAnswers.concat(this.question.realAnswer);
+        let shuffledArray = _.shuffle(allAnswers);
+        this.displayAnswersArray = shuffledArray;
     }
 
     subscribe(gameName: string, question) {

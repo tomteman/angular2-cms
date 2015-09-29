@@ -1,37 +1,23 @@
 <section class="answer-question" *ng-if="!initialLoading">
 
-	<section *ng-if="question && !answerSelected">
+	<section *ng-if="isPlayer && !answerSelected">
+		<div *ng-for="#answer of displayAnswersArray"
+			class="mdl-cell mdl-cell--6-col">
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+				(click)="choose(answer.text)">
+				{{ answer.text }}
+			</button>
+		</div>
+	</section>
 
-		<section *ng-if="isPlayer">
-			<div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
-				<button
-					(click)="choose(question.realAnswer.text)"
-					class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-					{{ question.realAnswer.text }}
-				</button>
-			</div>
-			<div
-				*ng-for="#fakeAnswer of question.fakeAnswers"
-				class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone mdl-cell--4-col-tablet">
-				<button
-					(click)="choose(fakeAnswer.text)"
-					class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-					{{ fakeAnswer.text }}
-				</button>
-			</div>
-		</section>
-
-		<section *ng-if="!isPlayer">
-
-			<ul>
-				<li> {{ question.realAnswer.text }} </li>
-				<li *ng-for="#fakeAnswer of question.fakeAnswers"> {{ fakeAnswer.text }} </li>
-			</ul>
-		</section>
+	<section *ng-if="!isPlayer">
+		<ul>
+			<li *ng-for="#answer of displayAnswersArray"> {{ answer.text }} </li>
+		</ul>
 	</section>
 
 	<p *ng-if="answerSelected">
-		{{answerSelected}}
+		Selected answer: {{answerSelected}}
 	</p>
 
 	<countdown

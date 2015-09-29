@@ -2,7 +2,7 @@ export interface IQuestion {
     id: string;
     questionText: string;
     realAnswer: RealAnswer;
-    fakeAnswers: FakeAnswerArray;
+    fakeAnswers: Array<FakeAnswer>;
     creatorId: string;
     state: QuestionState;
     approved: boolean;
@@ -14,7 +14,7 @@ export interface ISeedQuestion {
     fakeAnswers: Array<string>;
 }
 
-export interface FakeAnswerArray {
+export interface FakeAnswer {
     text: string;
     selectedBy: Array<string>;
     createdBy: Array<string>;
