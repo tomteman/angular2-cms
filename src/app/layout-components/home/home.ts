@@ -15,5 +15,7 @@ let template = require('./home.html');
 
 export class Home {
     constructor() {
+        console.log('little change');
+
     }
 }
