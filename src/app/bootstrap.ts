@@ -8,8 +8,8 @@ import {SESSION_BINDINGS} from './session/index';
 import {APP_DIRECTIVES} from './directives/index';
 import {MDL_BINDINGS} from './mdl-components/index';
 
-import {HASH_LOCATION_BINDINGS} from '../common/location_bindings';
-import {fastclickBootstrap} from '../common/fastclickBootstrap';
+import {HASH_LOCATION_BINDINGS} from '../bindings/location_bindings';
+import {fastclickBootstrap} from '../vendors-bootstrap/fastclick';
 
 fastclickBootstrap();
 
