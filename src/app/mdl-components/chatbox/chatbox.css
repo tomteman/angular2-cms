@@ -15,7 +15,7 @@
 .chatbox .chatbox__message {
     position: relative;
     padding: 10px;
-    /*min-width: 500px;*/
+    min-width: 200px;
 }
 
 .chatbox .chatbox__message::before {

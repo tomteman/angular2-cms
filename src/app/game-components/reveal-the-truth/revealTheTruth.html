@@ -1,12 +1,13 @@
-<section class="reveal-the-truth">
-	<!--<h1> {{question.questionText}} </h1>-->
+<section class="reveal-the-truth" *ng-if="!initialLoading">
+	<!-- QUESTION TEXT -->
+	<h4 class="question-text"> {{question.questionText}} </h4>
 
+	<!-- TRUTH BOX -->
 	<div *ng-for="#answer of displayArray">
 		<truthbox
 			*ng-if="answer.show"
 			[answer]="answer">
 		</truthbox>
 	</div>
-
-	<pre> {{displayArray | json}} </pre>
 </section>
+<!--<pre> {{displayArray | json}} </pre>-->

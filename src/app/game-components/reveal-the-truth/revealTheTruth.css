@@ -1,0 +1,14 @@
+.reveal-the-truth {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.reveal-the-truth truthbox {
+	display: block;
+}
+
+.reveal-the-truth .question-text {
+	text-align: center;
+}

@@ -1,10 +1,11 @@
-<chatbox
-	[text]="chatboxData.text"
-	[author]="chatboxData.author"
-	[image]="chatboxData.image">
-</chatbox>
+<section class="truthbox">
+	<chatbox
+		[text]="chatboxData.text"
+		[author]="chatboxData.author"
+		[image]="chatboxData.image">
+	</chatbox>
 
-<div *ng-for="#player of answer.selectedBy">
-	<img src="{{player.picture}}" />
-	{{player.name}}
-</div>
+	<div *ng-for="#player of answer.selectedBy" class="selected-by-player">
+		<img src="{{player.picture}}" class="selected-by-player--picture" />
+	</div>
+</section>

@@ -92,7 +92,7 @@ export class RevealTheTruth {
             return answer;
         });
 
-        this.displayArray[1].show = true;
+        this.displayArray[0].show = true;
         console.log('displayArray', this.displayArray);
     }
 

@@ -1,0 +1,19 @@
+.truthbox .selected-by-player {
+	display: inline-block;
+    margin-left: -15px;
+	margin-top: 20px;
+}
+
+.truthbox .selected-by-player:nth-of-type(1) {
+	margin-left: 0;
+}
+
+.truthbox .selected-by-player--picture {
+	border-radius: 50%;
+    width: 50px;
+}
+
+chatbox {
+	display: block;
+	margin-top: 20px;
+}

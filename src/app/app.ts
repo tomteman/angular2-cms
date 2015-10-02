@@ -40,7 +40,7 @@ const snackbarCss = require('app/mdl-components/snackbar/snackbar.css');
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
             <top-frame class="mdl-layout__header"> </top-frame>
             <top-frame-menu class="mdl-layout__drawer mdl-color--blue-grey-800" style="border: none;"></top-frame-menu>
-            <main class="mdl-layout__content">
+            <main class="mdl-layout__content mdl-color--grey-100">
                 <router-outlet class="page-content"></router-outlet>
             </main>
             <footer></footer>
