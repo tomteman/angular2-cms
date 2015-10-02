@@ -2,6 +2,11 @@
     margin-top: 10%;
 }
 
+.home .logo {
+    height: 100px;
+    width: 100px;
+}
+
 .home-pof-image {
 	position: absolute;
     bottom: 0;

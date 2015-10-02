@@ -10,3 +10,7 @@
 
   HTML5, CSS3
   Angular2, TypeScript, Webpack
+
+# THANKS
+
+  Logo design based on 'Fingers Crossed' by Till Teenck from the Noun Project (https://thenounproject.com/term/fingers-crossed/)
