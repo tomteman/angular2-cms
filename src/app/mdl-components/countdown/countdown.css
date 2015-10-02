@@ -6,7 +6,7 @@
 }
 
 .circle {
-  stroke: green;
+  stroke: #00BBD6;
   fill: transparent;
   stroke-dasharray: 100 100;
   stroke-dashoffset: 0;
@@ -15,16 +15,12 @@
 }
 
 .circle.panic {
-    stroke: red;
+    stroke: #EF3C79;
 }
 
 .text {
-  fill: darkgreen;
+  fill: rgb(136, 136, 136);
   font-family: Helvetica, sans-serif;
   font-size: 10px;
   text-anchor: middle;
-}
-
-.text.panic {
-    fill: darkred;
 }

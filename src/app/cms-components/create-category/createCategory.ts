@@ -1,56 +1,57 @@
-import {Component, View} from 'angular2/angular2';
-import {FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2'
-import {ControlGroup, FormBuilder, Validators} from 'angular2/angular2'
+import {Component, View, LifecycleEvent} from 'angular2/angular2';
+import {APP_DIRECTIVES} from 'app/directives/index';
+import {ControlGroup, FormBuilder, Validators} from 'angular2/angular2';
+import * as _ from 'lodash';
+import {MDL_COMPONENTS, MdlService, LoadingMaskService, Snackbar} from 'app/mdl-components/index';
 
 import {ISeedCategory} from 'app/pof-typings/category';
 import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
 
-let styles = require('./createCategory.css');
-let template = require('./createCategory.html');
+const styles = require('./createCategory.css');
+const template = require('./createCategory.html');
 
 @Component({
     selector: 'create-category'
 })
 @View({
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
+    directives: [APP_DIRECTIVES, MDL_COMPONENTS],
     styles: [styles],
     template: template
 })
 export class CreateCategory {
     myForm: ControlGroup;
-    showSuccessMsg: boolean;
-    showErrorMsg: boolean;
-    errorMsg: string;
+    isPublic: boolean = true;
 
-    constructor(formBuilder: FormBuilder, public categoryApi: CategoryApi) {
-        // MDL issue
-        componentHandler.upgradeDom();
-        
-        this.myForm = formBuilder.group({
-            name: ['', Validators.required],
-            public: [true]
+    constructor(public formBuilder: FormBuilder, public categoryApi: CategoryApi) {
+        this.buildForm();
+        MdlService.upgradeAllRegistered();
+    }
+
+    buildForm() {
+        this.myForm = this.formBuilder.group({
+            name: ['', Validators.required]
         });
     }
 
     onSubmit(formValue) {
-        console.log(formValue);
-
-        this.showSuccessMsg = false;
-        this.showErrorMsg = false;
-
-        this.categoryApi.create(formValue)
+        let savingMessage = Snackbar.show('Saving..', { delay: 1000 });
+        this.categoryApi.create(_.assign({}, formValue, { public: this.isPublic }))
             .then(res => {
+                Snackbar.remove(savingMessage);
+                Snackbar.show('Category added successfully');
                 this.clearForm();
-                this.showSuccessMsg = true;
             })
             .catch(err => {
-                this.showErrorMsg = true;
-                this.errorMsg = err.data;
+                Snackbar.show(err.data.message);
             });
     }
 
+    setPublic(isPublic) {
+        this.isPublic = isPublic;
+    }
+
     clearForm() {
-        console.log(this.myForm);
-        // this.todoInput.updateValue('');
+        this.myForm.controls.name.updateValue('');
+        MdlService.upgradeAllRegistered();
     }
 }

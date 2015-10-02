@@ -3,13 +3,8 @@
 
 # TEAM
 
-  <name> -- <role> -- <twitter>
-
-# THANKS
-
-  <name>
-  PatrickJS -- @gdi2290
-  AngularClass -- @AngularClass
+  Itay Radotzki -- Developer -- @radotzki
+  Tom Teman -- Developer
 
 # TECHNOLOGY COLOPHON
 

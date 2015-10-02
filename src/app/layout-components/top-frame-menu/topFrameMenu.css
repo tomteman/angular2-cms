@@ -1,4 +1,56 @@
-.mdl-layout-title .player-picture {
-	margin-left: 60px;
+.drawer-header .player-picture {
     border-radius: 50%;
+}
+
+.mdl-navigation__link.with-icon {
+	display: -webkit-box !important;
+    display: -webkit-flex !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.56);
+    font-weight: 500;
+    padding: 16px;
+}
+
+.mdl-navigation__link.with-icon i {
+    margin-right: 32px;
+}
+
+.drawer-header {
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    padding: 16px;
+    height: 151px;
+}
+
+.drawer-header span {
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.mdl-navigation__link.with-icon:hover {
+    background-color: #00BCD4;
+    color: #37474F;
+    cursor: pointer;
 }

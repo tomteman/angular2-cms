@@ -6,7 +6,7 @@ const template = require('./countdown.html');
 
 @Component({
 	selector: 'countdown',
-	properties: ['total', 'panic', 'superPanic'],
+	properties: ['total', 'panic', 'superPanic', 'currentTime'],
 	lifecycle: [LifecycleEvent.OnInit, LifecycleEvent.OnDestroy]
 })
 @View({
@@ -17,9 +17,9 @@ export class Countdown {
 	total;
 	panic;
 	superPanic;
+	currentTime;
 
 	intervalSource;
-	currentTime;
 	percentTime;
 	timerText;
 	timerCircle;
@@ -29,8 +29,8 @@ export class Countdown {
 
 	onInit() {
 		navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
-		this.currentTime = this.total;
-		this.percentTime = 100;
+		this.currentTime = this.currentTime || this.total;
+		this.percentTime = Math.round((this.currentTime / this.total) * 100);
 		this.timerText = document.querySelector('.text');
 		this.timerCircle = document.querySelector('.circle');
 
@@ -49,8 +49,9 @@ export class Countdown {
 		}
 
 		if (this.currentTime <= this.panic) {
-			this.timerText.classList.add('panic');
 			this.timerCircle.classList.add('panic');
+		} else {
+			this.timerCircle.classList.remove('panic');
 		}
 
 		if (this.currentTime <= this.superPanic && navigator.vibrate) {
@@ -67,7 +68,6 @@ export class Countdown {
 	onDestroy() {
 		clearInterval(this.intervalSource);
 		this.timerCircle.style.strokeDashoffset = 0;
-		this.timerText.classList.remove('panic');
 		this.timerCircle.classList.remove('panic');
 	}
 

@@ -1,22 +1,30 @@
-<span class="mdl-layout-title">
-	Menu
-	<img *ng-if="activeUser" class="player-picture" src="{{activeUser.picture}}" height="54" width="54">
-</span>
+<header class="drawer-header mdl-color--blue-grey-900 mdl-color-text--blue-grey-50" *ng-if="activeUser">
+	<img class="player-picture" src="{{activeUser.picture}}" height="60" width="60">
+	<span> {{ activeUser.name }} </span>
+</header>
 <nav class="mdl-navigation">
 	<a
-		class="mdl-navigation__link"
+		class="mdl-navigation__link with-icon"
 		[router-link]="['/home']"
-		(click)="closeDrawer()">Home</a>
+		(click)="closeDrawer()">
+		<i class="material-icons mdl-color-text--blue-grey-400">home</i>
+		Home </a>
 	<a
-		class="mdl-navigation__link"
+		class="mdl-navigation__link with-icon"
 		[router-link]="['/create-question']"
-		(click)="closeDrawer()">Create Question</a>
+		(click)="closeDrawer()">
+		<i class="material-icons mdl-color-text--blue-grey-400">create</i>
+		Create Question</a>
 	<a
-		class="mdl-navigation__link"
+		class="mdl-navigation__link with-icon"
 		[router-link]="['/manage-categories']"
-		(click)="closeDrawer()">Manage Categories</a>
+		(click)="closeDrawer()">
+		<i class="material-icons mdl-color-text--blue-grey-400">settings</i>
+		Manage Categories</a>
 	<a
-		class="mdl-navigation__link"
+		class="mdl-navigation__link with-icon"
 		*ng-if="activeUser"
-		(click)="signout()">Signout</a>
+		(click)="signout()">
+		<i class="material-icons mdl-color-text--blue-grey-400">power_settings_new</i>
+		Signout</a>
 </nav>

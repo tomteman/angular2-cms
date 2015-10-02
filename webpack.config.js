@@ -50,14 +50,16 @@ var config = {
       'angular2/di'
     ],
     'app': [
-      /*
-       * include any 3rd party js lib here
-       */
+      './src/app/bootstrap'
+    ],
+    'vendor': [
+       /**
+        * include any 3rd party js lib here
+        */
       'socket.io-client/socket.io',
       'whatwg-fetch/fetch',
       'lodash/index',
-
-      './src/app/bootstrap'
+      'fastclick/lib/fastclick'
     ]
   },
 
@@ -167,16 +169,16 @@ var environment_plugins = {
   ],
 
   production: [
-    // new UglifyJsPlugin({
-    //   compress: {
-    //     warnings: false,
-    //     drop_debugger: false
-    //   },
-    //   output: {
-    //     comments: false
-    //   },
-    //   beautify: false
-    // }),
+    new UglifyJsPlugin({
+      compress: {
+        warnings: false,
+        drop_debugger: false
+      },
+      output: {
+        comments: false
+      },
+      beautify: false
+    }),
     new NormalModuleReplacementPlugin(/config.json/, 'src/config/production.json'),
     new BannerPlugin(getBanner(), {entryOnly: true})
   ],
@@ -222,7 +224,7 @@ module.exports = config;
 
 // Helper functions
 function getBanner() {
-  return 'Pants-On-Fire v'+ pkg.version +' by @radotzki & @tteman';
+  return 'Bullshit v'+ pkg.version +' by @radotzki & @tteman';
 }
 
 function root(args) {

@@ -33,6 +33,7 @@ export class Home {
 
     updateQuote() {
         this.quote = this.quotes.get();
+
     }
     onDestroy() {
 		clearInterval(this.intervalSource);

@@ -38,5 +38,9 @@ export class Chips {
     onBlur(event, index) {
         this.collection[index] = event.target.value;
 		MdlService.checkInputsDirty();
+
+		if (event.relatedTarget && event.relatedTarget.id === 'addItem') {
+			setTimeout(this.addItem.bind(this), 0);
+		}
     }
 }

@@ -43,9 +43,9 @@ export class CreateQuestion {
             LoadingMaskService.hide();
             MdlService.upgradeAllRegistered();
         })
-        .catch(err => {
-            console.log(err);
-        });
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     getCategories() {
@@ -69,7 +69,7 @@ export class CreateQuestion {
             realAnswer: formValue.realAnswer
         };
 
-        let savingMessage = Snackbar.show('Saving..', {delay: 1000});
+        let savingMessage = Snackbar.show('Saving..', { delay: 1000 });
         this.categoryApi.createQuestion(this.selectedCategoryName, newQuestion)
             .then(res => {
                 Snackbar.remove(savingMessage);
