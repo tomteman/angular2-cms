@@ -3,19 +3,31 @@
 }
 
 .home .logo {
-    height: 100px;
-    width: 100px;
-}
-
-.home-pof-image {
-	position: absolute;
+    position: absolute;
     bottom: 0;
-    left: 50%;
-    margin-left: -220px;
-    width: 440px;
-    height: 240px;
+    margin: 0 auto;
+    width: 160px;
+    left: 0;
+    right: 0;
 }
 
-.text-center {
-	text-align: center;
+@media (min-width: 800px) {
+    .home .bs-button--large {
+        font-size: 30px;
+        padding: 25px 30px;
+        line-height: 3px;
+    }
+}
+
+.home .flex-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  justify-content: space-around;
 }

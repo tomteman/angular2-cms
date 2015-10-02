@@ -3,11 +3,14 @@
 	<section *ng-if="isPlayer && !answerSelected">
 		<div *ng-for="#answer of displayAnswersArray"
 			class="mdl-cell mdl-cell--6-col">
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+			<button
+				*ng-if="!isMyAnswer(answer)"
+				class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
 				(click)="choose(answer.text)">
 				{{ answer.text }}
 			</button>
 		</div>
+
 	</section>
 
 	<section *ng-if="!isPlayer">

@@ -5,6 +5,8 @@ import {Router, RouteParams} from 'angular2/router';
 import * as _ from 'lodash';
 import {MDL_COMPONENTS, MdlService, LoadingMaskService} from 'app/mdl-components/index';
 
+import {Truthbox} from './truthbox/truthbox';
+
 import {IQuestion, QuestionState} from 'app/pof-typings/question';
 import {GameState} from 'app/pof-typings/game';
 
@@ -24,7 +26,7 @@ const REVEALING_THE_TRUTH_TIME = 3000;
     lifecycle: [LifecycleEvent.OnDestroy]
 })
 @View({
-    directives: [APP_DIRECTIVES, MDL_COMPONENTS],
+    directives: [APP_DIRECTIVES, MDL_COMPONENTS, Truthbox],
     styles: [styles],
     template: template
 })
@@ -86,14 +88,16 @@ export class RevealTheTruth {
         this.displayArray = _.map(this.displayArray, answer => {
             answer.selectedBy = _.map(answer.selectedBy, this.getPlayerData.bind(this));
             answer.createdBy = _.map(answer.createdBy, this.getPlayerData.bind(this));
+            answer.show = false;
             return answer;
         });
 
+        this.displayArray[1].show = true;
         console.log('displayArray', this.displayArray);
     }
 
     getPlayerData(playerId) {
-        let houseObj = {id: 'house'};
+        let houseObj = {id: 'house', name: 'homegrown bullshit', picture: 'http://i.imgur.com/TqFxTKIs.jpg'};
         return _.find(this.game.players, player => player.id === playerId) || houseObj;
     }
 

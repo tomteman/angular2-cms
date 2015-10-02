@@ -1,0 +1,10 @@
+<chatbox
+	[text]="chatboxData.text"
+	[author]="chatboxData.author"
+	[image]="chatboxData.image">
+</chatbox>
+
+<div *ng-for="#player of answer.selectedBy">
+	<img src="{{player.picture}}" />
+	{{player.name}}
+</div>

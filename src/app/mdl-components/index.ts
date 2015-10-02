@@ -4,12 +4,14 @@ import {LoadingMask} from './loadingMask/loadingMask';
 import {LoadingMaskService} from './loadingMask/loadingMaskService';
 import {Snackbar} from './snackbar/snackbar';
 import {Countdown} from './countdown/countdown';
+import {Chatbox} from './chatbox/chatbox';
 
 export var MDL_COMPONENTS: Array<any> = [
   Chips,
   LoadingMask,
   Snackbar,
-  Countdown
+  Countdown,
+  Chatbox
 ];
 
 export var MDL_BINDINGS: Array<any> = [

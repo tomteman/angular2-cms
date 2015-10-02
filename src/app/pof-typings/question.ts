@@ -1,8 +1,8 @@
 export interface IQuestion {
     id: string;
     questionText: string;
-    realAnswer: RealAnswer;
-    fakeAnswers: Array<FakeAnswer>;
+    realAnswer: Answer;
+    fakeAnswers: Array<Answer>;
     creatorId: string;
     state: QuestionState;
     approved: boolean;
@@ -10,19 +10,15 @@ export interface IQuestion {
 
 export interface ISeedQuestion {
     questionText: string;
-    realAnswer: RealAnswer;
+    realAnswer: Answer;
     fakeAnswers: Array<string>;
 }
 
-export interface FakeAnswer {
+export interface Answer {
     text: string;
     selectedBy: Array<string>;
     createdBy: Array<string>;
-}
-
-export interface RealAnswer {
-    text: string;
-    selectedBy: Array<string>;
+    pointsBreakdown: Object;
 }
 
 export enum QuestionState {

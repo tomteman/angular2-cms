@@ -1,17 +1,16 @@
-<div class="mdl-grid text-center home">
+<div class="home">
 
-		<div class="mdl-cell">
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" [router-link]="['/join-game']">Join</button>
-		</div>
-		<div class="mdl-cell">
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" [router-link]="['/create-game']">Create</button>
-		</div>
-		<div class="mdl-cell">
-			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" [router-link]="['/present-game']">Present</button>
-		</div>
+	<section class="flex-container">
+		<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent bs-button--large" [router-link]="['/join-game']">Join</button>
+		<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent bs-button--large" [router-link]="['/create-game']">Create</button>
+		<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent bs-button--large" [router-link]="['/present-game']">Present</button>
+	</section>
 
-	<div>{{quote.text}}</div>
-	<div>{{quote.author}}</div>
+	<chatbox
+		[text]="quote.text"
+		[author]="quote.author"
+		[image]="'//placekitten.com/g/50/50'">
+	</chatbox>
 
 	<img class="logo" src="images/logo.png" />
 </div>

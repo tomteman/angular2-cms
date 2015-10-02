@@ -37,6 +37,7 @@ export class ShowAnswers {
     initialLoading: boolean;
     game;
     question: IQuestion;
+    activeUser: IPlayer;
     subscribeSource;
     timerSource;
     answerSelected: string;
@@ -67,6 +68,14 @@ export class ShowAnswers {
             .catch(err => {
                 console.log(err);
             });
+
+        session.activeUser.subscribe((player: IPlayer) => {
+            this.activeUser = player;
+        });
+    }
+
+    isMyAnswer(answer) {
+        return answer.createdBy && ~answer.createdBy.indexOf(this.activeUser.id);
     }
 
     buildForm() {
