@@ -136,6 +136,8 @@ module.exports = {
       // Support for CSS as raw text
       { test: /\.css$/,   loader: 'raw-loader!autoprefixer-loader?browsers=last 2 versions' },
 
+      { test: /\.scss$/, loader: 'raw-loader!sass-loader!autoprefixer-loader?browsers=last 2 versions' },
+
       // support for .html as raw text
       { test: /\.html$/,  loader: 'raw' },
 

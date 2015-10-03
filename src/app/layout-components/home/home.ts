@@ -4,7 +4,7 @@ import {Quotes} from 'app/quotes/quotes';
 import * as _ from 'lodash';
 import {MDL_COMPONENTS, MdlService} from 'app/mdl-components/index';
 
-let styles = require('./home.css');
+let styles = require('./home.scss');
 let template = require('./home.html');
 
 @Component({
