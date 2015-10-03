@@ -1,4 +1,4 @@
-import {Component, View, LifecycleEvent} from 'angular2/angular2';
+import {Component, View, OnInit} from 'angular2/angular2';
 import {APP_DIRECTIVES} from 'app/directives/index';
 import * as _ from 'lodash';
 
@@ -9,15 +9,14 @@ const template = require('./chips.html');
 
 @Component({
 	selector: 'chips',
-	properties: ['collection', 'label', 'grid'],
-	lifecycle: [LifecycleEvent.OnInit]
+	inputs: ['collection', 'label', 'grid']
 })
 @View({
 	directives: [APP_DIRECTIVES],
 	styles: [styles],
 	template: template
 })
-export class Chips {
+export class Chips implements OnInit {
 	collection: Array<string>;
 
 	constructor() { }

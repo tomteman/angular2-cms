@@ -76,7 +76,7 @@ export class CreateGame {
             .then(result => {
                 Snackbar.remove(cratingMessage);
                 Snackbar.hide();
-                this.router.navigate('/game-staging/' + result.name);
+                this.router.navigate(['/GameStaging', { gameName: result.name }]);
             })
             .catch(err => {
                 console.log(err);

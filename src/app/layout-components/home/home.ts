@@ -1,5 +1,5 @@
-import {Component, View, LifecycleEvent} from 'angular2/angular2';
-import {ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router';
+import {Component, View, OnDestroy} from 'angular2/angular2';
+import {RouterLink} from 'angular2/router';
 import {Quotes} from 'app/quotes/quotes';
 import * as _ from 'lodash';
 import {MDL_COMPONENTS, MdlService} from 'app/mdl-components/index';
@@ -12,12 +12,11 @@ let template = require('./home.html');
     bindings: [Quotes]
 })
 @View({
-    directives: [ROUTER_DIRECTIVES, MDL_COMPONENTS],
+    directives: [RouterLink, MDL_COMPONENTS],
     styles: [styles],
-    template: template,
-    lifecycle: [LifecycleEvent.OnDestroy]
+    template: template
 })
-export class Home {
+export class Home implements OnDestroy {
     quote: Object;
     intervalSource;
 

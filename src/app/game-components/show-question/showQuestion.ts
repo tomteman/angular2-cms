@@ -1,4 +1,4 @@
-import {Component, View, LifecycleEvent} from 'angular2/angular2';
+import {Component, View, OnDestroy} from 'angular2/angular2';
 import {APP_DIRECTIVES} from 'app/directives/index';
 import {ControlGroup, FormBuilder, Validators} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
@@ -18,22 +18,21 @@ const template = require('./showQuestion.html');
 
 const CURRENT_STATE = QuestionState.ShowQuestion;
 const NEXT_STATE = QuestionState.ShowAnswers;
-const NEXT_STATE_ROUTE = '/show-answers/';
+const NEXT_STATE_ROUTE = 'ShowAnswers';
 
-const SHOW_QUESTION_TIME = 30;
+const SHOW_QUESTION_TIME = 3000;
 const PANIC_TIME = 10;
 const SUPER_PANIC_TIME = 5;
 
 @Component({
-    selector: 'show-question',
-    lifecycle: [LifecycleEvent.OnDestroy]
+    selector: 'show-question'
 })
 @View({
     directives: [APP_DIRECTIVES, MDL_COMPONENTS],
     styles: [styles],
     template: template
 })
-export class ShowQuestion {
+export class ShowQuestion implements OnDestroy {
     initialLoading: boolean;
     game;
     question: IQuestion;
@@ -82,7 +81,7 @@ export class ShowQuestion {
                 this.showQuestionRemainTime = Math.round(SHOW_QUESTION_TIME - (timeDiff(this.game.currentTime, this.question.startedAt) / 1000));
 
                 if (!this.question) {
-                    this.router.navigate(NEXT_STATE_ROUTE + game.name);
+                    this.router.navigate([`/${NEXT_STATE_ROUTE}`, { gameName: game.name }]);
                 } else {
                     this.isPlayer ? this.checkIfQuestionSubmitted() : null;
                     this.subscribe(game.name, this.question);
@@ -97,7 +96,7 @@ export class ShowQuestion {
             let currentQuestion = _.find(changes.new_val.questions, q => q.id === question.id);
 
             if (currentQuestion.state === NEXT_STATE) {
-                this.router.navigate(NEXT_STATE_ROUTE + gameName);
+                this.router.navigate([`/${NEXT_STATE_ROUTE}`, { gameName: gameName }]);
             }
         });
     }

@@ -42,7 +42,7 @@ export class PresentGame {
         this.gameApi.present(gameName)
             .then(result => {
                 this.session.setPresenter();
-                this.router.navigate('/game-staging/' + result.name);
+                this.router.navigate(['/GameStaging', { gameName: result.name }]);
             })
             .catch(err => {
                 console.log(err);

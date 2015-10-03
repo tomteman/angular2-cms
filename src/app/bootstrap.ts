@@ -1,6 +1,6 @@
 import {bootstrap} from 'angular2/angular2';
 import {FORM_BINDINGS} from 'angular2/angular2';
-import {ROUTER_BINDINGS} from 'angular2/router';
+import {ROUTER_BINDINGS, routerBindings} from 'angular2/router';
 
 import {App} from './app';
 import {DATACONTEXT_BINDINGS} from './datacontext/index';
@@ -16,6 +16,7 @@ fastclickBootstrap();
 const UNIVERSAL_BINDINGS = [
     FORM_BINDINGS,
     ROUTER_BINDINGS,
+    routerBindings(App)
 ];
 
 const PLATFORM_BINDINGS = [

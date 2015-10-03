@@ -1,7 +1,7 @@
 import {Component, View} from 'angular2/angular2';
 import {ControlGroup, FormBuilder, FORM_DIRECTIVES, Validators} from 'angular2/angular2'
-import {CORE_DIRECTIVES, LifecycleEvent} from 'angular2/angular2';
-import {RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
+import {CORE_DIRECTIVES, OnDestroy} from 'angular2/angular2';
+import {RouteParams, RouterLink} from 'angular2/router';
 import * as _ from 'lodash';
 
 import {ISeedQuestion} from 'app/pof-typings/question';
@@ -14,15 +14,14 @@ let styles = require('./manageCategories.css');
 let template = require('./manageCategories.html');
 
 @Component({
-    selector: 'manage-categories',
-    lifecycle: [LifecycleEvent.OnDestroy]
+    selector: 'manage-categories'
 })
 @View({
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES],
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, RouterLink],
     styles: [styles],
     template: template
 })
-export class ManageCategories {
+export class ManageCategories implements OnDestroy {
     categories;
     numberOfQuestions = 2;
     activeUserSubscribeSource;

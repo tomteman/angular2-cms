@@ -1,4 +1,4 @@
-import {Injectable} from 'angular2/di';
+import {Injectable} from 'angular2/angular2';
 import {HttpWrapper} from 'app/datacontext/httpWrapper';
 
 @Injectable()

@@ -1,6 +1,6 @@
 import {
 Component, View,
-LifecycleEvent,
+OnDestroy,
 FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
 import * as _ from 'lodash';
@@ -14,15 +14,14 @@ let styles = require('./gameStaging.scss');
 let template = require('./gameStaging.html');
 
 @Component({
-    selector: 'game-staging',
-    lifecycle: [LifecycleEvent.OnDestroy]
+    selector: 'game-staging'
 })
 @View({
     directives: [CORE_DIRECTIVES],
     styles: [styles],
     template: template
 })
-export class GameStaging {
+export class GameStaging implements OnDestroy {
     game: IGame;
     subscribeSource;
 
@@ -70,7 +69,7 @@ export class GameStaging {
     }
 
     navigateToNextState(gameName: string) {
-        this.router.navigate('/show-question/' + gameName);
+        this.router.navigate(['/ShowQuestion', { gameName: gameName }]);
     }
 
     onDestroy() {

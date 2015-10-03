@@ -1,4 +1,4 @@
-import {Component, View, LifecycleEvent} from 'angular2/angular2';
+import {Component, View, OnDestroy} from 'angular2/angular2';
 import {APP_DIRECTIVES} from 'app/directives/index';
 import {ControlGroup, FormBuilder, Validators} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
@@ -18,19 +18,18 @@ const template = require('./revealTheTruth.html');
 
 const CURRENT_STATE = QuestionState.RevealTheTruth;
 const NEXT_STATE = QuestionState.ScoreBoard;
-const NEXT_STATE_ROUTE = '/score-board/';
+const NEXT_STATE_ROUTE = 'ScoreBoard';
 const REVEALING_THE_TRUTH_TIME = 3000;
 
 @Component({
-    selector: 'reveal-the-truth',
-    lifecycle: [LifecycleEvent.OnDestroy]
+    selector: 'reveal-the-truth'
 })
 @View({
     directives: [APP_DIRECTIVES, MDL_COMPONENTS, Truthbox],
     styles: [styles],
     template: template
 })
-export class RevealTheTruth {
+export class RevealTheTruth implements OnDestroy {
     initialLoading: boolean;
     game;
     question: IQuestion;
@@ -68,7 +67,7 @@ export class RevealTheTruth {
                 this.question = this.getCurrentQuestion(this.game, CURRENT_STATE);
 
                 if (!this.question) {
-                    this.router.navigate(NEXT_STATE_ROUTE + game.name);
+                    this.router.navigate([`/${NEXT_STATE_ROUTE}`, { gameName: game.name }]);
                 } else {
                     this.subscribe(game.name, this.question);
                     this.timerSource = this.startTimer();
@@ -106,7 +105,7 @@ export class RevealTheTruth {
             let currentQuestion = _.find(changes.new_val.questions, q => q.id === question.id);
 
             if (currentQuestion.state === NEXT_STATE) {
-                this.router.navigate(NEXT_STATE_ROUTE + gameName);
+                this.router.navigate([`/${NEXT_STATE_ROUTE}`, { gameName: gameName }]);
             }
         });
     }

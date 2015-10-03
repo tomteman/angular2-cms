@@ -52,23 +52,23 @@ const snackbarCss = require('app/mdl-components/snackbar/snackbar.scss');
 @RouteConfig([
     // Layout
     { path: '/', redirectTo: '/home' },
-    { path: '/home', as: 'home', component: Home, data: { publicRoute: true } },
+    { path: '/home', as: 'Home', component: Home, data: { publicRoute: true } },
 
     // Game
-    { path: '/create-game', as: 'create-game', component: CreateGame, data: { publicRoute: true } },
-    { path: '/join-game', as: 'join-game', component: JoinGame },
-    { path: '/present-game', as: 'present-game', component: PresentGame, data: { publicRoute: true } },
-    { path: '/game-staging/:gameName', as: 'game-staging', component: GameStaging },
-    { path: '/show-question/:gameName', as: 'show-question', component: ShowQuestion },
-    { path: '/show-answers/:gameName', as: 'show-answers', component: ShowAnswers },
-    { path: '/reveal-the-truth/:gameName', as: 'reveal-the-truth', component: RevealTheTruth },
-    { path: '/score-board/:gameName', as: 'score-board', component: ScoreBoard },
+    { path: '/create-game', as: 'CreateGame', component: CreateGame, data: { publicRoute: true } },
+    { path: '/join-game', as: 'JoinGame', component: JoinGame },
+    { path: '/present-game', as: 'PresentGame', component: PresentGame, data: { publicRoute: true } },
+    { path: '/game-staging/:gameName', as: 'GameStaging', component: GameStaging },
+    { path: '/show-question/:gameName', as: 'ShowQuestion', component: ShowQuestion },
+    { path: '/show-answers/:gameName', as: 'ShowAnswers', component: ShowAnswers },
+    { path: '/reveal-the-truth/:gameName', as: 'RevealTheTruth', component: RevealTheTruth },
+    { path: '/score-board/:gameName', as: 'ScoreBoard', component: ScoreBoard },
 
     // CMS
-    { path: '/create-question', as: 'create-question', component: CreateQuestion },
-    { path: '/create-category', as: 'create-category', component: CreateCategory },
-    { path: '/manage-categories', as: 'manage-categories', component: ManageCategories },
-    { path: '/manage-category/:categoryName', as: 'manage-category', component: ManageCategory }
+    { path: '/create-question', as: 'CreateQuestion', component: CreateQuestion },
+    { path: '/create-category', as: 'CreateCategory', component: CreateCategory },
+    { path: '/manage-categories', as: 'ManageCategories', component: ManageCategories },
+    { path: '/manage-category/:categoryName', as: 'ManageCategory', component: ManageCategory }
 
 ])
 export class App {

@@ -1,4 +1,4 @@
-import {Component, View, LifecycleEvent} from 'angular2/angular2';
+import {Component, View, OnInit} from 'angular2/angular2';
 import {APP_DIRECTIVES} from 'app/directives/index';
 import {MDL_COMPONENTS, MdlService} from 'app/mdl-components/index';
 import * as _ from 'lodash';
@@ -8,15 +8,14 @@ const template = require('./truthbox.html');
 
 @Component({
 	selector: 'truthbox',
-	properties: ['answer', 'finishCallback']
+	inputs: ['answer', 'finishCallback']
 })
 @View({
 	directives: [APP_DIRECTIVES, MDL_COMPONENTS],
 	styles: [styles],
-	template: template,
-	lifecycle: [LifecycleEvent.OnInit]
+	template: template
 })
-export class Truthbox {
+export class Truthbox implements OnInit {
 	maskedPicture = 'http://i.imgur.com/qGDAIEYs.jpg';
 	answer;
 	chatboxData: ChatboxData;

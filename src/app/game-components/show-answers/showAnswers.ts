@@ -1,4 +1,4 @@
-import {Component, View, LifecycleEvent} from 'angular2/angular2';
+import {Component, View, OnDestroy} from 'angular2/angular2';
 import {APP_DIRECTIVES} from 'app/directives/index';
 import {ControlGroup, FormBuilder, Validators} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
@@ -18,22 +18,21 @@ const template = require('./showAnswers.html');
 
 const CURRENT_STATE = QuestionState.ShowAnswers;
 const NEXT_STATE = QuestionState.RevealTheTruth;
-const NEXT_STATE_ROUTE = '/reveal-the-truth/';
+const NEXT_STATE_ROUTE = 'RevealTheTruth';
 
 const SHOW_ANSWERS_TIME = 30;
 const PANIC_TIME = 10;
 const SUPER_PANIC_TIME = 5;
 
 @Component({
-    selector: 'show-answer',
-    lifecycle: [LifecycleEvent.OnDestroy]
+    selector: 'show-answer'
 })
 @View({
     directives: [APP_DIRECTIVES, MDL_COMPONENTS],
     styles: [styles],
     template: template
 })
-export class ShowAnswers {
+export class ShowAnswers implements OnDestroy {
     initialLoading: boolean;
     game;
     question: IQuestion;
@@ -91,7 +90,7 @@ export class ShowAnswers {
             this.showAnswersRemainTime = Math.round(SHOW_ANSWERS_TIME - (timeDiff(this.game.currentTime, this.question.startedAt) / 1000));
 
             if (!this.question) {
-                this.router.navigate(NEXT_STATE_ROUTE + game.name);
+                this.router.navigate([`/${NEXT_STATE_ROUTE}`, { gameName: game.name }]);
             } else {
                 this.createDisplayAnswersArray();
                 this.isPlayer ? this.checkIfAnswerSelected() : null;
@@ -121,7 +120,7 @@ export class ShowAnswers {
             let currentQuestion = _.find(changes.new_val.questions, q => q.id === question.id);
 
             if (currentQuestion.state === NEXT_STATE) {
-                this.router.navigate(NEXT_STATE_ROUTE + gameName);
+                this.router.navigate([`/${NEXT_STATE_ROUTE}`, { gameName: gameName }]);
             }
         });
     }

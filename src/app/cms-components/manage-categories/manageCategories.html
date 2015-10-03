@@ -11,7 +11,7 @@
 
 		</div>
 		<div class="mdl-card__actions mdl-card--border">
-			<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/#/manage-category/{{category.name}}">
+			<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" [router-link]="['/ManageCategory', {categoryName: category.name} ]">
 				Manage
 			</a>
 
@@ -26,7 +26,7 @@
 
 	<button
 		class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored add-category"
-		[router-link]="['/create-category']">
+		[router-link]="['/CreateCategory']">
 		<i class="material-icons">add</i>
 	</button>
 

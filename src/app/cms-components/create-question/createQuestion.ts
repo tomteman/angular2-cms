@@ -1,4 +1,4 @@
-import {Component, View, LifecycleEvent} from 'angular2/angular2';
+import {Component, View, OnDestroy} from 'angular2/angular2';
 import {APP_DIRECTIVES} from 'app/directives/index';
 import {ControlGroup, FormBuilder, Validators} from 'angular2/angular2';
 import * as _ from 'lodash';
@@ -12,15 +12,14 @@ const styles = require('./createQuestion.scss');
 const template = require('./createQuestion.html');
 
 @Component({
-    selector: 'create-question',
-    lifecycle: [LifecycleEvent.OnDestroy]
+    selector: 'create-question'
 })
 @View({
     directives: [APP_DIRECTIVES, MDL_COMPONENTS],
     styles: [styles],
     template: template
 })
-export class CreateQuestion {
+export class CreateQuestion implements OnDestroy {
     initialLoading: boolean;
     myForm: ControlGroup;
     defaultCategories: Array<ICategory>;

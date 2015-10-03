@@ -7,7 +7,7 @@ const template = require('./chatbox.html');
 
 @Component({
 	selector: 'chatbox',
-	properties: ['image', 'author', 'text']
+	inputs: ['image', 'author', 'text']
 })
 @View({
 	directives: [APP_DIRECTIVES],

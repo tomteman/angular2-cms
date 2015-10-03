@@ -1,7 +1,7 @@
 import {
 Component, View,
 ControlGroup, FormBuilder, Validators,
-LifecycleEvent,
+OnDestroy,
 FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
 import * as _ from 'lodash';
@@ -20,15 +20,14 @@ const CURRENT_STATE = QuestionState.ScoreBoard;
 const SCORE_BOARD_SHOW_TIME = 10000;
 
 @Component({
-    selector: 'score-board',
-    lifecycle: [LifecycleEvent.OnDestroy]
+    selector: 'score-board'
 })
 @View({
     directives: [CORE_DIRECTIVES],
     styles: [styles],
     template: template
 })
-export class ScoreBoard {
+export class ScoreBoard implements OnDestroy {
     game;
     question: IQuestion;
     subscribeSource;
@@ -72,17 +71,17 @@ export class ScoreBoard {
             if (this.session.isPresenter()) {
                 this.clearPresenter();
             } else {
-                this.router.navigate('/home');
+                this.router.navigate(['/Home']);
             }
         } else {
-            this.router.navigate('/show-question/' + game.name);
+            this.router.navigate(['/ShowQuestion', { gameName: game.name }]);
         }
     }
 
     clearPresenter() {
         Session.deletePresenterFlag();
         this.sessionApi.presenterSignout().then(() => {
-            this.router.navigate('/home');
+            this.router.navigate(['/Home']);
         });
     }
 

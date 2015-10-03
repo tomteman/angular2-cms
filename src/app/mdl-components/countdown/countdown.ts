@@ -1,4 +1,4 @@
-import {Component, View, ElementRef, LifecycleEvent} from 'angular2/angular2';
+import {Component, View, ElementRef, OnInit, OnDestroy} from 'angular2/angular2';
 import * as _ from 'lodash';
 
 const styles = require('./countdown.scss');
@@ -6,14 +6,13 @@ const template = require('./countdown.html');
 
 @Component({
 	selector: 'countdown',
-	properties: ['total', 'panic', 'superPanic', 'currentTime'],
-	lifecycle: [LifecycleEvent.OnInit, LifecycleEvent.OnDestroy]
+	inputs: ['total', 'panic', 'superPanic', 'currentTime']
 })
 @View({
 	styles: [styles],
 	template: template
 })
-export class Countdown {
+export class Countdown implements OnInit, OnDestroy {
 	total;
 	panic;
 	superPanic;

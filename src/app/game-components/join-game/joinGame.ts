@@ -40,9 +40,9 @@ export class JoinGame {
         this.gameApi.join(gameName)
             .then(game => {
                 if (game.state === GameState.Registration) {
-                    this.router.navigate('/game-staging/' + gameName);
+                    this.router.navigate(['/GameStaging', { gameName: gameName }]);
                 } else if (game.state === GameState.InProgress) {
-                    this.router.navigate('/show-question/' + gameName);
+                    this.router.navigate(['/ShowQuestion', { gameName: gameName }]);
                 } else if (game.state === GameState.GameOver) {
                     this.errorMsg = 'This game is not available';
                 }

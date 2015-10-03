@@ -5,7 +5,7 @@ import {CATEGORY_COMPONENTS} from './index';
 
 
 import {MDL_COMPONENTS, MdlService, LoadingMaskService} from 'app/mdl-components/index';
-import {LifecycleEvent, CORE_DIRECTIVES} from 'angular2/angular2'
+import {OnDestroy, CORE_DIRECTIVES} from 'angular2/angular2'
 import {RouteParams} from 'angular2/router';
 import * as _ from 'lodash';
 
@@ -19,15 +19,14 @@ let styles = require('./manageCategory.css');
 let template = require('./manageCategory.html');
 
 @Component({
-    selector: 'manage-category',
-    lifecycle: [LifecycleEvent.OnDestroy]
+    selector: 'manage-category'
 })
 @View({
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES,APP_DIRECTIVES,CATEGORY_COMPONENTS],
     styles: [styles],
     template: template
 })
-export class ManageCategory {
+export class ManageCategory implements OnDestroy {
     currentAdminsLoaded: boolean;
     potentialAdminsLoaded: boolean;
     questionsLoaded: boolean;
