@@ -7,7 +7,7 @@ import {MDL_COMPONENTS, MdlService, LoadingMaskService, Snackbar} from 'app/mdl-
 import {ISeedCategory} from 'app/pof-typings/category';
 import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
 
-const styles = require('./createCategory.css');
+const styles = require('./createCategory.scss');
 const template = require('./createCategory.html');
 
 @Component({

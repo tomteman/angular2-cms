@@ -1,7 +1,7 @@
 import {Component, View, ElementRef, LifecycleEvent} from 'angular2/angular2';
 import * as _ from 'lodash';
 
-const styles = require('./countdown.css');
+const styles = require('./countdown.scss');
 const template = require('./countdown.html');
 
 @Component({

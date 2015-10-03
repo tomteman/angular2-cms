@@ -13,7 +13,7 @@ import {GameApi} from 'app/datacontext/repositories/gameApi';
 import {SessionApi} from 'app/datacontext/repositories/sessionApi';
 import {Session} from 'app/session/session';
 
-let styles = require('./scoreBoard.css');
+let styles = require('./scoreBoard.scss');
 let template = require('./scoreBoard.html');
 
 const CURRENT_STATE = QuestionState.ScoreBoard;

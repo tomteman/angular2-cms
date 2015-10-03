@@ -10,7 +10,7 @@ import {GameApi} from 'app/datacontext/repositories/gameApi';
 import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
 import {Session} from 'app/session/session';
 
-const styles = require('./createGame.css');
+const styles = require('./createGame.scss');
 const template = require('./createGame.html');
 
 @Component({

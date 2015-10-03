@@ -3,7 +3,7 @@ import {APP_DIRECTIVES} from 'app/directives/index';
 import {MDL_COMPONENTS, MdlService} from 'app/mdl-components/index';
 import * as _ from 'lodash';
 
-const styles = require('./truthbox.css');
+const styles = require('./truthbox.scss');
 const template = require('./truthbox.html');
 
 @Component({

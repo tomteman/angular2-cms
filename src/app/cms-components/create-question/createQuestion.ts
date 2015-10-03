@@ -8,7 +8,7 @@ import {ISeedQuestion} from 'app/pof-typings/question';
 import {ICategory} from 'app/pof-typings/category';
 import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
 
-const styles = require('./createQuestion.css');
+const styles = require('./createQuestion.scss');
 const template = require('./createQuestion.html');
 
 @Component({

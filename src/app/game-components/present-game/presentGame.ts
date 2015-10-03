@@ -9,7 +9,7 @@ import {GameState} from 'app/pof-typings/game';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 import {Session} from 'app/session/session';
 
-let styles = require('./presentGame.css');
+let styles = require('./presentGame.scss');
 let template = require('./presentGame.html');
 
 @Component({

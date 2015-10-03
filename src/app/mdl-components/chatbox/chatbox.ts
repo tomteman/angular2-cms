@@ -2,7 +2,7 @@ import {Component, View} from 'angular2/angular2';
 import {APP_DIRECTIVES} from 'app/directives/index';
 import * as _ from 'lodash';
 
-const styles = require('./chatbox.css');
+const styles = require('./chatbox.scss');
 const template = require('./chatbox.html');
 
 @Component({

@@ -10,7 +10,7 @@ import {QuestionState} from 'app/pof-typings/question';
 
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 
-let styles = require('./gameStaging.css');
+let styles = require('./gameStaging.scss');
 let template = require('./gameStaging.html');
 
 @Component({

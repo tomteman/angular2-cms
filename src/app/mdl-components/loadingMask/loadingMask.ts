@@ -1,6 +1,6 @@
 import {Component, View} from 'angular2/angular2';
 
-const styles = require('./loadingMask.css');
+const styles = require('./loadingMask.scss');
 const template = require('./loadingMask.html');
 
 @Component({

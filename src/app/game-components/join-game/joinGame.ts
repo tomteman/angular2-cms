@@ -8,7 +8,7 @@ import * as _ from 'lodash';
 import {GameState} from 'app/pof-typings/game';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 
-let styles = require('./joinGame.css');
+let styles = require('./joinGame.scss');
 let template = require('./joinGame.html');
 
 @Component({

@@ -13,7 +13,7 @@ import {timeDiff} from 'app/util/lang';
 import {Session} from 'app/session/session';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 
-const styles = require('./showAnswers.css');
+const styles = require('./showAnswers.scss');
 const template = require('./showAnswers.html');
 
 const CURRENT_STATE = QuestionState.ShowAnswers;

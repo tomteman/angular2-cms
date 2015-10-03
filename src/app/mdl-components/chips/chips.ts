@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 
 import {MdlService} from 'app/mdl-components/index';
 
-const styles = require('./chips.css');
+const styles = require('./chips.scss');
 const template = require('./chips.html');
 
 @Component({

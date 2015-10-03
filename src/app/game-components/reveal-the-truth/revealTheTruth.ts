@@ -13,7 +13,7 @@ import {GameState} from 'app/pof-typings/game';
 import {Session} from 'app/session/session';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 
-const styles = require('./revealTheTruth.css');
+const styles = require('./revealTheTruth.scss');
 const template = require('./revealTheTruth.html');
 
 const CURRENT_STATE = QuestionState.RevealTheTruth;

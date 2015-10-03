@@ -1,7 +1,7 @@
 import {Component, View} from 'angular2/angular2';
 import * as _ from 'lodash';
 
-const styles = require('./snackbar.css');
+const styles = require('./snackbar.scss');
 const template = require('./snackbar.html');
 
 @Component({
