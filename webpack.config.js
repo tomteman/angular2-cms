@@ -134,7 +134,7 @@ module.exports = {
       { test: /\.json$/,  loader: 'json' },
 
       // Support for CSS as raw text
-      { test: /\.css$/,   loader: 'raw' },
+      { test: /\.css$/,   loader: "raw-loader!autoprefixer-loader" },
 
       // support for .html as raw text
       { test: /\.html$/,  loader: 'raw' },
