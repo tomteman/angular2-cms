@@ -22,7 +22,7 @@ export class Home {
     intervalSource;
 
     constructor(public quotes: Quotes) {
-        this.getQuotes(10000);
+        this.getQuotes(15000);
         MdlService.upgradeAllRegistered();
     }
 
