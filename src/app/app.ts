@@ -28,7 +28,7 @@ import {Snackbar} from 'app/mdl-components/snackbar/snackbar';
 
 import {LoggedInRouterOutlet} from 'app/session/loggedInRouterOutlet';
 
-const snackbarCss = require('app/mdl-components/snackbar/snackbar.css');
+const snackbarCss = require('app/mdl-components/snackbar/snackbar.scss');
 
 @Component({
     selector: 'app'

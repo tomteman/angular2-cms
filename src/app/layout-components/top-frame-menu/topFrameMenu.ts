@@ -5,7 +5,7 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {Session} from 'app/session/session';
 import {IPlayer} from 'app/pof-typings/player'
 
-let styles = require('./topFrameMenu.css');
+let styles = require('./topFrameMenu.scss');
 let template = require('./topFrameMenu.html');
 
 @Component({
