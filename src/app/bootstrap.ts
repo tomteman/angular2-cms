@@ -11,8 +11,6 @@ import {MDL_BINDINGS} from './mdl-components/index';
 import {HASH_LOCATION_BINDINGS} from '../bindings/location_bindings';
 import {fastclickBootstrap} from '../vendors-bootstrap/fastclick';
 
-fastclickBootstrap();
-
 const UNIVERSAL_BINDINGS = [
     FORM_BINDINGS,
     ROUTER_BINDINGS,
