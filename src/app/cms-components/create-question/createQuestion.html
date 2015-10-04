@@ -13,22 +13,22 @@
                 <!-- DEFAULT CATEGORIES -->
                 <div class="mdl-cell mdl-cell--4-col"
                     *ng-for="#category of defaultCategories">
-                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect"
+                        (click)="selectedCategoryName = category.name; hideCustomCategory();">
                         <input type="radio"
                             class="mdl-radio__button"
-                            name="defaultCategoryId"
-                            (click)="selectedCategoryName = category.name; hideCustomCategory();"/>
+                            name="defaultCategoryId"/>
                         <span class="mdl-radio__label">{{ category.name }}</span>
                     </label>
                 </div>
 
                 <!-- CUSTOM CATEGORY RADIO BUTTON -->
                 <div class="mdl-cell mdl-cell--4-col">
-                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect"
+                        (click)="selectedCategoryName = ''; showCustomCategory()">
                         <input type="radio"
                             class="mdl-radio__button"
-                            name="defaultCategoryId"
-                            (click)="selectedCategoryName = ''; showCustomCategory();"/>
+                            name="defaultCategoryId"/>
                         <span class="mdl-radio__label">Custom</span>
                     </label>
                 </div>
@@ -49,11 +49,11 @@
                     <p class="mdl-cell mdl-cell--12-col"> Top five custom categories: </p>
                     <div class="mdl-cell mdl-cell--4-col"
                         *ng-for="#category of customCategories">
-                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect"
+                            (click)="selectedCategoryName = category.name; checkInputsDirty();">
                             <input type="radio"
                                 class="mdl-radio__button"
-                                name="customCategoryId"
-                                (click)="selectedCategoryName = category.name; checkInputsDirty();"/>
+                                name="customCategoryId"/>
                             <span class="mdl-radio__label">{{ category.name }}</span>
                         </label>
                     </div>
@@ -106,9 +106,6 @@
                     Create
                 </button>
             </div>
-
-            <pre> myForm.valid: {{myForm.valid | json}} </pre>
-            <pre> selectedCategoryName: {{selectedCategoryName | json}} </pre>
         </form>
     </div>
 </section>

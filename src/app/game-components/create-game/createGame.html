@@ -13,21 +13,21 @@
                 <!-- DEFAULT CATEGORIES -->
                 <div class="mdl-cell mdl-cell--4-col"
                     *ng-for="#category of defaultCategories">
-                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect"
+                        (click)="toggleCategory($event, category)">
                         <input type="checkbox"
                             class="mdl-checkbox__input"
-                            name="defaultCategoryId"
-                            (click)="toggleCategory($event, category)"/>
+                            name="defaultCategoryId"/>
                         <span class="mdl-checkbox__label">{{ category.name }}</span>
                     </label>
                 </div>
 
                 <!-- CUSTOM CATEGORY SWITCH -->
                 <div class="mdl-cell mdl-cell--12-col">
-                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect"
+                        (click)="toggleCustomCategory();">
                         <input type="checkbox"
-                            class="mdl-switch__input"
-                            (click)="toggleCustomCategory();"/>
+                            class="mdl-switch__input"/>
                         <span class="mdl-switch__label">Custom categories</span>
                     </label>
                 </div>
@@ -47,12 +47,12 @@
                     <p class="mdl-cell mdl-cell--12-col"> Top five custom categories: </p>
                     <div class="mdl-cell mdl-cell--4-col"
                         *ng-for="#category of customCategories">
-                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-                        <input type="checkbox"
-                            class="mdl-checkbox__input"
-                            name="customCategoryId"
-                            (click)="toggleCategory($event, category)"/>
-                        <span class="mdl-checkbox__label">{{ category.name }}</span>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect"
+                            (click)="toggleCategory($event, category)">
+                            <input type="checkbox"
+                                class="mdl-checkbox__input"
+                                name="customCategoryId"/>
+                            <span class="mdl-checkbox__label">{{ category.name }}</span>
                     </label>
                     </div>
                 </div>
@@ -75,6 +75,10 @@
                     Create
                 </button>
             </div>
+
+            <pre> selecetedCategories: {{selecetedCategories | json}} </pre>
+            <pre> customCategoryName: {{customCategoryName | json}} </pre>
+            <pre> !selecetedCategories.length && !customCategoryName: {{!selecetedCategories.length && !customCategoryName | json}} </pre>
         </form>
     </div>
 </section>
