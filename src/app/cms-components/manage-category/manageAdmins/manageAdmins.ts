@@ -40,8 +40,7 @@ export class ManageAdmins implements OnInit {
 
     refreshAdmins(admins) {
         this.category.admins = admins;
-        console.log('category', this.category);
-        console.log('category.admins', this.category.admins);
+
         LoadingMaskService.show();
         this.currentAdminsLoaded = false;
         this.potentialAdminsLoaded = false;
