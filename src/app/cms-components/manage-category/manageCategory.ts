@@ -27,15 +27,14 @@ let template = require('./manageCategory.html');
     template: template
 })
 export class ManageCategory implements OnDestroy {
-    currentAdminsLoaded: boolean;
-    potentialAdminsLoaded: boolean;
+
     questionsLoaded: boolean;
     category;
-    currentAdmins;
-    potentialAdmins;
+
     pendingQuestions;
     approvedQuestions;
     subscribeSource;
+    adminApi = {};
 
     constructor(formBuilder: FormBuilder, public categoryApi: CategoryApi, public sessionApi: SessionApi,
         public routeParams: RouteParams, public session: Session) {
@@ -59,14 +58,12 @@ export class ManageCategory implements OnDestroy {
 
     getCategory(categoryName: string) {
         LoadingMaskService.show();
-        this.currentAdminsLoaded = false;
-        this.potentialAdminsLoaded = false;
         return this.categoryApi.get(categoryName)
             .then(resp => {
                 this.category = resp;
-                this.populatePlayersData();
-                this.getPotentialCategoryAdmins(this.category.name);
+
                 this.filterQuestions();
+                LoadingMaskService.hide();
             })
             .catch(err => {
                 console.log(err);
@@ -74,51 +71,18 @@ export class ManageCategory implements OnDestroy {
     }
 
     subscribe(categoryName: string) {
-
         return this.categoryApi.feedByCategoryName(categoryName)
             .subscribe(changes => {
                 if (changes.new_val) {
                     this.category = changes.new_val;
-                    this.populatePlayersData();
-                    this.getPotentialCategoryAdmins(this.category.name);
                     this.filterQuestions();
+                    LoadingMaskService.hide();
+                    this.adminApi.refreshCallback(this.category.admins);
                 }
 
             });
 
     }
-
-    verifyAllLoaded() {
-        if (this.currentAdminsLoaded && this.potentialAdminsLoaded) {
-            LoadingMaskService.hide();
-        }
-    }
-
-    populatePlayersData() {
-        if (this.category.admins) {
-            this.getPlayers(this.category.admins).then(players => {
-                this.currentAdmins = players;
-                this.currentAdminsLoaded = true;
-                this.verifyAllLoaded();
-            })
-        }
-    }
-
-    getPlayers(ids: Array<string>) {
-        return this.sessionApi.getPlayers(ids);
-    }
-
-    getPotentialCategoryAdmins(category: string) {
-        this.categoryApi.getPotentialCategoryAdmins(category)
-            .then(resp => {
-                this.potentialAdmins = resp;
-                this.potentialAdminsLoaded = true;
-                this.verifyAllLoaded();
-            }).catch(err => {
-                console.log(err);
-            })
-    }
-
 
 
     onDestroy() {

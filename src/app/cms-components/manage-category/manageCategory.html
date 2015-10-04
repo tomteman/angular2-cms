@@ -11,6 +11,6 @@
 		<manage-questions *ng-if="questionsLoaded" [categoryName]="category.name" [questions]="pendingQuestions"></manage-questions>
 	</div>
 	<div class="mdl-tabs__panel" id="admins">
-		<manage-admins *ng-if="currentAdminsLoaded && potentialAdminsLoaded" [categoryName]="category.name" [currentAdmins]="currentAdmins" [potentialAdmins]="potentialAdmins"></manage-admins>
+		<manage-admins *ng-if="category" [category]="category" [api]="adminApi"></manage-admins>
 	</div>
 </div>
