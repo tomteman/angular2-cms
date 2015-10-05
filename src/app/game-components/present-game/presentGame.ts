@@ -1,16 +1,16 @@
-import {
-Component, View,
-ControlGroup, FormBuilder, Validators,
-FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
+import {Component, View} from 'angular2/angular2';
+import {APP_DIRECTIVES} from 'app/directives/index';
+import {ControlGroup, FormBuilder, Validators} from 'angular2/angular2';
 import {Router} from 'angular2/router';
+import {Snackbar} from 'app/mdl-components/index';
 import * as _ from 'lodash';
 
 import {GameState} from 'app/pof-typings/game';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 import {Session} from 'app/session/session';
 
-let styles = require('./presentGame.scss');
-let template = require('./presentGame.html');
+const styles = require('./presentGame.scss');
+const template = require('./presentGame.html');
 
 @Component({
     selector: 'present-game'
@@ -18,11 +18,11 @@ let template = require('./presentGame.html');
 @View({
     styles: [styles],
     template: template,
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES]
+    directives: [APP_DIRECTIVES]
 })
 export class PresentGame {
     myForm: ControlGroup;
-    serverErrorMsg: string;
+
     constructor(formBuilder: FormBuilder, public gameApi: GameApi, public router: Router,
         public session: Session) {
         // MDL issue
@@ -31,21 +31,17 @@ export class PresentGame {
         this.myForm = formBuilder.group({
             gameName: ['', Validators.required]
         });
-
     }
 
     onSubmit(formValue) {
-        this.presentGame(formValue.gameName);
-    }
-
-    presentGame(gameName: string) {
-        this.gameApi.present(gameName)
+        this.gameApi.present(formValue.gameName)
             .then(result => {
                 this.session.setPresenter();
                 this.router.navigate(['/GameStaging', { gameName: result.name }]);
             })
             .catch(err => {
-                console.log(err);
+                console.error(err);
+                Snackbar.show(err.data.message);
             })
     }
 }

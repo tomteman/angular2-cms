@@ -36,11 +36,13 @@ export class Session {
 	}
 
 	setPresenter() {
+		Session.deleteSession();
 		sessionStorage.setItem(PRESENTER_KEY, '1');
 	}
 
 	setUser(user) {
 		if (isJsObject(user)) {
+			Session.deletePresenterFlag();
 			localStorage.setItem(SESSION_KEY, JSON.stringify(user));
 			this.activeUser.onNext(user);
 		}
