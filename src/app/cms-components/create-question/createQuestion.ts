@@ -37,11 +37,12 @@ export class CreateQuestion implements OnDestroy {
         LoadingMaskService.show();
         this.initialLoading = true;
 
-        this.getCategories().then(() => {
-            this.initialLoading = false;
-            LoadingMaskService.hide();
-            MdlService.upgradeAllRegistered();
-        })
+        this.getCategories()
+            .then(() => {
+                this.initialLoading = false;
+                LoadingMaskService.hide();
+                MdlService.upgradeAllRegistered();
+            })
             .catch(err => {
                 console.log(err);
             });

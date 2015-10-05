@@ -1,21 +1,24 @@
 snackbar {
 	display: none;
-    justify-content: space-between;
-    color: #FFF;
-    background-color: #323232;
-    border-radius: 2px;
-    width: 400px;
-    margin: 0 auto;
+	position: absolute;
+    bottom: 24px;
+    left: 24px;
+    z-index: 90;
 }
 
 .pof-snackbar--message {
 	word-wrap: break-word;
-	margin: 14px 24px;
+	padding: 14px 24px;
+    color: #FFF;
+    background-color: #323232;
+    border-radius: 2px;
+    margin: 0 auto;
 }
 
 @media only screen and (max-width: 500px) {
 	snackbar {
 		width: 100%;
 		border-radius: 0;
+		position: initial;
 	}
 }
