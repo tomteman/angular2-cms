@@ -1,6 +1,7 @@
 import {Component, View, LifecycleEvent} from 'angular2/angular2';
 import {APP_DIRECTIVES} from 'app/directives/index';
 import {ControlGroup, FormBuilder, Validators} from 'angular2/angular2';
+import {Router} from 'angular2/router';
 import * as _ from 'lodash';
 import {MDL_COMPONENTS, MdlService, LoadingMaskService, Snackbar} from 'app/mdl-components/index';
 
@@ -22,7 +23,8 @@ export class CreateCategory {
     myForm: ControlGroup;
     isPublic: boolean = true;
 
-    constructor(public formBuilder: FormBuilder, public categoryApi: CategoryApi) {
+    constructor(public formBuilder: FormBuilder, public categoryApi: CategoryApi,
+                public router: Router) {
         this.buildForm();
         MdlService.upgradeAllRegistered();
     }
@@ -39,7 +41,7 @@ export class CreateCategory {
             .then(res => {
                 Snackbar.remove(savingMessage);
                 Snackbar.show('Category added successfully');
-                this.clearForm();
+                this.router.navigate(['/ManageCategories']);
             })
             .catch(err => {
                 Snackbar.show(err.data.message);
@@ -48,10 +50,5 @@ export class CreateCategory {
 
     setPublic(isPublic) {
         this.isPublic = isPublic;
-    }
-
-    clearForm() {
-        this.myForm.controls.name.updateValue('');
-        MdlService.upgradeAllRegistered();
     }
 }
