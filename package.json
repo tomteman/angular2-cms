@@ -1,5 +1,5 @@
 {
-  "name": "pants-on-fire-client",
+  "name": "bullshit-client",
   "version": "1.0.0",
   "description": "",
   "main": "",
@@ -25,14 +25,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/radotzki/pants-on-fire-client.git"
+    "url": "https://github.com/radotzki/bullshit-client.git"
   },
   "author": "Tom Teman & Itay Radotzki",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/radotzki/pants-on-fire-client/issues"
+    "url": "https://github.com/radotzki/bullshit-client/issues"
   },
-  "homepage": "https://github.com/radotzki/pants-on-fire-client#readme",
+  "homepage": "https://github.com/radotzki/bullshit-client#readme",
   "dependencies": {
     "angular2": "2.0.0-alpha.38",
     "fastclick": "^1.0.6",
