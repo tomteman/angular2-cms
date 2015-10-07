@@ -6,8 +6,8 @@ FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
 import * as _ from 'lodash';
 
-import {QuestionState, IQuestion} from 'app/pof-typings/question';
-import {GameState} from 'app/pof-typings/game';
+import {QuestionState, IQuestion} from 'app/bs-typings/question';
+import {GameState} from 'app/bs-typings/game';
 
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 import {SessionApi} from 'app/datacontext/repositories/sessionApi';

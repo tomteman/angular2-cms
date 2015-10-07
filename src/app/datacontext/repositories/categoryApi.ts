@@ -3,8 +3,8 @@ import {HttpWrapper} from 'app/datacontext/httpWrapper';
 import {Observable} from 'rx';
 import * as io from 'socket.io-client';
 
-import {ISeedCategory} from 'app/pof-typings/category';
-import {ISeedQuestion, IQuestion} from 'app/pof-typings/question';
+import {ISeedCategory} from 'app/bs-typings/category';
+import {ISeedQuestion, IQuestion} from 'app/bs-typings/question';
 
 let config = require('config.json');
 

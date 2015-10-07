@@ -3,7 +3,7 @@ import {HttpWrapper} from 'app/datacontext/httpWrapper';
 import {Observable} from 'rx';
 import * as io from 'socket.io-client';
 
-import {QuestionState} from 'app/pof-typings/question';
+import {QuestionState} from 'app/bs-typings/question';
 
 let config = require('config.json');
 

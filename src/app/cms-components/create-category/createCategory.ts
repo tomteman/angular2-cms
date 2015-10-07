@@ -5,7 +5,7 @@ import {Router} from 'angular2/router';
 import * as _ from 'lodash';
 import {MDL_COMPONENTS, MdlService, LoadingMaskService, Snackbar} from 'app/mdl-components/index';
 
-import {ISeedCategory} from 'app/pof-typings/category';
+import {ISeedCategory} from 'app/bs-typings/category';
 import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
 
 const styles = require('./createCategory.scss');

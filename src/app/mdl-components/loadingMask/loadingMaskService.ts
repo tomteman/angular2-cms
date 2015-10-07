@@ -11,11 +11,11 @@ export class LoadingMaskService {
 	}
 
 	static getLoadingMaskElement() {
-		return document.getElementsByClassName('pof-loading-mask')[0];
+		return document.getElementsByClassName('bs-loading-mask')[0];
 	}
 
 	static getLoadingMaskContainerElement() {
-		return document.getElementsByClassName('pof-loading-mask-container')[0];
+		return document.getElementsByClassName('bs-loading-mask-container')[0];
 	}
 
 }

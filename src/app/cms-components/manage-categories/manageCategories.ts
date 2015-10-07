@@ -4,9 +4,9 @@ import {CORE_DIRECTIVES, OnDestroy} from 'angular2/angular2';
 import {RouteParams, RouterLink} from 'angular2/router';
 import * as _ from 'lodash';
 
-import {ISeedQuestion} from 'app/pof-typings/question';
-import {IPlayer} from 'app/pof-typings/player'
-import {ICategory} from 'app/pof-typings/category';
+import {ISeedQuestion} from 'app/bs-typings/question';
+import {IPlayer} from 'app/bs-typings/player'
+import {ICategory} from 'app/bs-typings/category';
 import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
 import {Session} from 'app/session/session';
 

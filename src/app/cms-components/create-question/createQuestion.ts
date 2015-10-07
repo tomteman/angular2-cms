@@ -4,8 +4,8 @@ import {ControlGroup, FormBuilder, Validators} from 'angular2/angular2';
 import * as _ from 'lodash';
 import {MDL_COMPONENTS, MdlService, LoadingMaskService, Snackbar} from 'app/mdl-components/index';
 
-import {ISeedQuestion} from 'app/pof-typings/question';
-import {ICategory} from 'app/pof-typings/category';
+import {ISeedQuestion} from 'app/bs-typings/question';
+import {ICategory} from 'app/bs-typings/category';
 import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
 
 const styles = require('./createQuestion.scss');

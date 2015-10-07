@@ -5,7 +5,7 @@ FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
 import * as _ from 'lodash';
 
-import {GameState} from 'app/pof-typings/game';
+import {GameState} from 'app/bs-typings/game';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 
 let styles = require('./joinGame.scss');

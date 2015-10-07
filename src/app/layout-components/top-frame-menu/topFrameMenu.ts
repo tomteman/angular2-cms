@@ -3,7 +3,7 @@ import {CORE_DIRECTIVES} from 'angular2/angular2';
 import {RouterLink} from 'angular2/router';
 
 import {Session} from 'app/session/session';
-import {IPlayer} from 'app/pof-typings/player'
+import {IPlayer} from 'app/bs-typings/player'
 
 const styles = require('./topFrameMenu.scss');
 const template = require('./topFrameMenu.html');

@@ -7,8 +7,8 @@ import {MDL_COMPONENTS, MdlService, LoadingMaskService} from 'app/mdl-components
 
 import {Truthbox} from './truthbox/truthbox';
 
-import {IQuestion, QuestionState} from 'app/pof-typings/question';
-import {GameState} from 'app/pof-typings/game';
+import {IQuestion, QuestionState} from 'app/bs-typings/question';
+import {GameState} from 'app/bs-typings/game';
 
 import {Session} from 'app/session/session';
 import {GameApi} from 'app/datacontext/repositories/gameApi';

@@ -5,7 +5,7 @@ import {Router} from 'angular2/router';
 import * as _ from 'lodash';
 import {MDL_COMPONENTS, MdlService, LoadingMaskService, Snackbar} from 'app/mdl-components/index';
 
-import {ICategory} from 'app/pof-typings/category';
+import {ICategory} from 'app/bs-typings/category';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
 import {Session} from 'app/session/session';

@@ -9,8 +9,8 @@ import {OnDestroy, CORE_DIRECTIVES} from 'angular2/angular2'
 import {RouteParams} from 'angular2/router';
 import * as _ from 'lodash';
 
-import {ISeedQuestion} from 'app/pof-typings/question';
-import {ICategory} from 'app/pof-typings/category';
+import {ISeedQuestion} from 'app/bs-typings/question';
+import {ICategory} from 'app/bs-typings/category';
 import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
 import {SessionApi} from 'app/datacontext/repositories/sessionApi';
 import {Session} from 'app/session/session';

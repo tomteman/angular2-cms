@@ -5,7 +5,7 @@ import {Router} from 'angular2/router';
 import {Snackbar} from 'app/mdl-components/index';
 import * as _ from 'lodash';
 
-import {GameState} from 'app/pof-typings/game';
+import {GameState} from 'app/bs-typings/game';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 import {Session} from 'app/session/session';
 

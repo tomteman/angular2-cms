@@ -4,7 +4,7 @@ import * as Rx from 'rx';
 import {Base64} from 'app/util/base64';
 import {isJsObject} from 'app/util/lang';
 import {safeJsonParse} from 'app/util/safeJsonParse';
-import {IPlayer} from 'app/pof-typings/player'
+import {IPlayer} from 'app/bs-typings/player'
 
 const SESSION_KEY = 'sessionData';
 const PRESENTER_KEY = 'presenter';

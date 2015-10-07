@@ -5,9 +5,9 @@ import {Router, RouteParams} from 'angular2/router';
 import * as _ from 'lodash';
 import {MDL_COMPONENTS, MdlService, LoadingMaskService} from 'app/mdl-components/index';
 
-import {IQuestion, QuestionState} from 'app/pof-typings/question';
-import {GameState} from 'app/pof-typings/game';
-import {IPlayer} from 'app/pof-typings/player';
+import {IQuestion, QuestionState} from 'app/bs-typings/question';
+import {GameState} from 'app/bs-typings/game';
+import {IPlayer} from 'app/bs-typings/player';
 import {timeDiff} from 'app/util/lang';
 
 import {Session} from 'app/session/session';
