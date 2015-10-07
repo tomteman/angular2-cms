@@ -1,5 +1,5 @@
-# Pants On Fire
-Who's the best liar? 
+# Bullshit
+Who's the best liar?
 <br>Choose from the default questions or use your own custom list (great for personalizing events!) and see not only who knows all the answers, but also who can trick everyone else into thinking his made up answer is the truth. <br>Playable from mobile and desktop, with an option to display everything on a main screen (smart TV, Tablet etc..).
 
 ## How to play
