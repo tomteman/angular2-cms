@@ -4,25 +4,25 @@
 </header>
 <nav class="mdl-navigation">
 	<a
-		class="mdl-navigation__link with-icon"
+		class="mdl-navigation__link bs-navigation__link"
 		[router-link]="['/Home']"
 		(click)="closeDrawer()">
 		<i class="material-icons mdl-color-text--blue-grey-400">home</i>
 		Home </a>
 	<a
-		class="mdl-navigation__link with-icon"
+		class="mdl-navigation__link bs-navigation__link"
 		[router-link]="['/CreateQuestion']"
 		(click)="closeDrawer()">
 		<i class="material-icons mdl-color-text--blue-grey-400">create</i>
 		Create Question</a>
 	<a
-		class="mdl-navigation__link with-icon"
+		class="mdl-navigation__link bs-navigation__link"
 		[router-link]="['/ManageCategories']"
 		(click)="closeDrawer()">
 		<i class="material-icons mdl-color-text--blue-grey-400">settings</i>
 		Manage Categories</a>
 	<a
-		class="mdl-navigation__link with-icon"
+		class="mdl-navigation__link bs-navigation__link"
 		*ng-if="activeUser"
 		(click)="signout()">
 		<i class="material-icons mdl-color-text--blue-grey-400">power_settings_new</i>

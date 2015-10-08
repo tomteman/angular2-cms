@@ -2,7 +2,7 @@
     border-radius: 50%;
 }
 
-.mdl-layout__drawer .mdl-navigation .mdl-navigation__link.with-icon {
+.bs-navigation__link.bs-navigation__link {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -11,13 +11,13 @@
     padding: 16px;
 }
 
-.mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover {
+.bs-navigation__link.bs-navigation__link:hover {
     background-color: #00BCD4;
     color: #37474F;
     cursor: pointer;
 }
 
-.mdl-navigation__link.with-icon i {
+.bs-navigation__link.bs-navigation__link i {
     margin-right: 32px;
 }
 
