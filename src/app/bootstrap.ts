@@ -8,17 +8,10 @@ import {SESSION_BINDINGS} from './session/index';
 import {APP_DIRECTIVES} from './directives/index';
 import {MDL_BINDINGS} from './mdl-components/index';
 
-import {HASH_LOCATION_BINDINGS} from '../bindings/location_bindings';
-import {fastclickBootstrap} from '../vendors-bootstrap/fastclick';
-
 const UNIVERSAL_BINDINGS = [
     FORM_BINDINGS,
     ROUTER_BINDINGS,
     routerBindings(App)
-];
-
-const PLATFORM_BINDINGS = [
-    HASH_LOCATION_BINDINGS
 ];
 
 const APP_BINDINGS = [
@@ -30,7 +23,6 @@ const APP_BINDINGS = [
 
 const ALL_BINDINGS = [
     UNIVERSAL_BINDINGS,
-    PLATFORM_BINDINGS,
     APP_BINDINGS
 ]
 
