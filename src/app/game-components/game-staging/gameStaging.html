@@ -1,4 +1,4 @@
-<section *ng-if="game" class="game-staging mdl-grid">
+<section *ng-if="!initialLoading" class="game-staging mdl-grid">
 	<p class="game-name mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet"> GAME NAME: {{ game.name | uppercase }} </p>
 
 	<section

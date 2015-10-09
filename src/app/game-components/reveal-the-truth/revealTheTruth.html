@@ -1,6 +1,6 @@
 <section class="reveal-the-truth" *ng-if="!initialLoading">
 	<!-- QUESTION TEXT -->
-	<h4 class="question-text"> {{question.questionText}} </h4>
+	<h4 class="question-text"> {{question.questionText | uppercase}} </h4>
 
 	<!-- TRUTH BOX -->
 	<div *ng-for="#answer of displayArray">

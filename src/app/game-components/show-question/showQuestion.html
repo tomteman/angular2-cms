@@ -7,7 +7,7 @@
     </div>-->
 
     <section *ng-if="question">
-        {{question.questionText}}
+        {{question.questionText | uppercase}}
     </section>
 
     <form *ng-if="isPlayer && !questionSubmitted"

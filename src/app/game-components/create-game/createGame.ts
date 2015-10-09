@@ -36,7 +36,7 @@ export class CreateGame {
         LoadingMaskService.show();
         this.initialLoading = true;
 
-        this.setCategories()
+        this.getCategories()
             .then(() => {
                 this.initialLoading = false;
                 LoadingMaskService.hide();
@@ -47,7 +47,7 @@ export class CreateGame {
             });
     }
 
-    setCategories() {
+    getCategories() {
         return this.categoryApi.getAll(true)
             .then(categories => {
                 this.defaultCategories = _.filter(categories, { default: true });

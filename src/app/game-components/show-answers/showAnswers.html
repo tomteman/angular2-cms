@@ -7,7 +7,7 @@
 				*ng-if="!isMyAnswer(answer)"
 				class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
 				(click)="choose(answer.text)">
-				{{ answer.text }}
+				{{ answer.text | uppercase }}
 			</button>
 		</div>
 
@@ -15,12 +15,12 @@
 
 	<section *ng-if="!isPlayer">
 		<ul>
-			<li *ng-for="#answer of displayAnswersArray"> {{ answer.text }} </li>
+			<li *ng-for="#answer of displayAnswersArray"> {{ answer.text | uppercase }} </li>
 		</ul>
 	</section>
 
 	<p *ng-if="answerSelected">
-		Selected answer: {{answerSelected}}
+		Selected answer: {{ answerSelected | uppercase }}
 	</p>
 
 	<countdown
