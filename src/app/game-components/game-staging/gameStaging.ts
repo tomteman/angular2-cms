@@ -72,6 +72,7 @@ export class GameStaging implements OnDestroy {
         this.gameApi.start(this.game.name)
             .then(resp => {
                 Snackbar.remove(startingMessage);
+                this.navigateToNextState(this.game.name);
             })
             .catch(err => {
                 console.log(err);
