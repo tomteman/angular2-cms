@@ -76,7 +76,8 @@ export class GameStaging implements OnDestroy {
             })
             .catch(err => {
                 console.log(err);
-                Snackbar.show(err);
+                Snackbar.remove(startingMessage);
+                Snackbar.show(err.data.message);
             })
     }
 
