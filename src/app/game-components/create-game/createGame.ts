@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 import {MDL_COMPONENTS, MdlService, LoadingMaskService, Snackbar} from 'app/mdl-components/index';
 
 import {ICategory} from 'app/bs-typings/category';
-import {GameApi} from 'app/datacontext/repositories/gameApi';
+import {GameApi, ErrorHandling} from 'app/datacontext/index';
 import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
 import {Session} from 'app/session/session';
 
@@ -81,7 +81,7 @@ export class CreateGame {
             .catch(err => {
                 console.log(err);
                 Snackbar.remove(cratingMessage);
-                Snackbar.show(err.data.message);
+                Snackbar.show(ErrorHandling.getErrorMessage(err));
             });
     }
 

@@ -3,7 +3,7 @@ import {APP_DIRECTIVES} from 'app/directives/index';
 import {ControlGroup, FormBuilder, Validators} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
 import * as _ from 'lodash';
-import {MDL_COMPONENTS, MdlService, LoadingMaskService} from 'app/mdl-components/index';
+import {MDL_COMPONENTS, MdlService, LoadingMaskService, Snackbar} from 'app/mdl-components/index';
 
 import {Truthbox} from './truthbox/truthbox';
 
@@ -11,7 +11,7 @@ import {IQuestion, QuestionState} from 'app/bs-typings/question';
 import {GameState} from 'app/bs-typings/game';
 
 import {Session} from 'app/session/session';
-import {GameApi} from 'app/datacontext/repositories/gameApi';
+import {GameApi, ErrorHandling} from 'app/datacontext/index';
 
 const styles = require('./revealTheTruth.scss');
 const template = require('./revealTheTruth.html');
@@ -57,6 +57,7 @@ export class RevealTheTruth implements OnDestroy {
             })
             .catch(err => {
                 console.log(err);
+                Snackbar.show(ErrorHandling.getErrorMessage(err));
             });
     }
 

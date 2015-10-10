@@ -11,3 +11,8 @@ export var DATACONTEXT_BINDINGS: Array<any> = [
     SessionApi,
     HttpInterceptor
 ];
+
+export {ErrorHandling} from './errorHandling';
+export {GameApi} from './repositories/gameApi';
+export {CategoryApi} from './repositories/categoryApi';
+export {SessionApi} from './repositories/sessionApi';

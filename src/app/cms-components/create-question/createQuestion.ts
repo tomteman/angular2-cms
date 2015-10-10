@@ -6,7 +6,7 @@ import {MDL_COMPONENTS, MdlService, LoadingMaskService, Snackbar} from 'app/mdl-
 
 import {ISeedQuestion} from 'app/bs-typings/question';
 import {ICategory} from 'app/bs-typings/category';
-import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
+import {CategoryApi, ErrorHandling} from 'app/datacontext/index';
 import {questionMaxLength, answerMaxLength} from 'app/validators/index';
 
 const styles = require('./createQuestion.scss');
@@ -83,6 +83,7 @@ export class CreateQuestion implements OnDestroy {
                 }
             })
             .catch(err => {
+                Snackbar.show(ErrorHandling.getErrorMessage(err));
                 console.log(err.data);
             });
     }

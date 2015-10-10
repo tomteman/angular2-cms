@@ -9,7 +9,7 @@ import {MDL_COMPONENTS, MdlService, LoadingMaskService, Snackbar} from 'app/mdl-
 import {GameState, IGame} from 'app/bs-typings/game';
 import {QuestionState} from 'app/bs-typings/question';
 
-import {GameApi} from 'app/datacontext/repositories/gameApi';
+import {GameApi, ErrorHandling} from 'app/datacontext/index';
 
 let styles = require('./gameStaging.scss');
 let template = require('./gameStaging.html');
@@ -77,7 +77,7 @@ export class GameStaging implements OnDestroy {
             .catch(err => {
                 console.log(err);
                 Snackbar.remove(startingMessage);
-                Snackbar.show(err.data.message);
+                Snackbar.show(ErrorHandling.getErrorMessage(err));
             })
     }
 

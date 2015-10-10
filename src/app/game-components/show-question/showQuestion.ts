@@ -11,7 +11,7 @@ import {IPlayer} from 'app/bs-typings/player';
 import {timeDiff} from 'app/util/lang';
 
 import {Session} from 'app/session/session';
-import {GameApi} from 'app/datacontext/repositories/gameApi';
+import {GameApi, ErrorHandling} from 'app/datacontext/index';
 import {answerMaxLength} from 'app/validators/index';
 
 const styles = require('./showQuestion.scss');
@@ -21,7 +21,7 @@ const CURRENT_STATE = QuestionState.ShowQuestion;
 const NEXT_STATE = QuestionState.ShowAnswers;
 const NEXT_STATE_ROUTE = 'ShowAnswers';
 
-const SHOW_QUESTION_TIME = 3000;
+const SHOW_QUESTION_TIME = 30;
 const PANIC_TIME = 10;
 const SUPER_PANIC_TIME = 5;
 
@@ -72,8 +72,6 @@ export class ShowQuestion implements OnDestroy {
         this.myForm = this.formBuilder.group({
             answerText: ['', Validators.compose([Validators.required, answerMaxLength])]
         });
-
-
     }
 
     getGame(gameName: string) {
@@ -116,11 +114,7 @@ export class ShowQuestion implements OnDestroy {
                 this.questionSubmitted = true;
             })
             .catch(err => {
-                if (err.data.code === 'CORRECT_ANSWER') {
-                    Snackbar.show(err.data.message);
-                } else {
-                    Snackbar.show(err.data.message);
-                }
+                Snackbar.show(ErrorHandling.getErrorMessage(err));
             });
     }
 

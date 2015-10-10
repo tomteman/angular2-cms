@@ -3,7 +3,7 @@ import {APP_DIRECTIVES} from 'app/directives/index';
 import {ControlGroup, FormBuilder, Validators} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
 import * as _ from 'lodash';
-import {MDL_COMPONENTS, MdlService, LoadingMaskService} from 'app/mdl-components/index';
+import {MDL_COMPONENTS, MdlService, LoadingMaskService, Snackbar} from 'app/mdl-components/index';
 
 import {IQuestion, QuestionState} from 'app/bs-typings/question';
 import {GameState} from 'app/bs-typings/game';
@@ -11,7 +11,7 @@ import {IPlayer} from 'app/bs-typings/player';
 import {timeDiff} from 'app/util/lang';
 
 import {Session} from 'app/session/session';
-import {GameApi} from 'app/datacontext/repositories/gameApi';
+import {GameApi, ErrorHandling} from 'app/datacontext/index';
 
 const styles = require('./showAnswers.scss');
 const template = require('./showAnswers.html');
@@ -130,12 +130,11 @@ export class ShowAnswers implements OnDestroy {
     }
 
     choose(answerText) {
+        this.answerSelected = answerText;
         this.gameApi.chooseAnswer(this.game.name, answerText)
-            .then(res => {
-                this.answerSelected = answerText;
-            })
             .catch(err => {
                 console.log(err);
+                Snackbar.show(ErrorHandling.getErrorMessage(err));
             });
     }
 

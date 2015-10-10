@@ -4,9 +4,10 @@ ControlGroup, FormBuilder, Validators,
 FORM_DIRECTIVES, CORE_DIRECTIVES} from 'angular2/angular2';
 import {Router, RouteParams} from 'angular2/router';
 import * as _ from 'lodash';
+import {MdlService, Snackbar} from 'app/mdl-components/index';
 
 import {GameState} from 'app/bs-typings/game';
-import {GameApi} from 'app/datacontext/repositories/gameApi';
+import {GameApi, ErrorHandling} from 'app/datacontext/index';
 
 let styles = require('./joinGame.scss');
 let template = require('./joinGame.html');
@@ -21,15 +22,13 @@ let template = require('./joinGame.html');
 })
 export class JoinGame {
     myForm: ControlGroup;
-    errorMsg: string;
 
     constructor(formBuilder: FormBuilder, public gameApi: GameApi, public router: Router) {
-        // MDL issue
-        componentHandler.upgradeDom();
-
         this.myForm = formBuilder.group({
             gameName: ['', Validators.required]
         });
+
+        MdlService.upgradeAllRegistered();
     }
 
     onSubmit(formValue) {
@@ -37,19 +36,20 @@ export class JoinGame {
     }
 
     joinGame(gameName: string) {
+        let joinMessage = Snackbar.show('Joining..', { delay: 1000 });
         this.gameApi.join(gameName)
             .then(game => {
+                Snackbar.remove(joinMessage);
                 if (game.state === GameState.Registration) {
                     this.router.navigate(['/GameStaging', { gameName: gameName }]);
                 } else if (game.state === GameState.InProgress) {
                     this.router.navigate(['/ShowQuestion', { gameName: gameName }]);
-                } else if (game.state === GameState.GameOver) {
-                    this.errorMsg = 'This game is not available';
                 }
             })
             .catch(err => {
                 console.log(err);
-                this.errorMsg = err.data.message;
+                Snackbar.remove(joinMessage);
+                Snackbar.show(ErrorHandling.getErrorMessage(err));
             })
     }
 }

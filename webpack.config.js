@@ -189,7 +189,8 @@ module.exports = {
     'all': [
       new DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
-        'VERSION': JSON.stringify(pkg.version)
+        'VERSION': JSON.stringify(pkg.version),
+        '__DEV__': NODE_ENV === 'development' ? 'true' : 'false'
       }),
       new OccurenceOrderPlugin(),
       new DedupePlugin(),
