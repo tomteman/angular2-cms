@@ -1,10 +1,10 @@
 <div *ng-for="#item of collection; #i = index"
 	class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell {{grid}}">
-
 	<input type="text"
 		class="mdl-textfield__input"
 		[ng-class]="{'input-button-addon': (i === collection.length - 1)}"
 		value="{{item}}"
+		[max-length]="maxLength"
 		(blur)="onBlur($event, i)">
 
 	<label class="mdl-textfield__label"

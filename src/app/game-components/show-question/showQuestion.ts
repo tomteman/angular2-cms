@@ -12,6 +12,7 @@ import {timeDiff} from 'app/util/lang';
 
 import {Session} from 'app/session/session';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
+import {answerMaxLength} from 'app/validators/index';
 
 const styles = require('./showQuestion.scss');
 const template = require('./showQuestion.html');
@@ -69,8 +70,10 @@ export class ShowQuestion implements OnDestroy {
 
     buildForm() {
         this.myForm = this.formBuilder.group({
-            answerText: ['', Validators.required]
+            answerText: ['', Validators.compose([Validators.required, answerMaxLength])]
         });
+
+
     }
 
     getGame(gameName: string) {

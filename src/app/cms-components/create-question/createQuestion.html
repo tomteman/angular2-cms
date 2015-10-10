@@ -74,6 +74,10 @@
                         class="mdl-textfield__error"
                         *ng-if="myForm.find('questionText').touched && myForm.find('questionText').hasError('required')">
                         Question is required </span>
+                    <span
+                        class=""
+                        *ng-if="myForm.find('questionText').hasError('maxLength')">
+                        maxLength </span>
                 </div>
 
                 <!-- REAL ANSWER -->
@@ -87,14 +91,22 @@
                     <span
                         class="mdl-textfield__error"
                         *ng-if="myForm.find('realAnswer').touched && myForm.find('realAnswer').hasError('required')">
-                        Answer is required </span>
+                        Answer is required
+                    </span>
+                    <span
+                        class=""
+                        *ng-if="myForm.find('realAnswer').hasError('maxLength')">
+                        maxLength
+                    </span>
                 </div>
 
                 <!-- FAKE ANSWERS -->
                 <chips
                     [collection]="fakeAnswers"
                     [label]="'Fake answer'"
-                    [grid]="'mdl-cell--12-col'"> </chips>
+                    [grid]="'mdl-cell--12-col'"
+                    [max-length]="20">
+                </chips>
 
             </div>
 

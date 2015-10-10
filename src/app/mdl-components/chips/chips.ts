@@ -9,7 +9,7 @@ const template = require('./chips.html');
 
 @Component({
 	selector: 'chips',
-	inputs: ['collection', 'label', 'grid']
+	inputs: ['collection', 'label', 'grid', 'maxLength']
 })
 @View({
 	directives: [APP_DIRECTIVES],

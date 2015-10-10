@@ -26,6 +26,10 @@
                     class="mdl-textfield__error"
                     *ng-if="myForm.find('answerText').touched && myForm.find('answerText').hasError('required')">
                     Answer is required </span>
+                <span
+                    class=""
+                    *ng-if="myForm.find('answerText').hasError('maxLength')">
+                    maxLength </span>
             </div>
 
             <div class="mdl-cell mdl-cell--12-col">

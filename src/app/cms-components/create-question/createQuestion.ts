@@ -7,6 +7,7 @@ import {MDL_COMPONENTS, MdlService, LoadingMaskService, Snackbar} from 'app/mdl-
 import {ISeedQuestion} from 'app/bs-typings/question';
 import {ICategory} from 'app/bs-typings/category';
 import {CategoryApi} from 'app/datacontext/repositories/categoryApi';
+import {questionMaxLength, answerMaxLength} from 'app/validators/index';
 
 const styles = require('./createQuestion.scss');
 const template = require('./createQuestion.html');
@@ -30,8 +31,8 @@ export class CreateQuestion implements OnDestroy {
 
     constructor(formBuilder: FormBuilder, public categoryApi: CategoryApi) {
         this.myForm = formBuilder.group({
-            questionText: ['', Validators.required],
-            realAnswer: ['', Validators.required]
+            questionText: ['', Validators.compose([Validators.required, questionMaxLength])],
+            realAnswer: ['', Validators.compose([Validators.required, answerMaxLength])]
         });
 
         LoadingMaskService.show();
