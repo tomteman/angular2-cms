@@ -9,7 +9,7 @@ let template = require('./home.html');
 
 @Component({
     selector: 'home',
-    bindings: [Quotes]
+    providers: [Quotes]
 })
 @View({
     directives: [RouterLink, MDL_COMPONENTS],

@@ -14,7 +14,7 @@ export var MDL_COMPONENTS: Array<any> = [
   Chatbox
 ];
 
-export var MDL_BINDINGS: Array<any> = [
+export var MDL_PROVIDERS: Array<any> = [
   MdlService,
   LoadingMaskService,
 ];

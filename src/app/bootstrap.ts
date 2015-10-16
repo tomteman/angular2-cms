@@ -1,12 +1,12 @@
 import {bootstrap} from 'angular2/angular2';
-import {FORM_BINDINGS} from 'angular2/angular2';
-import {ROUTER_BINDINGS, routerBindings} from 'angular2/router';
+import {FORM_PROVIDERS} from 'angular2/angular2';
+import {ROUTER_PROVIDERS} from 'angular2/router';
 
 import {App} from './app';
-import {DATACONTEXT_BINDINGS} from './datacontext/index';
-import {SESSION_BINDINGS} from './session/index';
+import {DATACONTEXT_PROVIDERS} from './datacontext/index';
+import {SESSION_PROVIDERS} from './session/index';
 import {APP_DIRECTIVES} from './directives/index';
-import {MDL_BINDINGS} from './mdl-components/index';
+import {MDL_PROVIDERS} from './mdl-components/index';
 
 /**
  * https://github.com/angular/angular/issues/4506
@@ -25,25 +25,24 @@ BrowserDomAdapter.prototype.createElement = function(tagName, doc) {
     }
 };
 
-const UNIVERSAL_BINDINGS = [
-    FORM_BINDINGS,
-    ROUTER_BINDINGS,
-    routerBindings(App)
+const UNIVERSAL_PROVIDERS = [
+    FORM_PROVIDERS,
+    ROUTER_PROVIDERS
 ];
 
-const APP_BINDINGS = [
-    DATACONTEXT_BINDINGS,
-    SESSION_BINDINGS,
+const APP_PROVIDERS = [
+    DATACONTEXT_PROVIDERS,
+    SESSION_PROVIDERS,
     APP_DIRECTIVES,
-    MDL_BINDINGS
+    MDL_PROVIDERS
 ]
 
-const ALL_BINDINGS = [
-    UNIVERSAL_BINDINGS,
-    APP_BINDINGS
+const ALL_PROVIDERS = [
+    UNIVERSAL_PROVIDERS,
+    APP_PROVIDERS
 ]
 
 bootstrap(
     App,
-    ALL_BINDINGS
+    ALL_PROVIDERS
     );

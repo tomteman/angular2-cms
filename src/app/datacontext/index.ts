@@ -4,7 +4,7 @@ import {CategoryApi} from './repositories/categoryApi';
 import {SessionApi} from './repositories/sessionApi';
 import {HttpInterceptor} from './httpInterceptor'
 
-export var DATACONTEXT_BINDINGS: Array<any> = [
+export var DATACONTEXT_PROVIDERS: Array<any> = [
     HttpWrapper,
     GameApi,
     CategoryApi,
