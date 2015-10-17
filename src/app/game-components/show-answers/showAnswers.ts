@@ -87,11 +87,11 @@ export class ShowAnswers implements OnDestroy {
         return this.gameApi.get(gameName).then((game) => {
             this.game = game;
             this.question = this.getCurrentQuestion(this.game, CURRENT_STATE);
-            this.showAnswersRemainTime = Math.round(SHOW_ANSWERS_TIME - (timeDiff(this.game.currentTime, this.question.startedAt) / 1000));
 
             if (!this.question) {
                 this.router.navigate([`/${NEXT_STATE_ROUTE}`, { gameName: game.name }]);
             } else {
+                this.showAnswersRemainTime = Math.round(SHOW_ANSWERS_TIME - (timeDiff(this.game.currentTime, this.question.startedAt) / 1000));
                 this.createDisplayAnswersArray();
                 this.isPlayer ? this.checkIfAnswerSelected() : null;
                 this.subscribe(game.name, this.question);
@@ -162,7 +162,9 @@ export class ShowAnswers implements OnDestroy {
     }
 
     onDestroy() {
-        this.subscribeSource.dispose();
+        if (this.subscribeSource) {
+            this.subscribeSource.dispose();
+        }
         clearTimeout(this.timerSource);
     }
 }

@@ -14,6 +14,7 @@
 	</section>
 
 	<section *ng-if="!isPlayer">
+		<section>{{question.questionText | uppercase}}</section>
 		<ul>
 			<li *ng-for="#answer of displayAnswersArray"> {{ answer.text | uppercase }} </li>
 		</ul>

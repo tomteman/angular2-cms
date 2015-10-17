@@ -79,11 +79,10 @@ export class ShowQuestion implements OnDestroy {
             .then((game) => {
                 this.game = game;
                 this.question = this.getCurrentQuestion(this.game, CURRENT_STATE);
-                this.showQuestionRemainTime = Math.round(SHOW_QUESTION_TIME - (timeDiff(this.game.currentTime, this.question.startedAt) / 1000));
-
                 if (!this.question) {
                     this.router.navigate([`/${NEXT_STATE_ROUTE}`, { gameName: game.name }]);
                 } else {
+                    this.showQuestionRemainTime = Math.round(SHOW_QUESTION_TIME - (timeDiff(this.game.currentTime, this.question.startedAt) / 1000));
                     this.isPlayer ? this.checkIfQuestionSubmitted() : null;
                     this.subscribe(game.name, this.question);
                     this.timerSource = this.startTimer();
@@ -129,7 +128,9 @@ export class ShowQuestion implements OnDestroy {
     }
 
     onDestroy() {
-        this.subscribeSource.dispose();
+        if (this.subscribeSource) {
+            this.subscribeSource.dispose();
+        }
         clearTimeout(this.timerSource);
     }
 
