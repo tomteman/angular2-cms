@@ -6,7 +6,7 @@ export interface IQuestion {
     creatorId: string;
     state: QuestionState;
     approved: boolean;
-    startedAt: number;
+    startedAt?: number;
 }
 
 export interface ISeedQuestion {
