@@ -1,0 +1,20 @@
+.score-card {
+	padding: 5px 15px;
+	display: flex;
+	align-items: center;
+    margin: 10px;
+	font-size: 20px;
+
+	.player-score {
+		margin-left: auto;
+	}
+
+	.player-name {
+		margin-left: 10px;
+	}
+
+	&.mdl-color--primary {
+		color: white;
+	}
+
+}

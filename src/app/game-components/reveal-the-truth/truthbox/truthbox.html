@@ -1,11 +1,25 @@
-<section class="truthbox">
-	<chatbox
-		[text]="chatboxData.text | uppercase"
-		[author]="chatboxData.author"
-		[image]="chatboxData.image">
-	</chatbox>
+<section class="truthbox" *ng-if="answer">
+
+	<div *ng-if="playersLie" id="pointsForLiars">
+		+{{answer.points}}
+	</div>
+
+	<div *ng-for="#player of answer.createdBy" class="created-by-player">
+		<img src="{{player.picture}}" class="created-by-player--picture" />
+	</div>
+
+	<p id="answerText"> {{answer.text | uppercase}} </p>
 
 	<div *ng-for="#player of answer.selectedBy" class="selected-by-player">
 		<img src="{{player.picture}}" class="selected-by-player--picture" />
 	</div>
+
+	<div *ng-if="answer.truth" id="pointsForTruth">
+		+{{answer.points}}
+	</div>
+
+	<div *ng-if="houseLie" id="pointsForHouseLie">
+		{{answer.points}}
+	</div>
+
 </section>

@@ -19,7 +19,6 @@ const template = require('./revealTheTruth.html');
 const CURRENT_STATE = QuestionState.RevealTheTruth;
 const NEXT_STATE = QuestionState.ScoreBoard;
 const NEXT_STATE_ROUTE = 'ScoreBoard';
-const REVEALING_THE_TRUTH_TIME = 3000;
 
 @Component({
     selector: 'reveal-the-truth'
@@ -34,7 +33,6 @@ export class RevealTheTruth implements OnDestroy {
     game;
     question: IQuestion;
     subscribeSource;
-    timerSource;
     answerSelected: string;
     isPlayer: boolean;
     myForm: ControlGroup;
@@ -71,7 +69,6 @@ export class RevealTheTruth implements OnDestroy {
                     this.router.navigate([`/${NEXT_STATE_ROUTE}`, { gameName: game.name }]);
                 } else {
                     this.subscribe(game.name, this.question);
-                    this.timerSource = this.startTimer();
                     this.createDisplayArray();
                 }
             });
@@ -88,12 +85,12 @@ export class RevealTheTruth implements OnDestroy {
         this.displayArray = _.map(this.displayArray, answer => {
             answer.selectedBy = _.map(answer.selectedBy, this.getPlayerData.bind(this));
             answer.createdBy = _.map(answer.createdBy, this.getPlayerData.bind(this));
-            answer.show = false;
             return answer;
         });
+    }
 
-        this.displayArray[0].show = true;
-        console.log('displayArray', this.displayArray);
+    tickAnswer() {
+        this.gameApi.tick(this.game.name, this.question.id, this.question.state);
     }
 
     getPlayerData(playerId) {
@@ -115,15 +112,8 @@ export class RevealTheTruth implements OnDestroy {
         return _.find(game.questions, (q: IQuestion) => q.state === questionState);
     }
 
-    startTimer() {
-        setTimeout(() => {
-            this.gameApi.tick(this.game.name, this.question.id, this.question.state)
-        }, REVEALING_THE_TRUTH_TIME);
-    }
-
     onDestroy() {
         this.subscribeSource.dispose();
-        clearTimeout(this.timerSource);
     }
 
 }

@@ -24,7 +24,7 @@ export class LoggedInRouterOutlet extends RouterOutlet {
                     return super.activate(instruction);
                 })
                 .catch(err => {
-                    Session.signin('#/' + instruction.urlPath);
+                    Session.signin('/' + instruction.urlPath);
                 });
         } else {
             return super.activate(instruction);

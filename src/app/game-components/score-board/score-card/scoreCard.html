@@ -1,0 +1,7 @@
+<section class="score-card"
+ [class.mdl-color--accent]="(index + 1) % 2 !== 0"
+ [class.mdl-color--primary]="(index + 1) % 2 === 0">
+	<player-picture [src]="player.picture"> </player-picture>
+	<span class="player-name">  {{ player.name }} </span>
+	<span class="player-score"> {{ player.score }} </span>
+</section>

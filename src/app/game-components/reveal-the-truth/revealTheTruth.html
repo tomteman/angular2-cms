@@ -3,11 +3,8 @@
 	<h4 class="question-text"> {{question.questionText | uppercase}} </h4>
 
 	<!-- TRUTH BOX -->
-	<div *ng-for="#answer of displayArray">
-		<truthbox
-			*ng-if="answer.show"
-			[answer]="answer">
-		</truthbox>
-	</div>
+	<truthbox
+		[answers]="displayArray"
+		(on-finish)="tickAnswer()">
+	</truthbox>
 </section>
-<!--<pre> {{displayArray | json}} </pre>-->

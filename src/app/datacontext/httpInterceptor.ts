@@ -9,7 +9,7 @@ export class HttpInterceptor {
 
 	static checkAuth(response) {
 		if (response.status === 401) {
-          	Session.signin(location.hash);
+          	Session.signin(location.pathname);
 
 			var err = {
 				data: 'unauthenticated',

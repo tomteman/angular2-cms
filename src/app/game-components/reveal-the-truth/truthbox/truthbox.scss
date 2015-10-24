@@ -1,19 +1,31 @@
-.truthbox .selected-by-player {
-	display: inline-block;
-    margin-left: -15px;
-	margin-top: 20px;
-}
+.truthbox {
+	visibility: hidden;
 
-.truthbox .selected-by-player:nth-of-type(1) {
-	margin-left: 0;
-}
+	.selected-by-player,
+	.created-by-player {
+		display: inline-block;
+		margin-left: -15px;
+		margin-top: 20px;
+	}
 
-.truthbox .selected-by-player--picture {
-	border-radius: 50%;
-    width: 50px;
-}
+	.selected-by-player:nth-of-type(1),
+	.created-by-player:nth-of-type(1) {
+		margin-left: 0;
+	}
 
-chatbox {
-	display: block;
-	margin-top: 20px;
+	.selected-by-player--picture,
+	.created-by-player--picture {
+		border-radius: 50%;
+		width: 50px;
+	}
+
+	chatbox {
+		display: block;
+		margin-top: 20px;
+	}
+
+	#answerText {
+		position: relative;
+	}
+
 }

@@ -9,47 +9,64 @@ import * as _ from 'lodash';
 import {QuestionState, IQuestion} from 'app/bs-typings/question';
 import {GameState} from 'app/bs-typings/game';
 
+import {IPlayer} from 'app/bs-typings/player';
 import {GameApi} from 'app/datacontext/repositories/gameApi';
 import {SessionApi} from 'app/datacontext/repositories/sessionApi';
 import {Session} from 'app/session/session';
+
+import {ScoreCard} from './score-card/scoreCard';
 
 let styles = require('./scoreBoard.scss');
 let template = require('./scoreBoard.html');
 
 const CURRENT_STATE = QuestionState.ScoreBoard;
-const SCORE_BOARD_SHOW_TIME = 3000;
+const SCORE_BOARD_SHOW_TIME = 900000;
 
 @Component({
     selector: 'score-board'
 })
 @View({
-    directives: [CORE_DIRECTIVES],
+    directives: [CORE_DIRECTIVES, ScoreCard],
     styles: [styles],
     template: template
 })
 export class ScoreBoard implements OnDestroy {
-    game;
+    players;
     question: IQuestion;
     subscribeSource;
-    timerSource;
 
     constructor(public gameApi: GameApi, public router: Router,
         public routeParams: RouteParams, public session: Session,
         public sessionApi: SessionApi) {
-        // MDL issue
-        componentHandler.upgradeDom();
-
         var gameName = routeParams.get('gameName');
+
         this.getGame(gameName).then(game => {
-            this.game = game;
-            this.question = this.getCurrentQuestion(this.game, CURRENT_STATE);
+            this.question = this.getCurrentQuestion(game, CURRENT_STATE);
+            this.players = _.sortByOrder(game.players, 'score', 'desc');
 
             if (!this.question) {
-                this.navigateToNextStep(this.game);
+                this.navigateToNextStep(game);
             } else {
                 this.subscribe(gameName);
-                this.startTimer();
             }
+
+            this.animateIntro().then(() => {
+                // this.gameApi.tick(game.name, this.question.id, this.question.state)
+                console.log('end');
+            });
+        });
+
+    }
+
+    animateIntro() {
+        return new Promise((res, rej) => {
+            setTimeout(() => {
+                var tl = new TimelineLite();
+                tl.set('.score-board', { visibility: 'visible' })
+                    .staggerFromTo('score-card:nth-of-type(even) section', 2, { x: -100, autoAlpha: 0 }, { x: 0, autoAlpha: 1 }, 0.4, 'sc')
+                    .staggerFromTo('score-card:nth-of-type(odd) section', 2, { x: 100, autoAlpha: 0 }, { x: 0, autoAlpha: 1 }, 0.4, 'sc')
+                    .eventCallback('onComplete', res);
+            });
         });
     }
 
@@ -58,6 +75,10 @@ export class ScoreBoard implements OnDestroy {
             .catch(err => {
                 console.log(err);
             });
+    }
+
+    getPlayerAnswer(player: IPlayer) {
+        return _.find(this.question.fakeAnswers, fakeAnswer => ~fakeAnswer.createdBy.indexOf(player.id));
     }
 
     subscribe(gameName: string) {
@@ -89,13 +110,7 @@ export class ScoreBoard implements OnDestroy {
         return _.find(game.questions, (q: IQuestion) => q.state === questionState);
     }
 
-    startTimer() {
-        this.timerSource = setTimeout(() => this.gameApi.tick(this.game.name, this.question.id, this.question.state),
-            SCORE_BOARD_SHOW_TIME);
-    }
-
     onDestroy() {
         this.subscribeSource.dispose();
-        clearTimeout(this.timerSource);
     }
 }

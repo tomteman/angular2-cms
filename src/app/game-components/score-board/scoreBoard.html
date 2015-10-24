@@ -1,10 +1,8 @@
-<section *ng-if="game">
-	<p class="game-name"> {{ game.name | uppercase }} </p>
-
-	<p> Players: </p>
-	<ul>
-		<li *ng-for="#player of game.players">
-			 {{ player.name }}: {{ player.score }}
-		 </li>
-	</ul>
+<section *ng-if="players" class="score-board">
+	<score-card
+		*ng-for="#player of players; #index = index"
+		[player]="player"
+		[answer]="getPlayerAnswer(player)"
+		[index]="index">
+	</score-card>
 </section>

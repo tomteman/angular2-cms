@@ -5,13 +5,15 @@ import {LoadingMaskService} from './loadingMask/loadingMaskService';
 import {Snackbar} from './snackbar/snackbar';
 import {Countdown} from './countdown/countdown';
 import {Chatbox} from './chatbox/chatbox';
+import {PlayerPicture} from './player-picture/playerPicture';
 
 export var MDL_COMPONENTS: Array<any> = [
   Chips,
   LoadingMask,
   Snackbar,
   Countdown,
-  Chatbox
+  Chatbox,
+  PlayerPicture
 ];
 
 export var MDL_PROVIDERS: Array<any> = [

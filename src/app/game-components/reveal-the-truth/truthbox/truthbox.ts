@@ -1,4 +1,4 @@
-import {Component, View, OnInit} from 'angular2/angular2';
+import {Component, View, OnInit, EventEmitter} from 'angular2/angular2';
 import {APP_DIRECTIVES} from 'app/directives/index';
 import {MDL_COMPONENTS, MdlService} from 'app/mdl-components/index';
 import * as _ from 'lodash';
@@ -8,7 +8,8 @@ const template = require('./truthbox.html');
 
 @Component({
 	selector: 'truthbox',
-	inputs: ['answer', 'finishCallback']
+	inputs: ['answers'],
+	outputs: ['onFinish']
 })
 @View({
 	directives: [APP_DIRECTIVES, MDL_COMPONENTS],
@@ -16,44 +17,48 @@ const template = require('./truthbox.html');
 	template: template
 })
 export class Truthbox implements OnInit {
-	maskedPicture = 'http://i.imgur.com/qGDAIEYs.jpg';
+	answers;
 	answer;
-	chatboxData: ChatboxData;
+	answerIndex = -1;
+	houseLie;
+	playersLie;
+	onFinish: EventEmitter = new EventEmitter();
 
-	constructor() {
-		this.revealSelectedBy();
-		setTimeout(() => {
-			this.revealAuthors().then(() => {
-				console.log('then');
-			});
-		}, 1000);
-	}
+	constructor() { }
 
 	onInit() {
-		this.chatboxData = new ChatboxData(this.answer.text, '', this.maskedPicture);
+		this.tickAnswer();
 	}
 
-	revealSelectedBy() {
-
+	tickAnswer() {
+		if (this.answerIndex === this.answers.length - 1) {
+			this.onFinish.next();
+		} else {
+			this.answerIndex++;
+			this.answer = this.answers[this.answerIndex];
+			this.houseLie = !this.answer.truth && this.answer.createdBy[0].id === 'house';
+			this.playersLie = !this.answer.truth && this.answer.createdBy[0].id !== 'house';
+			this.animateAnswer().then(() => {
+				this.tickAnswer();
+			})
+		}
 	}
 
-	revealAuthors(i = 0) {
-		return new Promise((resolve, reject) => {
+	animateAnswer() {
+		return new Promise((res, rej) => {
 			setTimeout(() => {
-				this.chatboxData = new ChatboxData(this.answer.text, this.answer.createdBy[i].name, this.answer.createdBy[i].picture);
-				i++;
-				if (i < this.answer.createdBy.length) {
-					return this.revealAuthors(i);
-				} else {
-					resolve();
-				}
-			}, 1000);
-		})
-
+				var tl = new TimelineLite();
+				tl.set('.truthbox', { visibility: 'visible' })
+					.fromTo('#answerText', 1, { autoAlpha: 0 }, { autoAlpha: 1 })
+					.staggerFromTo('.selected-by-player img', 1, { rotation: -180, autoAlpha: 0 }, { rotation: 0, autoAlpha: 1 }, 1)
+					.staggerFromTo('.created-by-player img', 2, { rotation: -180, autoAlpha: 0 }, { rotation: 0, autoAlpha: 1 }, 1)
+					.fromTo('#pointsForLiars', 1, { autoAlpha: 0 }, { autoAlpha: 1 }, 'points')
+					.fromTo('#pointsForTruth', 1, { autoAlpha: 0 }, { autoAlpha: 1 }, 'points')
+					.fromTo('#pointsForHouseLie', 1, { autoAlpha: 0 }, { autoAlpha: 1 }, 'points')
+					.to('#answerText, #pointsForLiars, #pointsForTruth, #pointsForHouseLie, .selected-by-player img, .created-by-player img', 1, { autoAlpha: 0 })
+					.eventCallback('onComplete', res);
+			});
+		});
 	}
 
-}
-
-class ChatboxData {
-	constructor(public text: string, public author: string, public image: string) { }
 }
