@@ -20,7 +20,7 @@ let styles = require('./scoreBoard.scss');
 let template = require('./scoreBoard.html');
 
 const CURRENT_STATE = QuestionState.ScoreBoard;
-const SCORE_BOARD_SHOW_TIME = 900000;
+const SCORE_BOARD_SHOW_TIME = 4000;
 
 @Component({
     selector: 'score-board'
@@ -51,7 +51,9 @@ export class ScoreBoard implements OnDestroy {
             }
 
             this.animateIntro().then(() => {
-                this.gameApi.tick(game.name, this.question.id, this.question.state)
+                setTimeout(() => {
+                    this.gameApi.tick(game.name, this.question.id, this.question.state);
+                }, SCORE_BOARD_SHOW_TIME);
             });
         });
 
