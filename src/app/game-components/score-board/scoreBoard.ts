@@ -51,8 +51,7 @@ export class ScoreBoard implements OnDestroy {
             }
 
             this.animateIntro().then(() => {
-                // this.gameApi.tick(game.name, this.question.id, this.question.state)
-                console.log('end');
+                this.gameApi.tick(game.name, this.question.id, this.question.state)
             });
         });
 
