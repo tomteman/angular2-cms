@@ -8,6 +8,7 @@ import {MDL_COMPONENTS, MdlService, LoadingMaskService, Snackbar} from 'app/mdl-
 import {IQuestion, QuestionState} from 'app/bs-typings/question';
 import {GameState} from 'app/bs-typings/game';
 import {IPlayer} from 'app/bs-typings/player';
+import {IGame} from 'app/bs-typings/game';
 import {timeDiff} from 'app/util/lang';
 
 import {Session} from 'app/session/session';
@@ -21,7 +22,6 @@ const CURRENT_STATE = QuestionState.ShowQuestion;
 const NEXT_STATE = QuestionState.ShowAnswers;
 const NEXT_STATE_ROUTE = 'ShowAnswers';
 
-const SHOW_QUESTION_TIME = 30;
 const PANIC_TIME = 10;
 const SUPER_PANIC_TIME = 5;
 
@@ -35,7 +35,7 @@ const SUPER_PANIC_TIME = 5;
 })
 export class ShowQuestion implements OnDestroy {
     initialLoading: boolean;
-    game;
+    game: IGame;
     question: IQuestion;
     subscribeSource;
     timerSource;
@@ -43,7 +43,7 @@ export class ShowQuestion implements OnDestroy {
     questionSubmitted: boolean;
     myForm: ControlGroup;
     showQuestionRemainTime;
-    showQuestionTotalTime = SHOW_QUESTION_TIME;
+    showQuestionTotalTime;
     panicTime = PANIC_TIME;
     superPanicTime = SUPER_PANIC_TIME;
 
@@ -76,13 +76,14 @@ export class ShowQuestion implements OnDestroy {
 
     getGame(gameName: string) {
         return this.gameApi.get(gameName)
-            .then((game) => {
+            .then((game: IGame) => {
                 this.game = game;
                 this.question = this.getCurrentQuestion(this.game, CURRENT_STATE);
                 if (!this.question) {
                     this.router.navigate([`/${NEXT_STATE_ROUTE}`, { gameName: game.name }]);
                 } else {
-                    this.showQuestionRemainTime = Math.round(SHOW_QUESTION_TIME - (timeDiff(this.game.currentTime, this.question.startedAt) / 1000));
+                    this.showQuestionTotalTime = this.game.answerQuestionTime;
+                    this.showQuestionRemainTime = Math.round(this.game.answerQuestionTime - (timeDiff(this.game.currentTime, this.question.startedAt) / 1000));
                     this.isPlayer ? this.checkIfQuestionSubmitted() : null;
                     this.subscribe(game.name, this.question);
                     this.timerSource = this.startTimer();

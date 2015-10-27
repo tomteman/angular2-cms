@@ -1,17 +1,18 @@
 import {IQuestion} from 'question';
+import {IPlayer} from 'player'
 
 export interface IGame {
   name: string;
   state: GameState;
-  players: PlayersArray;
+  players: Array<IPlayer>;
   questions: Questions;
   createdAt: any;
+  currentTime?: Date;
   numberOfQuestions: number;
+  answerQuestionTime: number;
+  selectAnswerTime: number;
 }
 
-export interface PlayersArray {
-  [index: number]: string;
-}
 
 export interface Questions {
   [index: string]: IQuestion;

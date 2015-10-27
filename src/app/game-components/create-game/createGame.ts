@@ -28,7 +28,9 @@ export class CreateGame {
     selecetedCategories: Array<ICategory> = [];
     customCategoryName: string;
     customCategoryEnable: boolean;
-    numberOfQuestions: number = 8;
+    numberOfQuestions: number;
+    answerQuestionTime: number = 69;
+    selectAnswerTime: number = 42;
 
     constructor(public gameApi: GameApi, public router: Router,
         public categoryApi: CategoryApi) {
@@ -68,7 +70,9 @@ export class CreateGame {
 
         let options = {
             categories: categoryNames,
-            numberOfQuestions: this.numberOfQuestions
+            numberOfQuestions: this.numberOfQuestions,
+            answerQuestionTime: this.answerQuestionTime,
+            selectAnswerTime: this.selectAnswerTime
         };
 
         let cratingMessage = Snackbar.show('Creating..', { delay: 1000 });

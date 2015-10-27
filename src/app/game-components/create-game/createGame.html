@@ -11,13 +11,9 @@
             <!-- SELECT CATEGORY -->
             <div class="mdl-card__supporting-text mdl-grid">
                 <!-- DEFAULT CATEGORIES -->
-                <div class="mdl-cell mdl-cell--4-col"
-                    *ng-for="#category of defaultCategories">
-                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect"
-                        (click)="toggleCategory($event, category)">
-                        <input type="checkbox"
-                            class="mdl-checkbox__input"
-                            name="defaultCategoryId"/>
+                <div class="mdl-cell mdl-cell--4-col" *ng-for="#category of defaultCategories">
+                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" (click)="toggleCategory($event, category)">
+                        <input type="checkbox" class="mdl-checkbox__input" name="defaultCategoryId" />
                         <span class="mdl-checkbox__label">{{ category.name }}</span>
                     </label>
                 </div>
@@ -25,9 +21,7 @@
                 <!-- CUSTOM CATEGORY SWITCH -->
                 <div class="mdl-cell mdl-cell--12-col">
                     <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
-                        <input type="checkbox"
-                            class="mdl-switch__input"
-                            (click)="toggleCustomCategory();"/>
+                        <input type="checkbox" class="mdl-switch__input" (click)="toggleCustomCategory();" />
                         <span class="mdl-switch__label">Custom categories</span>
                     </label>
                 </div>
@@ -36,42 +30,68 @@
                 <div *ng-if="customCategoryEnable" class="mdl-grid custom-category-picker">
                     <!-- CATEGORY NAME -->
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-                        <input type="text"
-                            class="mdl-textfield__input"
-                            [(ng-model)]="customCategoryName"
-                            id="customCategoryName">
+                        <input type="text" class="mdl-textfield__input" [(ng-model)]="customCategoryName" id="customCategoryName">
                         <label class="mdl-textfield__label" for="customCategoryName">Category name</label>
                     </div>
 
                     <!-- TOP 5 CUSTOM CATEGORIES -->
                     <p class="mdl-cell mdl-cell--12-col"> Top five custom categories: </p>
-                    <div class="mdl-cell mdl-cell--4-col"
-                        *ng-for="#category of customCategories">
-                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect"
-                            (click)="toggleCategory($event, category)">
-                            <input type="checkbox"
-                                class="mdl-checkbox__input"
-                                name="customCategoryId"/>
+                    <div class="mdl-cell mdl-cell--4-col" *ng-for="#category of customCategories">
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" (click)="toggleCategory($event, category)">
+                            <input type="checkbox" class="mdl-checkbox__input" name="customCategoryId" />
                             <span class="mdl-checkbox__label">{{ category.name }}</span>
-                    </label>
+                        </label>
                     </div>
                 </div>
             </div>
 
             <!-- GAME OPTIONS -->
             <div class="mdl-card__supporting-text mdl-grid">
+
+
+                <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-phone">
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect"
+                        (click)="numberOfQuestions = 5;">
+                        <input type="radio"
+                            class="mdl-radio__button"
+                            name="game-length"
+                            id="game-length-short"/>
+                        <span class="mdl-radio__label">Short (5)</span>
+                    </label>
+                </div>
+                <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-phone">
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect"
+                        (click)="numberOfQuestions = 7;">
+                        <input type="radio"
+                            class="mdl-radio__button"
+                            name="game-length"
+                            id="game-length-medium"
+                            checked/>
+                        <span class="mdl-radio__label">Medium (7)</span>
+                    </label>
+                </div>
+                <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-phone">
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect"
+                        (click)="numberOfQuestions = 9;">
+                        <input type="radio"
+                            class="mdl-radio__button"
+                            name="game-length"
+                            id="game-length-long"/>
+                        <span class="mdl-radio__label">Long (9)</span>
+                    </label>
+                </div>
+
+
                 <!-- GAME LENGTH -->
-                <label class="game-length--slider">
+                <!--<label class="game-length--slider">
                     <span> Game length: {{numberOfQuestions}} </span>
-                    <input class="mdl-slider mdl-js-slider" type="range" min="3" max="8" value="8" [(ng-model)]="numberOfQuestions"/>
-                </label>
+                    <input class="mdl-slider mdl-js-slider" type="range" min="3" max="8" value="8" [(ng-model)]="numberOfQuestions" />
+                </label>-->
             </div>
 
             <!-- ACTIONS -->
             <div class="mdl-card__actions mdl-card--border">
-                <button type="submit"
-                    class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                    [disabled]="!selecetedCategories.length && !customCategoryName">
+                <button type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" [disabled]="!selecetedCategories.length && !customCategoryName">
                     Create
                 </button>
             </div>

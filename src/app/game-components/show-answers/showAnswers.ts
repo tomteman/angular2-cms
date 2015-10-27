@@ -7,6 +7,7 @@ import {MDL_COMPONENTS, MdlService, LoadingMaskService, Snackbar} from 'app/mdl-
 
 import {IQuestion, QuestionState} from 'app/bs-typings/question';
 import {GameState} from 'app/bs-typings/game';
+import {IGame} from 'app/bs-typings/game';
 import {IPlayer} from 'app/bs-typings/player';
 import {timeDiff} from 'app/util/lang';
 
@@ -34,7 +35,7 @@ const SUPER_PANIC_TIME = 5;
 })
 export class ShowAnswers implements OnDestroy {
     initialLoading: boolean;
-    game;
+    game: IGame;
     question: IQuestion;
     activeUser: IPlayer;
     subscribeSource;
@@ -44,7 +45,7 @@ export class ShowAnswers implements OnDestroy {
     myForm: ControlGroup;
     displayAnswersArray: Array<IQuestion>;
     showAnswersRemainTime;
-    showAnswersTotalTime = SHOW_ANSWERS_TIME;
+    showAnswersTotalTime;
     panicTime = PANIC_TIME;
     superPanicTime = SUPER_PANIC_TIME;
 
@@ -84,14 +85,15 @@ export class ShowAnswers implements OnDestroy {
     }
 
     getGame(gameName: string) {
-        return this.gameApi.get(gameName).then((game) => {
+        return this.gameApi.get(gameName).then((game: IGame) => {
             this.game = game;
             this.question = this.getCurrentQuestion(this.game, CURRENT_STATE);
 
             if (!this.question) {
                 this.router.navigate([`/${NEXT_STATE_ROUTE}`, { gameName: game.name }]);
             } else {
-                this.showAnswersRemainTime = Math.round(SHOW_ANSWERS_TIME - (timeDiff(this.game.currentTime, this.question.startedAt) / 1000));
+                this.showAnswersTotalTime = this.game.selectAnswerTime;
+                this.showAnswersRemainTime = Math.round(this.game.selectAnswerTime - (timeDiff(this.game.currentTime, this.question.startedAt) / 1000));
                 this.createDisplayAnswersArray();
                 this.isPlayer ? this.checkIfAnswerSelected() : null;
                 this.subscribe(game.name, this.question);
