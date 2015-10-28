@@ -1,16 +1,7 @@
-<div class="home">
+<div class="home mdl-grid">
 
-	<section class="flex-container">
-		<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent bs-button--large" [router-link]="['/JoinGame']">Join</button>
-		<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent bs-button--large" [router-link]="['/CreateGame']">Create</button>
-		<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent bs-button--large" [router-link]="['/PresentGame']">Present</button>
-	</section>
+	<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell mdl-cell--4-col-phone bs-button--large" (click)="onClick('/JoinGame')" >Join</button>
+	<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell mdl-cell--4-col-phone bs-button--large" (click)="onClick('/CreateGame')" >Create</button>
+	<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell mdl-cell--4-col-phone bs-button--large" (click)="onClick('/PresentGame')" >Present</button>
 
-	<chatbox
-		[text]="quote.text"
-		[author]="quote.author"
-		[image]="quote.image">
-	</chatbox>
-
-	<img class="logo" src="images/logo.png" />
 </div>

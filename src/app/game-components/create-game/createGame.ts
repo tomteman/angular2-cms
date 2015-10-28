@@ -28,7 +28,7 @@ export class CreateGame {
     selecetedCategories: Array<ICategory> = [];
     customCategoryName: string;
     customCategoryEnable: boolean;
-    numberOfQuestions: number;
+    numberOfQuestions: number = 7;
     answerQuestionTime: number = 69;
     selectAnswerTime: number = 42;
 

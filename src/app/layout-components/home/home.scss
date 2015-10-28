@@ -1,36 +1,8 @@
 .home {
-    margin-top: 10%;
 
-    .logo {
-        position: absolute;
-        bottom: 0;
-        margin: 0 auto;
-        width: 160px;
-        left: 0;
-        right: 0;
+    .bs-button--large {
+        font-size: 40px;
+        padding: 35px 30px;
+        line-height: 6px;
     }
-}
-
-@media (min-width: 800px) {
-    .home .bs-button--large {
-        font-size: 30px;
-        padding: 25px 30px;
-        line-height: 3px;
-    }
-    .chatbox .chatbox__text {
-        font-size: 20px;
-    }
-}
-
-.home .flex-container {
-    display: flex;
-    justify-content: space-around;
-}
-
-chatbox {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 10%;
-    margin-left: 10px;
-    margin-right: 10px;
 }

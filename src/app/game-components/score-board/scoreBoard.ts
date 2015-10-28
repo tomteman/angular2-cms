@@ -64,8 +64,8 @@ export class ScoreBoard implements OnDestroy {
             setTimeout(() => {
                 var tl = new TimelineLite();
                 tl.set('.score-board', { visibility: 'visible' })
-                    .staggerFromTo('score-card:nth-of-type(even) section', 2, { x: -100, autoAlpha: 0 }, { x: 0, autoAlpha: 1 }, 0.4, 'sc')
-                    .staggerFromTo('score-card:nth-of-type(odd) section', 2, { x: 100, autoAlpha: 0 }, { x: 0, autoAlpha: 1 }, 0.4, 'sc')
+                    .staggerFrom('score-card:nth-of-type(even) section', 1, { x: -100, autoAlpha: 0, ease: Back.easeIn.config(1.7) }, 0.4, 'sc')
+                    .staggerFrom('score-card:nth-of-type(odd) section', 1, { x: 100, autoAlpha: 0, ease: Back.easeIn.config(1.7) }, 0.4, 'sc')
                     .eventCallback('onComplete', res);
             });
         });
