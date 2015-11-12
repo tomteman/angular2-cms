@@ -51,7 +51,7 @@ export class CategoryApi {
 	feedByCategoryName(categoryName: string) {
 		var socket = io(config.serverLocation);
 		return Observable
-			.fromEvent(socket, 'category:' + categoryName + ':feed')
+			.fromEvent(socket, 'category:' + categoryName.toLowerCase() + ':feed')
 			.map(res => JSON.parse(res));
 	}
 

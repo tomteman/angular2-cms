@@ -8,6 +8,7 @@ import {MDL_COMPONENTS, MdlService, LoadingMaskService, Snackbar} from 'app/mdl-
 
 import {GameState, IGame} from 'app/bs-typings/game';
 import {QuestionState} from 'app/bs-typings/question';
+import {Quotes} from 'app/quotes/quotes';
 
 import {GameApi, ErrorHandling} from 'app/datacontext/index';
 
@@ -15,7 +16,8 @@ let styles = require('./gameStaging.scss');
 let template = require('./gameStaging.html');
 
 @Component({
-    selector: 'game-staging'
+    selector: 'game-staging',
+    providers: [Quotes]
 })
 @View({
     directives: [CORE_DIRECTIVES],
@@ -26,10 +28,13 @@ export class GameStaging implements OnDestroy {
     initialLoading: boolean;
     game: IGame;
     subscribeSource;
+    quote;
+    intervalSource;
 
-    constructor(public gameApi: GameApi, routeParams: RouteParams, public router: Router) {
+    constructor(public gameApi: GameApi, routeParams: RouteParams, public router: Router, public quotes: Quotes) {
         LoadingMaskService.show();
         this.initialLoading = true;
+        this.getQuotes(15000);
 
         var gameName = routeParams.get('gameName');
         this.getGame(gameName)
@@ -85,7 +90,17 @@ export class GameStaging implements OnDestroy {
         this.router.navigate(['/ShowQuestion', { gameName: gameName }]);
     }
 
+    getQuotes(timeout: number) {
+        this.quote = this.quotes.get();
+        this.intervalSource = setInterval(()=>{this.updateQuote()}, timeout);
+    }
+
+    updateQuote() {
+        this.quote = this.quotes.get();
+    }
+
     onDestroy() {
         this.subscribeSource.dispose();
+        clearInterval(this.intervalSource);
     }
 }
